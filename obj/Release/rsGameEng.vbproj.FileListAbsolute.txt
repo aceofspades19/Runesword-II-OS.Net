@@ -1,0 +1,7 @@
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Release\Interop.ComctlLib.dll
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Release\AxInterop.ComctlLib.dll
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Release\rsGameEng.vbproj.ResolveComReference.cache
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Release\rsGameEng.frmMain.resources
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Release\rsGameEng.frmMonsExplorerPlayer.resources
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Release\rsGameEng.vbproj.GenerateResource.Cache

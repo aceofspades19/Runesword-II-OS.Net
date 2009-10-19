@@ -1,0 +1,261 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <MyType>WindowsForms</MyType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{138F012A-2135-4A4C-912B-567AF38ED37C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>rsGameEng</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>rsGameEng.frmMain</StartupObject>
+    <AssemblyMajorVersion>2</AssemblyMajorVersion>
+    <AssemblyMinorVersion>4</AssemblyMinorVersion>
+    <AssemblyRevisionNumber>9</AssemblyRevisionNumber>
+    <GenerateRevisionNumber>False</GenerateRevisionNumber>
+    <AssemblyCompanyName>CrossCut Games, Inc.</AssemblyCompanyName>
+    <StartWithIE>False</StartWithIE>
+    <ApplicationIcon>rsGameEng.ico</ApplicationIcon>
+    <RootNamespace>rsGameEng</RootNamespace>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>.\bin\</OutputPath>
+    <DocumentationFile>rsGameEng.xml</DocumentationFile>
+    <DebugSymbols>True</DebugSymbols>
+    <DefineDebug>True</DefineDebug>
+    <DefineTrace>True</DefineTrace>
+    <DefineConstants>Win32=True</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>.\bin\</OutputPath>
+    <DocumentationFile>rsGameEng.xml</DocumentationFile>
+    <DebugSymbols>False</DebugSymbols>
+    <DefineDebug>False</DefineDebug>
+    <DefineTrace>True</DefineTrace>
+    <DefineConstants>Win32=True</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic.Compatibility">
+      <Name>Microsoft.VisualBasic.Compatibility</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.XML">
+      <Name>System.XML</Name>
+    </Reference>
+    <COMReference Include="AxComctlLib">
+      <Guid>{6B7E6392-850A-101B-AFC0-4210102A8DA7}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <WrapperTool>aximp</WrapperTool>
+    </COMReference>
+    <COMReference Include="ComctlLib">
+      <Guid>{6B7E6392-850A-101B-AFC0-4210102A8DA7}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="Microsoft.VisualBasic.Compatibility" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Area.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.vb" />
+    <Compile Include="Bd.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bitmaps.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CErrorHandler.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsInOut.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Container.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Conversation.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DialogStack.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dt_Main.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>Dt_Main.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dt_Main.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Encounter.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EntryPoint.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Factoid.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="frmMonsExplorer_Player.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmMonsExplorer_Player.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMonsExplorer_Player.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IMCI.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Journal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Kingdom.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Map.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MapSketch.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modCombat.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modCreateCharacter.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modDebug.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modDialog.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modGameGeneral.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modIOFunc.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modJournal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modRegistry.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modTriggers.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Monster.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Plot.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Random.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Statement.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Theme.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ThemeSketch.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tile.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TileSet.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tome.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TomeSketch.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Topic.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Trigger.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TriggerFrame.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UberWizard.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="World.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Dt_Main.resX">
+      <DependentUpon>Dt_Main.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMonsExplorer_Player.resX">
+      <DependentUpon>frmMonsExplorer_Player.vb</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="rsGameEng.ico" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="My Project\Settings.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="_UpgradeReport.htm">
+      <SubType>Preview</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
