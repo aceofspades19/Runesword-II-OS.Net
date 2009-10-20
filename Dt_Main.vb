@@ -622,64 +622,48 @@ BackToPreviousState:
 		Me.Refresh()
 	End Sub
 	
-	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Public Sub MenuDrawParty()
-		Dim Tome_Renamed As Object
-		Dim c, i As Short
-		Dim rc As Integer
-		' Clear the faces
-		For c = 0 To 5
-            picMenu.Image = CType(CopyRect(picMenu, New RectangleF((c * 122), 0, 32, 84)), System.Drawing.Bitmap).Clone
+    Public Sub MenuDrawParty()
+        Dim Tome_Renamed As Object
+        Dim c, i As Short
+        Dim rc As Integer
+        ' Clear the faces
+        For c = 0 To 5
+            picMenu.Image = CType(CopyRect(picMisc, New RectangleF((c * 122), 0, 32, 84)), System.Drawing.Bitmap).Clone
             If c < 5 Then
-                'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-                'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-                rc = BitBlt(picMenu.hdc, 32 + c * 122, 0, 90, 84, picMisc.hdc, 0, 36, SRCCOPY)
+                picMenu.Image = CType(CopyRect(picMisc, New RectangleF((32 + c * 122), 0, 90, 84)), System.Drawing.Bitmap).Clone
             End If
         Next c
-		' Draw faces
-		For c = 0 To 4
-			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        ' Draw faces
+        For c = 0 To 4
             If PartyLeft + c < tome.Creatures.Count Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 MenuParty(c) = tome.Creatures(PartyLeft + c + 1)
                 If picGrid.Visible = False Then
                     MenuDrawFace(MenuParty(c), c)
                 End If
             Else
-                'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-                'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-                rc = BitBlt(picMenu.hdc, 36 + c * 122, 4, 66, 76, picFaces.hdc, 66, 0, SRCAND)
-                'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-                'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-                rc = BitBlt(picMenu.hdc, 36 + c * 122, 4, 66, 76, picFaces.hdc, 0, 0, SRCPAINT)
+                'potential problems here
+                picMenu.Image = CType(CopyRect(picFaces, New RectangleF((36 + c * 122), 4, 66, 76)), System.Drawing.Bitmap).Clone
             End If
-		Next c
-		' Draw Scroll Arrows
-		If PartyLeft > 0 Then
-			' Left Arrow
-			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMenu.hdc, 8, 32, 18, 18, picMisc.hdc, 144, 18, SRCCOPY)
-		End If
-		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        Next c
+        ' Draw Scroll Arrows
+        If PartyLeft > 0 Then
+            ' Left Arrow
+            picMenu.Image = CType(CopyRect(picMisc, New RectangleF(8, 32, 18, 18)), System.Drawing.Bitmap).Clone
+        End If
         If PartyLeft + 5 < tome.Creatures.Count Then
             ' Right Arrow
-            'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-            'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-            rc = BitBlt(picMenu.hdc, 618, 32, 18, 18, picMisc.hdc, 108, 18, SRCCOPY)
+            picMenu.Image = CType(CopyRect(picMisc, New RectangleF(618, 32, 18, 18)), System.Drawing.Bitmap).Clone
         End If
-		' Draw select box
-		'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(picMenu.hdc, 36 + MenuPartyIndex * 122, 4, 66, 76, picFaces.hdc, bdFaceSelect + 66, 0, SRCAND)
-		'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(picMenu.hdc, 36 + MenuPartyIndex * 122, 4, 66, 76, picFaces.hdc, bdFaceSelect, 0, SRCPAINT)
-		' Redraw buttons
-		BorderDrawButtons(0)
-		Me.Refresh()
-		picMenu.Refresh()
-	End Sub
+        ' Draw select box
+        picMenu.Image = CType(CopyRect(picMisc, New RectangleF(36 + MenuPartyIndex * 122, 4, 66, 76)), System.Drawing.Bitmap).Clone
+        'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        rc = BitBlt(picMenu.hdc, 36 + MenuPartyIndex * 122, 4, 66, 76, picFaces.hdc, bdFaceSelect, 0, SRCPAINT)
+        ' Redraw buttons
+        BorderDrawButtons(0)
+        Me.Refresh()
+        picMenu.Refresh()
+    End Sub
 	
 	'UPGRADE_NOTE: Loc was upgraded to Loc_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub MenuDrawFace(ByRef CreatureX As Creature, ByRef Loc_Renamed As Short)
