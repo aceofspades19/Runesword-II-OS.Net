@@ -148,7 +148,7 @@ Friend Class Item
 		ItemX.Index = c
 		ItemX.Name = "Item" & c
 		myItems.Add(ItemX, "I" & ItemX.Index, BeforeKey)
-		AddItem = ItemX
+        AddItem = ItemX
 	End Function
 	
 	Public Sub RemoveItem(ByRef DeleteKey As String)

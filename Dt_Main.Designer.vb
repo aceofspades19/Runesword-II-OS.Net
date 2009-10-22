@@ -43,7 +43,7 @@
 	Public WithEvents picConvo As System.Windows.Forms.Panel
 	Public WithEvents picTPic As System.Windows.Forms.PictureBox
 	Public WithEvents picCreateName As System.Windows.Forms.PictureBox
-	Public WithEvents picTomeNew As System.Windows.Forms.Panel
+    Public WithEvents picTomeNew As System.Windows.Forms.PictureBox
 	Public WithEvents picMainMenu As System.Windows.Forms.PictureBox
 	Public WithEvents _picCMap_0 As System.Windows.Forms.PictureBox
 	Public WithEvents _picCPic_0 As System.Windows.Forms.PictureBox

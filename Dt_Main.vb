@@ -628,9 +628,9 @@ BackToPreviousState:
         Dim rc As Integer
         ' Clear the faces
         For c = 0 To 5
-            picMenu.Image = CType(CopyRect(picMisc, New RectangleF((c * 122), 0, 32, 84)), System.Drawing.Bitmap).Clone
+            picMenu.Image = CType(CopyRect(picMenu, New RectangleF((c * 122), 0, 32, 84)), System.Drawing.Bitmap).Clone
             If c < 5 Then
-                picMenu.Image = CType(CopyRect(picMisc, New RectangleF((32 + c * 122), 0, 90, 84)), System.Drawing.Bitmap).Clone
+                picMenu.Image = CType(CopyRect(picMenu, New RectangleF((32 + c * 122), 0, 90, 84)), System.Drawing.Bitmap).Clone
             End If
         Next c
         ' Draw faces
@@ -642,23 +642,20 @@ BackToPreviousState:
                 End If
             Else
                 'potential problems here
-                picMenu.Image = CType(CopyRect(picFaces, New RectangleF((36 + c * 122), 4, 66, 76)), System.Drawing.Bitmap).Clone
+                picMenu.Image = CType(CopyRect(picMenu, New RectangleF((36 + c * 122), 4, 66, 76)), System.Drawing.Bitmap).Clone
             End If
         Next c
         ' Draw Scroll Arrows
         If PartyLeft > 0 Then
             ' Left Arrow
-            picMenu.Image = CType(CopyRect(picMisc, New RectangleF(8, 32, 18, 18)), System.Drawing.Bitmap).Clone
+            picMenu.Image = CType(CopyRect(picMenu, New RectangleF(8, 32, 18, 18)), System.Drawing.Bitmap).Clone
         End If
         If PartyLeft + 5 < tome.Creatures.Count Then
             ' Right Arrow
-            picMenu.Image = CType(CopyRect(picMisc, New RectangleF(618, 32, 18, 18)), System.Drawing.Bitmap).Clone
+            picMenu.Image = CType(CopyRect(picMenu, New RectangleF(618, 32, 18, 18)), System.Drawing.Bitmap).Clone
         End If
         ' Draw select box
-        picMenu.Image = CType(CopyRect(picMisc, New RectangleF(36 + MenuPartyIndex * 122, 4, 66, 76)), System.Drawing.Bitmap).Clone
-        'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        rc = BitBlt(picMenu.hdc, 36 + MenuPartyIndex * 122, 4, 66, 76, picFaces.hdc, bdFaceSelect, 0, SRCPAINT)
+        picMenu.Image = CType(CopyRect(picMenu, New RectangleF(36 + MenuPartyIndex * 122, 4, 66, 76)), System.Drawing.Bitmap).Clone
         ' Redraw buttons
         BorderDrawButtons(0)
         Me.Refresh()
@@ -672,16 +669,13 @@ BackToPreviousState:
 		' Draw face
 		LoadCreaturePic(CreatureX)
 		If picGrid.Visible = True Then
-			' In combat
-			'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: PictureBox property picToHit.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picToHit.hdc, 36 + 388 * System.Math.Abs(CInt(Loc_Renamed = 6)), 4, 66, 76, picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
+            ' In combat
+            picToHit.Image = CType(CopyRect(picFaces, New RectangleF(36 + MenuPartyIndex * 122, 4, 66, 76)), System.Drawing.Bitmap).Clone
+            rc = BitBlt(picToHit.hdc, 36 + 388 * System.Math.Abs(CInt(Loc_Renamed = 6)), 4, 66, 76, picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
 			MenuDrawStats(CreatureX, Loc_Renamed)
 		Else
 			' On Menu
-			'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMenu.hdc, 36 + Loc_Renamed * 122, 4, 66, 76, picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
+            rc = BitBlt(picMenu.hdc, 36 + Loc_Renamed * 122, 4, 66, 76, picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
 			If CreatureX.AllowedTurn = False Then
 				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
@@ -839,7 +833,8 @@ BackToPreviousState:
 						InventoryContainerShow(InvContainer)
 					Else
 						'UPGRADE_ISSUE: PictureBox method picInvDrag.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						picInvDrag.Cls()
+                        picInvDrag = Nothing
+                        picInvDrag.Invalidate()
 						LoadItemPic(ItemX)
 						Select Case ItemPicWidth(ItemX.Pic)
 							Case 32 : Width_Renamed = 34
@@ -994,7 +989,8 @@ BackToPreviousState:
 							InventoryShow(bdInvItems)
 						Else
 							'UPGRADE_ISSUE: PictureBox method picInvDrag.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							picInvDrag.Cls()
+                            picInvDrag = Nothing
+                            picInvDrag.Invalidate()
 							LoadItemPic(ItemX)
 							Select Case ItemPicWidth(ItemX.Pic)
 								Case 32 : Width_Renamed = 34
@@ -1200,12 +1196,11 @@ BackToPreviousState:
 		Dim bmMask As BITMAPINFO
 		Dim lpMem, TransparentRGB As Integer
 		' Freeze out rest of screen
-		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
-		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 		Frozen = True
 		' Show header
-		'UPGRADE_ISSUE: PictureBox method picInventory.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picInventory.Cls()
+        picInventory = Nothing
+        picInventory.Invalidate()
 		'    ShowText picInventory, 0, 12, 584, 14, bdFontElixirWhite, CreatureWithTurn.Name, True, False
 		' [Titi 2.4.8] moved AFTER the picture is loaded ;)
 		Dim sTmp As String
@@ -1509,8 +1504,8 @@ BackToPreviousState:
 		Dim Width_Renamed, X, Y, Height_Renamed As Short
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-		'UPGRADE_ISSUE: PictureBox method picSearch.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picSearch.Cls()
+        picSearch = Nothing
+        picSearch.Invalidate()
 		' Show header
 		ShowText(picSearch, 0, 12, picSearch.Width, 14, bdFontElixirWhite, "On the Ground", True, False)
 		' Clear current locations
@@ -1634,7 +1629,8 @@ BackToPreviousState:
 						ExamineItem(ItemX)
 					Else
 						'UPGRADE_ISSUE: PictureBox method picInvDrag.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						picInvDrag.Cls()
+                        picInvDrag = Nothing
+                        picInvDrag.Invalidate()
 						LoadItemPic(ItemX)
 						Select Case ItemPicWidth(ItemX.Pic)
 							Case 32 : Width_Renamed = 34
@@ -1924,9 +1920,11 @@ BackToPreviousState:
 		Dim TriggerX As Trigger
 		Pos = 0
 		'UPGRADE_ISSUE: PictureBox method picConvoList.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picConvoList.Cls()
+        picConvoList = Nothing
+        picConvoList.Invalidate()
 		'UPGRADE_ISSUE: PictureBox method picInvDrag.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picInvDrag.Cls()
+        picInvDrag = Nothing
+        picInvDrag.Invalidate()
 		For c = ScrollTop To Least(ScrollTop + 2, ScrollList.Count())
 			CreatureX = ScrollList.Item(c)
 			' Show Picture
@@ -2040,7 +2038,7 @@ BackToPreviousState:
 		Dim SaveThrow, c, Found As Short
 		Dim Text_Renamed As String
 		Dim CreatureX As Creature
-		Dim OldPointer As Short
+        Dim OldPointer As Cursor
 		' Move 0 = Any, 1 = Party Only, 2 = Non-Party Only
 		' If this is a DM controlled Creature, then Target with a Motive
 		If CreatureWithTurn.DMControlled = True Then
@@ -2189,9 +2187,11 @@ BackToPreviousState:
 		Dim ItemX As Item
 		Pos = 0
 		'UPGRADE_ISSUE: PictureBox method picConvoList.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picConvoList.Cls()
+        picConvoList = Nothing
+        picConvoList.Invalidate()
 		'UPGRADE_ISSUE: PictureBox method picInvDrag.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picInvDrag.Cls()
+        picInvDrag = Nothing
+        picConvoList.Invalidate()
 		For c = ScrollTop To Least(ScrollTop + 6, ScrollList.Count())
 			ItemX = ScrollList.Item(c)
 			' Show Picture
@@ -2286,31 +2286,31 @@ BackToPreviousState:
 		Dim EncounterX As Encounter
 		If Int(AtY / 16) Mod 3 = 1 Or (Int(AtY / 8) Mod 3 = 1 And Int((AtX - 24) / 48) Mod 2 = 0) Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			mx = Map.Left + Int(AtX / 96) - Int(AtY / 48)
+            mx = MainMap.Left + Int(AtX / 96) - Int(AtY / 48)
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			my_Renamed = Map.Top + Int(AtX / 96) + Int(AtY / 48)
+            my_Renamed = MainMap.Top + Int(AtX / 96) + Int(AtY / 48)
 		Else
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			mx = Map.Left + Int((AtX - 48) / 96) - Int((AtY - 24) / 48)
+            mx = MainMap.Left + Int((AtX - 48) / 96) - Int((AtY - 24) / 48)
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			my_Renamed = Map.Top + Int((AtX + 48) / 96) + Int((AtY - 24) / 48)
+            my_Renamed = MainMap.Top + Int((AtX + 48) / 96) + Int((AtY - 24) / 48)
 		End If
 		Found = False
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If IsBetween(mx, 0, Map.Width) And IsBetween(my_Renamed, 0, Map.Height) Then
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If Map.EncPointer(mx, my_Renamed) > 0 Then
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				EncounterX = Map.Encounters("E" & Map.EncPointer(mx, my_Renamed))
-				If EncounterX.UseHint = True And EncounterX.HaveEntered = True Then
-					BorderDrawBottom()
-					ShowText(Me, 0, Me.ClientRectangle.Height - bdIntHeight, Me.ClientRectangle.Width, 14, bdFontNoxiousWhite, (EncounterX.Name), True, False)
-					Me.Refresh()
-				End If
-			End If
-		End If
+        If IsBetween(mx, 0, MainMap.Width) And IsBetween(my_Renamed, 0, MainMap.Height) Then
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            If MainMap.EncPointer(mx, my_Renamed) > 0 Then
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                EncounterX = MainMap.Encounters("E" & MainMap.EncPointer(mx, my_Renamed))
+                If EncounterX.UseHint = True And EncounterX.HaveEntered = True Then
+                    BorderDrawBottom()
+                    ShowText(Me, 0, Me.ClientRectangle.Height - bdIntHeight, Me.ClientRectangle.Width, 14, bdFontNoxiousWhite, (EncounterX.Name), True, False)
+                    Me.Refresh()
+                End If
+            End If
+        End If
 	End Sub
 	
 	Private Function ReadyItem(ByRef ToChar As Creature, ByRef ItemToReady As Item) As Short
@@ -3365,48 +3365,48 @@ BackToPreviousState:
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            c = Map.MiddleTile(tome.MapX, tome.MapY)
+            c = MainMap.MiddleTile(tome.MapX, tome.MapY)
 			If c > 0 Then
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Map.Tiles("L" & c).TileSet > 0 Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.TileSets. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					PictureFile = Map.TileSets(Map.Tiles("L" & c).TileSet).PictureFile
-					Found = Len(PictureFile) > 0
-				End If
+                If MainMap.Tiles("L" & c).TileSet > 0 Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.TileSets. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    PictureFile = MainMap.TileSets(MainMap.Tiles("L" & c).TileSet).PictureFile
+                    Found = Len(PictureFile) > 0
+                End If
 			End If
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            c = Map.TopTile(tome.MapX, tome.MapY)
+            c = MainMap.TopTile(tome.MapX, tome.MapY)
 			If c > 0 And Not Found Then
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Map.Tiles("L" & c).TileSet > 0 Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.TileSets. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					PictureFile = Map.TileSets(Map.Tiles("L" & c).TileSet).PictureFile
-					Found = Len(PictureFile) > 0
-				End If
+                If MainMap.Tiles("L" & c).TileSet > 0 Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.TileSets. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    PictureFile = MainMap.TileSets(MainMap.Tiles("L" & c).TileSet).PictureFile
+                    Found = Len(PictureFile) > 0
+                End If
 			End If
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            c = Map.BottomTile(tome.MapX, tome.MapY)
+            c = MainMap.BottomTile(tome.MapX, tome.MapY)
 			If c > 0 And Not Found Then
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Map.Tiles("L" & c).TileSet > 0 Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.TileSets. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					PictureFile = Map.TileSets(Map.Tiles("L" & c).TileSet).PictureFile
-					Found = Len(PictureFile) > 0
-				End If
+                If MainMap.Tiles("L" & c).TileSet > 0 Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.TileSets. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    PictureFile = MainMap.TileSets(MainMap.Tiles("L" & c).TileSet).PictureFile
+                    Found = Len(PictureFile) > 0
+                End If
 			End If
 			If Not Found Then
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.TileSets. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Map.TileSets.Count > 0 Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.TileSets. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					PictureFile = Map.TileSets(Int(Map.TileSets.Count * Rnd()) + 1).PictureFile
-				End If
+                If MainMap.TileSets.Count > 0 Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.TileSets. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    PictureFile = MainMap.TileSets(Int(MainMap.TileSets.Count * Rnd()) + 1).PictureFile
+                End If
 			End If
 		End If
 		' Load Bitmap
@@ -4905,10 +4905,8 @@ BackToPreviousState:
 		Dim rc As Integer
 		Dim SaveName As String
 		' Set up picTmp to hold screen shot
-		'UPGRADE_ISSUE: PictureBox method picTmp.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTmp.Cls() : picTmp.Width = 220 : picTmp.Height = 165
-		'UPGRADE_ISSUE: PictureBox method picTomeNew.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTomeNew.Cls()
+        picTmp = Nothing : picTmp.Width = 220 : picTmp.Height = 165
+        picTomeNew = Nothing
 		' Set header correctly
 		If TomeAction = bdTomeSaves Then
 			ShowText(picTomeNew, 30, 12, 519, 14, bdFontElixirWhite, "Choose a Saved Tome to Play", True, False)
@@ -5000,8 +4998,7 @@ BackToPreviousState:
 		Dim TomeX As Tome
 		Dim FileName As String
 		TomeAction = bdTomeNew
-		'UPGRADE_ISSUE: PictureBox method picTomeNew.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTomeNew.Cls()
+        picTomeNew = Nothing
 		TomeIndex = Index
 		ShowText(picTomeNew, 30, 12, 519, 14, bdFontElixirWhite, "Choose a Tome to Play", True, False)
 		ShowText(picTomeNew, 19, 45, 273, 14, bdFontElixirWhite, "Available Tomes", True, False)
