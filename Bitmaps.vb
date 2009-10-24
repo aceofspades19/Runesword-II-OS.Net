@@ -209,7 +209,7 @@ Module modBitmaps
 	End Structure
 
     Public Function CopyRect(ByVal src As PictureBox, _
-       ByVal rect As RectangleF) As System.Drawing.Bitmap
+       ByVal rect As RectangleF, ByVal dwRop As Int32) As System.Drawing.Bitmap
         'Get a Graphics Object from the form
 
         Dim srcPic As Graphics = src.CreateGraphics
@@ -230,7 +230,7 @@ Module modBitmaps
         'get the picture 
 
         BitBlt(HDC2, 0, 0, rect.Width, _
-          rect.Height, HDC1, rect.X, rect.Y, 13369376)
+          rect.Height, HDC1, rect.X, rect.Y, dwRop)
 
         'Clone the bitmap so we can dispose this one 
 

@@ -628,9 +628,9 @@ BackToPreviousState:
         Dim rc As Integer
         ' Clear the faces
         For c = 0 To 5
-            picMenu.Image = CType(CopyRect(picMenu, New RectangleF((c * 122), 0, 32, 84)), System.Drawing.Bitmap).Clone
+            picMenu.Image = CType(CopyRect(picMisc, New RectangleF((c * 122), 0, 32, 84), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
             If c < 5 Then
-                picMenu.Image = CType(CopyRect(picMenu, New RectangleF((32 + c * 122), 0, 90, 84)), System.Drawing.Bitmap).Clone
+                picMenu.Image = CType(CopyRect(picMisc, New RectangleF((32 + c * 122), 0, 90, 84), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
             End If
         Next c
         ' Draw faces
@@ -641,21 +641,24 @@ BackToPreviousState:
                     MenuDrawFace(MenuParty(c), c)
                 End If
             Else
-                'potential problems here
-                picMenu.Image = CType(CopyRect(picMenu, New RectangleF((36 + c * 122), 4, 66, 76)), System.Drawing.Bitmap).Clone
+                picMenu.Image = CType(CopyRect(picMenu, New RectangleF((36 + c * 122), 4, 66, 76), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                picMenu.Image = CType(CopyRect(picMenu, New RectangleF((36 + c * 122), 4, 66, 76), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+
             End If
         Next c
         ' Draw Scroll Arrows
         If PartyLeft > 0 Then
             ' Left Arrow
-            picMenu.Image = CType(CopyRect(picMenu, New RectangleF(8, 32, 18, 18)), System.Drawing.Bitmap).Clone
+            picMenu.Image = CType(CopyRect(picMisc, New RectangleF(8, 32, 18, 18), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
         End If
         If PartyLeft + 5 < tome.Creatures.Count Then
             ' Right Arrow
-            picMenu.Image = CType(CopyRect(picMenu, New RectangleF(618, 32, 18, 18)), System.Drawing.Bitmap).Clone
+            picMenu.Image = CType(CopyRect(picMenu, New RectangleF(618, 32, 18, 18), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
         End If
         ' Draw select box
-        picMenu.Image = CType(CopyRect(picMenu, New RectangleF(36 + MenuPartyIndex * 122, 4, 66, 76)), System.Drawing.Bitmap).Clone
+        picMenu.Image = CType(CopyRect(picMenu, New RectangleF(36 + MenuPartyIndex * 122, 4, 66, 76), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+        picMenu.Image = CType(CopyRect(picMenu, New RectangleF(36 + MenuPartyIndex * 122, 4, 66, 76), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+
         ' Redraw buttons
         BorderDrawButtons(0)
         Me.Refresh()
@@ -670,20 +673,17 @@ BackToPreviousState:
 		LoadCreaturePic(CreatureX)
 		If picGrid.Visible = True Then
             ' In combat
-            picToHit.Image = CType(CopyRect(picFaces, New RectangleF(36 + MenuPartyIndex * 122, 4, 66, 76)), System.Drawing.Bitmap).Clone
-            rc = BitBlt(picToHit.hdc, 36 + 388 * System.Math.Abs(CInt(Loc_Renamed = 6)), 4, 66, 76, picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
+            picToHit.Image = CType(CopyRect(picFaces, New RectangleF((36 + 388 * System.Math.Abs(CInt(Loc_Renamed = 6))), 4, 66, 76), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
+
+            'rc = BitBlt(picToHit.hdc, 36 + 388 * System.Math.Abs(CInt(Loc_Renamed = 6)), 4, 66, 76, picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
 			MenuDrawStats(CreatureX, Loc_Renamed)
 		Else
-			' On Menu
-            rc = BitBlt(picMenu.hdc, 36 + Loc_Renamed * 122, 4, 66, 76, picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
-			If CreatureX.AllowedTurn = False Then
-				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picMenu.hdc, 36 + Loc_Renamed * 122, 4, 66, 76, picFaces.hdc, 66, 0, SRCAND)
-				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picMenu.hdc, 36 + Loc_Renamed * 122, 4, 66, 76, picFaces.hdc, 0, 0, SRCPAINT)
-			End If
+            ' On Menu
+            picMenu.Image = CType(CopyRect(picFaces, New RectangleF((36 + Loc_Renamed * 122), 4, 66, 76), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
+            If CreatureX.AllowedTurn = False Then
+                picMenu.Image = CType(CopyRect(picFaces, New RectangleF((36 + Loc_Renamed * 122), 4, 66, 76), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                picMenu.Image = CType(CopyRect(picFaces, New RectangleF((36 + Loc_Renamed * 122), 4, 66, 76), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+            End If
 			MenuDrawStats(CreatureX, Loc_Renamed)
 		End If
 	End Sub
@@ -714,14 +714,10 @@ BackToPreviousState:
 		Else
 			c = 0
 			Height_Renamed = 0
-		End If
-		'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		'UPGRADE_ISSUE: PictureBox property PicX.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(PicX.hdc, PosX, 0, 16, 84 - Height_Renamed, picMisc.hdc, 90, 36, SRCCOPY)
-		'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		'UPGRADE_ISSUE: PictureBox property PicX.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(PicX.hdc, PosX, 0 + 84 - Height_Renamed, 16, Height_Renamed, picMisc.hdc, 90 + c, 36 + (84 - Height_Renamed), SRCCOPY)
-	End Sub
+        End If
+        PicX.Image = CType(CopyRect(picMisc, New RectangleF(PosX, 0, 16, 84 - Height_Renamed), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
+        PicX.Image = CType(CopyRect(picMisc, New RectangleF(PosX, 84 - Height_Renamed, 16, Height_Renamed), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
+    End Sub
 	
 	Private Sub InventoryContainerClose()
 		Dim c As Short
@@ -849,10 +845,8 @@ BackToPreviousState:
 							If InvC(i) = ItemX.InvSpot Then InvC(i) = 0
 						Next i
 						picInvDrag.Width = Width_Renamed : picInvDrag.Height = Height_Renamed
-						'UPGRADE_ISSUE: PictureBox property picContainer.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						'UPGRADE_ISSUE: PictureBox property picInvDrag.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						rc = BitBlt(picInvDrag.hdc, 0, 0, Width_Renamed, Height_Renamed, picContainer.hdc, 22 + ((ItemX.InvSpot - 1) Mod 8) * 34, 44 + Int((ItemX.InvSpot - 1) / 8) * 34, SRCCOPY)
-						picInvDrag.Refresh()
+                        picInvDrag.Image = CType(CopyRect(picContainer, New RectangleF(0, 0, Width_Renamed, 84 - Height_Renamed), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
+                        picInvDrag.Refresh()
 						' Ready for Drag/Drop
 						JournalX = AtX - 23 - ((ItemX.InvSpot - 1) Mod 8) * 34 : JournalY = AtY - 45 - Int((ItemX.InvSpot - 1) / 8) * 34
 						InvDragItem = ItemX
