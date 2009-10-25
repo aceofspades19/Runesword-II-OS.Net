@@ -998,11 +998,9 @@ BackToPreviousState:
 							For i = 1 To 128
 								If InvZ(i) = ItemX.InvSpot Then InvZ(i) = -1
 							Next i
-							picInvDrag.Width = Width_Renamed : picInvDrag.Height = Height_Renamed
-							'UPGRADE_ISSUE: PictureBox property picInventory.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							'UPGRADE_ISSUE: PictureBox property picInvDrag.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(picInvDrag.hdc, 0, 0, Width_Renamed, Height_Renamed, picInventory.hdc, InvX(ItemX.InvSpot), InvY(ItemX.InvSpot), SRCCOPY)
-							picInvDrag.Refresh()
+                            picInvDrag.Width = Width_Renamed : picInvDrag.Height = Height_Renamed
+                            picInvDrag = CType(CopyRect(picInventory, New RectangleF(0, 0, Width_Renamed, Height_Renamed), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
+                            picInvDrag.Refresh()
 							' Ready for Drag/Drop
 							JournalX = AtX - InvX(ItemX.InvSpot) : JournalY = AtY - InvY(ItemX.InvSpot)
 							InvDragItem = ItemX
@@ -1260,16 +1258,12 @@ BackToPreviousState:
 							If ItemX.Selected = False Then
 								If ItemX.InvSpot > 0 Then
 									Width_Renamed = ItemPicWidth(ItemX.Pic)
-									Height_Renamed = ItemPicHeight(ItemX.Pic)
-									'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									'UPGRADE_ISSUE: PictureBox property picInventory.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = BitBlt(picInventory.hdc, InvX(ItemX.InvSpot), InvY(ItemX.InvSpot), Width_Renamed, Height_Renamed, picItem.hdc, 64 * ItemX.Pic - 64, 96, SRCAND)
-									'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									'UPGRADE_ISSUE: PictureBox property picInventory.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = BitBlt(picInventory.hdc, InvX(ItemX.InvSpot), InvY(ItemX.InvSpot), Width_Renamed, Height_Renamed, picItem.hdc, 64 * ItemX.Pic - 64, 0, SRCPAINT)
-									If ItemX.Capacity > 0 Then
-										ShowText(picInventory, InvX(ItemX.InvSpot), InvY(ItemX.InvSpot), Width_Renamed, 10, bdFontSmallWhite, "(" & ItemX.Items.Count() & ")", 1, False)
-									End If
+                                    Height_Renamed = ItemPicHeight(ItemX.Pic)
+                                    picInventory.Image = CType(CopyRect(picMisc, New RectangleF(InvX(ItemX.InvSpot), InvY(ItemX.InvSpot), Width_Renamed, Height_Renamed), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                                    picInventory.Image = CType(CopyRect(picItem, New RectangleF(InvX(ItemX.InvSpot), InvY(ItemX.InvSpot), Width_Renamed, Height_Renamed), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+                                    If ItemX.Capacity > 0 Then
+                                        ShowText(picInventory, InvX(ItemX.InvSpot), InvY(ItemX.InvSpot), Width_Renamed, 10, bdFontSmallWhite, "(" & ItemX.Items.Count() & ")", 1, False)
+                                    End If
 									If ItemX.Count > 1 Then
 										ShowText(picInventory, InvX(ItemX.InvSpot), InvY(ItemX.InvSpot) + Height_Renamed - 10, Width_Renamed, 10, bdFontSmallWhite, CStr(ItemX.Count), True, False)
 									End If
@@ -1329,12 +1323,10 @@ BackToPreviousState:
 						End If
 					End If
 					X = 35 + (228 - Width_Renamed * Size_Renamed) / 2 : Y = 81 + (266 - Height_Renamed * Size_Renamed) / 2
+					rc = SetSBMode(picInventory, 3)
+                    rc = SDIBits(picInventory, X, Y, Width_Renamed * Size_Renamed, Height_Renamed * Size_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picInventory.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = SetStretchBltMode(picInventory.hdc, 3)
-					'UPGRADE_ISSUE: PictureBox property picInventory.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = StretchDIBits(picInventory.hdc, X, Y, Width_Renamed * Size_Renamed, Height_Renamed * Size_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
-					'UPGRADE_ISSUE: PictureBox property picInventory.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = StretchDIBits(picInventory.hdc, X, Y, Width_Renamed * Size_Renamed, Height_Renamed * Size_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
+                    rc = SDIBits(picInventory, X, Y, Width_Renamed * Size_Renamed, Height_Renamed * Size_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
 					' Release memory
 					rc = GlobalUnlock(hMemMons)
 					rc = GlobalFree(hMemMons)
@@ -1521,15 +1513,11 @@ BackToPreviousState:
 					X = 23 + ((ItemX.InvSpot - 1) Mod 8) * 34
 					Y = 45 + Int((ItemX.InvSpot - 1) / 8) * 34
 					' Paint the Item picture
-					'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picSearch.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picSearch.hdc, X, Y, Width_Renamed, Height_Renamed - yOffSet, picItem.hdc, 64 * ItemX.Pic - 64, 96, SRCAND)
-					'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picSearch.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picSearch.hdc, X, Y, Width_Renamed, Height_Renamed - yOffSet, picItem.hdc, 64 * ItemX.Pic - 64, 0, SRCPAINT)
-					If ItemX.Capacity > 0 And yOffSet = 0 Then
-						ShowText(picSearch, X, Y, Width_Renamed, 10, bdFontSmallWhite, "(" & ItemX.Items.Count() & ")", 1, False)
-					End If
+                    picSearch.Image = CType(CopyRect(picItem, New RectangleF(X, Y, Width_Renamed, Height_Renamed - yOffSet), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                    picSearch.Image = CType(CopyRect(picItem, New RectangleF(X, Y, Width_Renamed, Height_Renamed - yOffSet), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+                    If ItemX.Capacity > 0 And yOffSet = 0 Then
+                        ShowText(picSearch, X, Y, Width_Renamed, 10, bdFontSmallWhite, "(" & ItemX.Items.Count() & ")", 1, False)
+                    End If
 					If ItemX.Count > 1 Then
 						ShowText(picSearch, X, Y + Height_Renamed - 10, Width_Renamed, 10, bdFontSmallWhite, CStr(ItemX.Count), True, False)
 					End If
@@ -1638,11 +1626,9 @@ BackToPreviousState:
 						For i = 1 To 80
 							If InvZ(i) = ItemX.InvSpot Then InvZ(i) = -1
 						Next i
-						picInvDrag.Width = Width_Renamed : picInvDrag.Height = Height_Renamed
-						'UPGRADE_ISSUE: PictureBox property picSearch.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						'UPGRADE_ISSUE: PictureBox property picInvDrag.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						rc = BitBlt(picInvDrag.hdc, 0, 0, Width_Renamed, Height_Renamed, picSearch.hdc, 22 + ((ItemX.InvSpot - 1) Mod 8) * 34, 44 + Int((ItemX.InvSpot - 1) / 8) * 34, SRCCOPY)
-						picInvDrag.Refresh()
+                        picInvDrag.Width = Width_Renamed : picInvDrag.Height = Height_Renamed
+                        picInvDrag.Image = CType(CopyRect(picSearch, New RectangleF(0, 0, Width_Renamed, Height_Renamed), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                        picInvDrag.Refresh()
 						' Ready for Drag/Drop
 						JournalX = AtX - 23 - ((ItemX.InvSpot - 1) Mod 8) * 34 : JournalY = AtY - 45 - Int((ItemX.InvSpot - 1) / 8) * 34
 						InvDragItem = ItemX
@@ -1921,12 +1907,11 @@ BackToPreviousState:
         picInvDrag.Invalidate()
 		For c = ScrollTop To Least(ScrollTop + 2, ScrollList.Count())
 			CreatureX = ScrollList.Item(c)
-			' Show Picture
-			LoadCreaturePic(CreatureX)
-			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: PictureBox property picConvoList.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picConvoList.hdc, 8, 8 + 87 * Pos, 74, 84, picMisc.hdc, 0, 36, SRCCOPY)
-			'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+            ' Show Picture
+
+            LoadCreaturePic(CreatureX)
+            picConvoList.Image = CType(CopyRect(picMisc, New RectangleF(8, 8 + 87 * Pos, 74, 84), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
+            'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picConvoList.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			rc = BitBlt(picConvoList.hdc, 12, 12 + 87 * Pos, 66, 76, picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
 			' Show name and stats

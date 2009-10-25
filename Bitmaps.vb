@@ -206,8 +206,26 @@ Module modBitmaps
 		Public Sub Initialize()
 			ReDim szPathName(127)
 		End Sub
-	End Structure
+    End Structure
+    Public Function SDIBits(ByVal pic As PictureBox, ByVal DestX As Integer, ByVal DestY As Integer, ByVal wDestWidth As Integer, _
+                            ByVal wDestHeight As Integer, ByVal SrcX As Integer, ByVal srcY As Integer, ByVal wSrvWidth As Integer, _
+                            ByVal wSrcHeight As Integer, ByVal lpBits As Long, ByVal BitsInfo As BITMAPINFO, ByVal wUsage As Integer, _
+                            ByVal dwRop As Long) As Integer
+        Dim src As Graphics = pic.CreateGraphics
+        Dim hdc As IntPtr = src.GetHdc
+        StretchDIBits(hdc, DestX, DestY, wDestWidth, wDestHeight, SrcX, srcY, wSrvWidth, wSrcHeight, _
+                        lpBits, BitsInfo, wUsage, dwRop)
+        src.ReleaseHdc(hdc)
+    End Function
+    'wrapper for win api function setstrechbitmode
+    Public Function SetSBMode(ByVal pic As PictureBox, ByVal mode As Integer) As Integer
+        Dim src As Graphics = pic.CreateGraphics
+        Dim hdc As IntPtr = src.GetHdc
+        SetStretchBltMode(hdc, mode)
+        src.ReleaseHdc(hdc)
+    End Function
 
+    'Wrapper for win api function bitblt
     Public Function CopyRect(ByVal src As PictureBox, _
        ByVal rect As RectangleF, ByVal dwRop As Int32) As System.Drawing.Bitmap
         'Get a Graphics Object from the form
@@ -244,180 +262,180 @@ Module modBitmaps
         srcMem.Dispose()
         srcMem.Dispose()
     End Function
-	
-	Public Function ChangeScreenSettings(ByRef lWidth As Short, ByRef lHeight As Short, ByRef lColors As Short) As Short
-		Dim tDevMode As DEVMODE
-		Dim lTemp, lIndex As Integer
-		lIndex = 0
-		Do 
-			'UPGRADE_WARNING: Couldn't resolve default property of object tDevMode. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			lTemp = EnumDisplaySettings(0, lIndex, tDevMode)
-			If lTemp = 0 Then Exit Do
-			lIndex = lIndex + 1
-			With tDevMode
-				If .dmPelsWidth = lWidth And .dmPelsHeight = lHeight And .dmBitsPerPel = lColors Then
-					'                lTemp = ChangeDisplaySettings(tDevMode, CDS_UPDATEREGISTRY)
-					'UPGRADE_WARNING: Couldn't resolve default property of object tDevMode. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					lTemp = ChangeDisplaySettings(tDevMode, 0)
-					Exit Do
-				End If
-			End With
-		Loop 
-		Select Case lTemp
-			Case DISP_CHANGE_SUCCESSFUL
-				'            MsgBox "The display settings changed successfully", vbInformation
-			Case DISP_CHANGE_RESTART
-				MsgBox("The computer must be restarted in order for the graphics mode to work", MsgBoxStyle.Question)
-			Case DISP_CHANGE_FAILED
-				MsgBox("The display driver failed the specified graphics mode", MsgBoxStyle.Critical)
-			Case DISP_CHANGE_BADMODE
-				MsgBox("The graphics mode is not supported", MsgBoxStyle.Critical)
-			Case DISP_CHANGE_NOTUPDATED
-				MsgBox("Unable to write settings to the registry", MsgBoxStyle.Critical)
-			Case DISP_CHANGE_BADFLAGS
-				MsgBox("You Passed invalid data", MsgBoxStyle.Critical)
-		End Select
-		ChangeScreenSettings = lTemp
-	End Function
-	
-	Public Sub ReadBitmapFile(ByVal FileName As String, ByRef bmInfo As BITMAPINFO, ByRef hMem As Integer, ByRef TransparentRGB As Integer)
-		' This does indeed read the header and info of a BMP file.
-		' Including (most important here) the Palette information into
-		' the array bmInfo.bmiColors(). The final hread loads the actual
-		' bits to lpMem (a section of memory on the heap).
-		Dim rc As Integer
-		'UPGRADE_WARNING: Arrays in structure fileStruct may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
-		Dim fileStruct As OFSTRUCT
-		Dim bmFileHeader As BITMAPFILEHEADER
-		Dim hFile, lpMem As Integer
-		Dim BytesRead As Integer
-		Dim OneByte As Byte
-		' Open the bitmap file
-		hFile = OpenFile(FileName, fileStruct, OF_READ Or OF_SHARE_DENY_NONE)
-		' Read the bitmap's file header info
-		'UPGRADE_WARNING: Couldn't resolve default property of object bmFileHeader. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		BytesRead = hread(hFile, bmFileHeader, Len(bmFileHeader))
-		' Read the bitmap's info (including the palette entries)
-		'UPGRADE_WARNING: Couldn't resolve default property of object bmInfo. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		BytesRead = hread(hFile, bmInfo, Len(bmInfo))
-		If bmInfo.bmiHeader.biClrUsed > 0 And bmInfo.bmiHeader.biClrUsed < 256 Then
-			'-- Fix for non 256-color BMP's [borfaux]
-			rc = llseek(hFile, -((256 * 4) - bmInfo.bmiHeader.biClrUsed * 4), 1)
-		End If
-		' Read the next byte and the back up a byte
-		BytesRead = hread(hFile, OneByte, 1)
-		TransparentRGB = RGB(bmInfo.bmiColors(OneByte).rgbRed, bmInfo.bmiColors(OneByte).rgbGreen, bmInfo.bmiColors(OneByte).rgbBlue)
-		rc = llseek(hFile, -1, 1)
-		' Free any existing pointed to memory
-		rc = GlobalFree(hMem)
-		' Allocate chunk of memory based on size of bitmap
-		'    hMem = GlobalAlloc(GMEM_MOVEABLE Or GMEM_ZEROINIT, _
-		''        (CLng(bmInfo.bmiHeader.biWidth / 4) * 4 + 4) * bmInfo.bmiHeader.biHeight)
-		hMem = GlobalAlloc(GMEM_MOVEABLE Or GMEM_ZEROINIT, (CInt(bmInfo.bmiHeader.biWidth / 4) * 4 + 4) * bmInfo.bmiHeader.biHeight)
-		' Lock that chunk of memory
-		lpMem = GlobalLock(hMem)
-		' Read the bitmap
-		BytesRead = hread(hFile, lpMem, (CInt(bmInfo.bmiHeader.biWidth / 4) * 4 + 4) * bmInfo.bmiHeader.biHeight)
-		' Close the file
-		rc = lclose(hFile)
-		'Unlock resources
-		rc = GlobalUnlock(hMem)
-	End Sub
-	
-	Public Sub ChangeColor(ByRef bmInfo As BITMAPINFO, ByRef FromColor As Integer, ByRef ToRed As Byte, ByRef ToGreen As Byte, ByRef ToBlue As Byte)
-		Dim c As Short
-		For c = 0 To 255
-			If RGB(bmInfo.bmiColors(c).rgbRed, bmInfo.bmiColors(c).rgbGreen, bmInfo.bmiColors(c).rgbBlue) = FromColor Then
-				bmInfo.bmiColors(c).rgbRed = ToRed
-				bmInfo.bmiColors(c).rgbGreen = ToGreen
-				bmInfo.bmiColors(c).rgbBlue = ToBlue
-			End If
-		Next c
-	End Sub
-	
-	Public Sub MakeMask(ByRef bmInfo As BITMAPINFO, ByRef Mask As BITMAPINFO, ByVal TransparentColor As Integer)
+
+    Public Function ChangeScreenSettings(ByRef lWidth As Short, ByRef lHeight As Short, ByRef lColors As Short) As Short
+        Dim tDevMode As DEVMODE
+        Dim lTemp, lIndex As Integer
+        lIndex = 0
+        Do
+            'UPGRADE_WARNING: Couldn't resolve default property of object tDevMode. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            lTemp = EnumDisplaySettings(0, lIndex, tDevMode)
+            If lTemp = 0 Then Exit Do
+            lIndex = lIndex + 1
+            With tDevMode
+                If .dmPelsWidth = lWidth And .dmPelsHeight = lHeight And .dmBitsPerPel = lColors Then
+                    '                lTemp = ChangeDisplaySettings(tDevMode, CDS_UPDATEREGISTRY)
+                    'UPGRADE_WARNING: Couldn't resolve default property of object tDevMode. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    lTemp = ChangeDisplaySettings(tDevMode, 0)
+                    Exit Do
+                End If
+            End With
+        Loop
+        Select Case lTemp
+            Case DISP_CHANGE_SUCCESSFUL
+                '            MsgBox "The display settings changed successfully", vbInformation
+            Case DISP_CHANGE_RESTART
+                MsgBox("The computer must be restarted in order for the graphics mode to work", MsgBoxStyle.Question)
+            Case DISP_CHANGE_FAILED
+                MsgBox("The display driver failed the specified graphics mode", MsgBoxStyle.Critical)
+            Case DISP_CHANGE_BADMODE
+                MsgBox("The graphics mode is not supported", MsgBoxStyle.Critical)
+            Case DISP_CHANGE_NOTUPDATED
+                MsgBox("Unable to write settings to the registry", MsgBoxStyle.Critical)
+            Case DISP_CHANGE_BADFLAGS
+                MsgBox("You Passed invalid data", MsgBoxStyle.Critical)
+        End Select
+        ChangeScreenSettings = lTemp
+    End Function
+
+    Public Sub ReadBitmapFile(ByVal FileName As String, ByRef bmInfo As BITMAPINFO, ByRef hMem As Integer, ByRef TransparentRGB As Integer)
+        ' This does indeed read the header and info of a BMP file.
+        ' Including (most important here) the Palette information into
+        ' the array bmInfo.bmiColors(). The final hread loads the actual
+        ' bits to lpMem (a section of memory on the heap).
+        Dim rc As Integer
+        'UPGRADE_WARNING: Arrays in structure fileStruct may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
+        Dim fileStruct As OFSTRUCT
+        Dim bmFileHeader As BITMAPFILEHEADER
+        Dim hFile, lpMem As Integer
+        Dim BytesRead As Integer
+        Dim OneByte As Byte
+        ' Open the bitmap file
+        hFile = OpenFile(FileName, fileStruct, OF_READ Or OF_SHARE_DENY_NONE)
+        ' Read the bitmap's file header info
+        'UPGRADE_WARNING: Couldn't resolve default property of object bmFileHeader. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        BytesRead = hread(hFile, bmFileHeader, Len(bmFileHeader))
+        ' Read the bitmap's info (including the palette entries)
+        'UPGRADE_WARNING: Couldn't resolve default property of object bmInfo. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        BytesRead = hread(hFile, bmInfo, Len(bmInfo))
+        If bmInfo.bmiHeader.biClrUsed > 0 And bmInfo.bmiHeader.biClrUsed < 256 Then
+            '-- Fix for non 256-color BMP's [borfaux]
+            rc = llseek(hFile, -((256 * 4) - bmInfo.bmiHeader.biClrUsed * 4), 1)
+        End If
+        ' Read the next byte and the back up a byte
+        BytesRead = hread(hFile, OneByte, 1)
+        TransparentRGB = RGB(bmInfo.bmiColors(OneByte).rgbRed, bmInfo.bmiColors(OneByte).rgbGreen, bmInfo.bmiColors(OneByte).rgbBlue)
+        rc = llseek(hFile, -1, 1)
+        ' Free any existing pointed to memory
+        rc = GlobalFree(hMem)
+        ' Allocate chunk of memory based on size of bitmap
+        '    hMem = GlobalAlloc(GMEM_MOVEABLE Or GMEM_ZEROINIT, _
+        ''        (CLng(bmInfo.bmiHeader.biWidth / 4) * 4 + 4) * bmInfo.bmiHeader.biHeight)
+        hMem = GlobalAlloc(GMEM_MOVEABLE Or GMEM_ZEROINIT, (CInt(bmInfo.bmiHeader.biWidth / 4) * 4 + 4) * bmInfo.bmiHeader.biHeight)
+        ' Lock that chunk of memory
+        lpMem = GlobalLock(hMem)
+        ' Read the bitmap
+        BytesRead = hread(hFile, lpMem, (CInt(bmInfo.bmiHeader.biWidth / 4) * 4 + 4) * bmInfo.bmiHeader.biHeight)
+        ' Close the file
+        rc = lclose(hFile)
+        'Unlock resources
+        rc = GlobalUnlock(hMem)
+    End Sub
+
+    Public Sub ChangeColor(ByRef bmInfo As BITMAPINFO, ByRef FromColor As Integer, ByRef ToRed As Byte, ByRef ToGreen As Byte, ByRef ToBlue As Byte)
         Dim c As Short
-		'UPGRADE_WARNING: Couldn't resolve default property of object Mask. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Mask = bmInfo
-		For c = 0 To 255
-			' Change entry matching TransparentColor to Black in bmInfo
-			If RGB(bmInfo.bmiColors(c).rgbRed, bmInfo.bmiColors(c).rgbGreen, bmInfo.bmiColors(c).rgbBlue) = TransparentColor Then
-				bmInfo.bmiColors(c).rgbRed = 0
-				bmInfo.bmiColors(c).rgbGreen = 0
-				bmInfo.bmiColors(c).rgbBlue = 0
-			End If
-			' Create mask based on TransparentColor
-			If RGB(Mask.bmiColors(c).rgbRed, Mask.bmiColors(c).rgbGreen, Mask.bmiColors(c).rgbBlue) = TransparentColor Then
-				Mask.bmiColors(c).rgbRed = 255
-				Mask.bmiColors(c).rgbGreen = 255
-				Mask.bmiColors(c).rgbBlue = 255
-			Else
-				Mask.bmiColors(c).rgbRed = 0
-				Mask.bmiColors(c).rgbGreen = 0
-				Mask.bmiColors(c).rgbBlue = 0
-			End If
-		Next c
-	End Sub
-	
-	Public Sub MakeFadeToWhite(ByRef bmInfo As BITMAPINFO, ByRef bmFadeToWhite() As BITMAPINFO)
-		Dim c, i As Short
-		For c = 0 To UBound(bmFadeToWhite)
-			'UPGRADE_WARNING: Couldn't resolve default property of object bmFadeToWhite(c). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			bmFadeToWhite(c) = bmInfo
-			For i = 0 To 255
-				bmFadeToWhite(c).bmiColors(i).rgbRed = bmInfo.bmiColors(i).rgbRed + (255 - bmInfo.bmiColors(i).rgbRed) * (c / UBound(bmFadeToWhite))
-				bmFadeToWhite(c).bmiColors(i).rgbGreen = bmInfo.bmiColors(i).rgbGreen + (255 - bmInfo.bmiColors(i).rgbGreen) * (c / UBound(bmFadeToWhite))
-				bmFadeToWhite(c).bmiColors(i).rgbBlue = bmInfo.bmiColors(i).rgbBlue + (255 - bmInfo.bmiColors(i).rgbBlue) * (c / UBound(bmFadeToWhite))
-			Next i
-		Next c
-	End Sub
-	
-	Public Sub MakeGray(ByRef bmInfo As BITMAPINFO, ByRef bmHalfTone As BITMAPINFO, ByVal Percent As Short)
-		Dim c As Short
-		Dim i As Byte
-		'UPGRADE_WARNING: Couldn't resolve default property of object bmHalfTone. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		bmHalfTone = bmInfo
-		For c = 0 To 255
-			i = CByte((CShort(bmInfo.bmiColors(c).rgbRed) + CShort(bmInfo.bmiColors(c).rgbGreen) + CShort(bmInfo.bmiColors(c).rgbBlue)) / 3)
-			If i * (Percent / 100) < 255 Then
-				i = i * (Percent / 100)
-			Else
-				i = 255
-			End If
-			bmHalfTone.bmiColors(c).rgbRed = i
-			bmHalfTone.bmiColors(c).rgbGreen = i
-			bmHalfTone.bmiColors(c).rgbBlue = i
-		Next c
-	End Sub
-	
-	Public Sub MakeDark(ByRef bmInfo As BITMAPINFO, ByRef bmDarkTone As BITMAPINFO, ByVal Percent As Short)
-		Dim c As Short
-		'UPGRADE_WARNING: Couldn't resolve default property of object bmDarkTone. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		bmDarkTone = bmInfo
-		For c = 0 To 255
-			bmDarkTone.bmiColors(c).rgbRed = bmDarkTone.bmiColors(c).rgbRed * (100 - Percent) / 100
-			bmDarkTone.bmiColors(c).rgbGreen = bmDarkTone.bmiColors(c).rgbGreen * (100 - Percent) / 100
-			bmDarkTone.bmiColors(c).rgbBlue = bmDarkTone.bmiColors(c).rgbBlue * (100 - Percent) / 100
-			If Percent > 30 And bmDarkTone.bmiColors(c).rgbBlue <> 0 Then
-				If bmDarkTone.bmiColors(c).rgbBlue + 25 > 255 Then
-					bmDarkTone.bmiColors(c).rgbBlue = 255
-				Else
-					bmDarkTone.bmiColors(c).rgbBlue = bmDarkTone.bmiColors(c).rgbBlue + 25
-				End If
-			End If
-		Next c
-	End Sub
-	
-	Public Sub MakeFadeToBlack(ByRef bmInfo As BITMAPINFO, ByRef bmFadeToBlack() As BITMAPINFO)
-		Dim c, i As Short
-		For c = UBound(bmFadeToBlack) To 0 Step -1
-			'UPGRADE_WARNING: Couldn't resolve default property of object bmFadeToBlack(c). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			bmFadeToBlack(c) = bmInfo
-			For i = 0 To 255
-				bmFadeToBlack(c).bmiColors(i).rgbRed = bmInfo.bmiColors(i).rgbRed * (c / UBound(bmFadeToBlack))
-				bmFadeToBlack(c).bmiColors(i).rgbGreen = bmInfo.bmiColors(i).rgbGreen * (c / UBound(bmFadeToBlack))
-				bmFadeToBlack(c).bmiColors(i).rgbBlue = bmInfo.bmiColors(i).rgbBlue * (c / UBound(bmFadeToBlack))
-			Next i
-		Next c
-	End Sub
+        For c = 0 To 255
+            If RGB(bmInfo.bmiColors(c).rgbRed, bmInfo.bmiColors(c).rgbGreen, bmInfo.bmiColors(c).rgbBlue) = FromColor Then
+                bmInfo.bmiColors(c).rgbRed = ToRed
+                bmInfo.bmiColors(c).rgbGreen = ToGreen
+                bmInfo.bmiColors(c).rgbBlue = ToBlue
+            End If
+        Next c
+    End Sub
+
+    Public Sub MakeMask(ByRef bmInfo As BITMAPINFO, ByRef Mask As BITMAPINFO, ByVal TransparentColor As Integer)
+        Dim c As Short
+        'UPGRADE_WARNING: Couldn't resolve default property of object Mask. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        Mask = bmInfo
+        For c = 0 To 255
+            ' Change entry matching TransparentColor to Black in bmInfo
+            If RGB(bmInfo.bmiColors(c).rgbRed, bmInfo.bmiColors(c).rgbGreen, bmInfo.bmiColors(c).rgbBlue) = TransparentColor Then
+                bmInfo.bmiColors(c).rgbRed = 0
+                bmInfo.bmiColors(c).rgbGreen = 0
+                bmInfo.bmiColors(c).rgbBlue = 0
+            End If
+            ' Create mask based on TransparentColor
+            If RGB(Mask.bmiColors(c).rgbRed, Mask.bmiColors(c).rgbGreen, Mask.bmiColors(c).rgbBlue) = TransparentColor Then
+                Mask.bmiColors(c).rgbRed = 255
+                Mask.bmiColors(c).rgbGreen = 255
+                Mask.bmiColors(c).rgbBlue = 255
+            Else
+                Mask.bmiColors(c).rgbRed = 0
+                Mask.bmiColors(c).rgbGreen = 0
+                Mask.bmiColors(c).rgbBlue = 0
+            End If
+        Next c
+    End Sub
+
+    Public Sub MakeFadeToWhite(ByRef bmInfo As BITMAPINFO, ByRef bmFadeToWhite() As BITMAPINFO)
+        Dim c, i As Short
+        For c = 0 To UBound(bmFadeToWhite)
+            'UPGRADE_WARNING: Couldn't resolve default property of object bmFadeToWhite(c). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            bmFadeToWhite(c) = bmInfo
+            For i = 0 To 255
+                bmFadeToWhite(c).bmiColors(i).rgbRed = bmInfo.bmiColors(i).rgbRed + (255 - bmInfo.bmiColors(i).rgbRed) * (c / UBound(bmFadeToWhite))
+                bmFadeToWhite(c).bmiColors(i).rgbGreen = bmInfo.bmiColors(i).rgbGreen + (255 - bmInfo.bmiColors(i).rgbGreen) * (c / UBound(bmFadeToWhite))
+                bmFadeToWhite(c).bmiColors(i).rgbBlue = bmInfo.bmiColors(i).rgbBlue + (255 - bmInfo.bmiColors(i).rgbBlue) * (c / UBound(bmFadeToWhite))
+            Next i
+        Next c
+    End Sub
+
+    Public Sub MakeGray(ByRef bmInfo As BITMAPINFO, ByRef bmHalfTone As BITMAPINFO, ByVal Percent As Short)
+        Dim c As Short
+        Dim i As Byte
+        'UPGRADE_WARNING: Couldn't resolve default property of object bmHalfTone. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        bmHalfTone = bmInfo
+        For c = 0 To 255
+            i = CByte((CShort(bmInfo.bmiColors(c).rgbRed) + CShort(bmInfo.bmiColors(c).rgbGreen) + CShort(bmInfo.bmiColors(c).rgbBlue)) / 3)
+            If i * (Percent / 100) < 255 Then
+                i = i * (Percent / 100)
+            Else
+                i = 255
+            End If
+            bmHalfTone.bmiColors(c).rgbRed = i
+            bmHalfTone.bmiColors(c).rgbGreen = i
+            bmHalfTone.bmiColors(c).rgbBlue = i
+        Next c
+    End Sub
+
+    Public Sub MakeDark(ByRef bmInfo As BITMAPINFO, ByRef bmDarkTone As BITMAPINFO, ByVal Percent As Short)
+        Dim c As Short
+        'UPGRADE_WARNING: Couldn't resolve default property of object bmDarkTone. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        bmDarkTone = bmInfo
+        For c = 0 To 255
+            bmDarkTone.bmiColors(c).rgbRed = bmDarkTone.bmiColors(c).rgbRed * (100 - Percent) / 100
+            bmDarkTone.bmiColors(c).rgbGreen = bmDarkTone.bmiColors(c).rgbGreen * (100 - Percent) / 100
+            bmDarkTone.bmiColors(c).rgbBlue = bmDarkTone.bmiColors(c).rgbBlue * (100 - Percent) / 100
+            If Percent > 30 And bmDarkTone.bmiColors(c).rgbBlue <> 0 Then
+                If bmDarkTone.bmiColors(c).rgbBlue + 25 > 255 Then
+                    bmDarkTone.bmiColors(c).rgbBlue = 255
+                Else
+                    bmDarkTone.bmiColors(c).rgbBlue = bmDarkTone.bmiColors(c).rgbBlue + 25
+                End If
+            End If
+        Next c
+    End Sub
+
+    Public Sub MakeFadeToBlack(ByRef bmInfo As BITMAPINFO, ByRef bmFadeToBlack() As BITMAPINFO)
+        Dim c, i As Short
+        For c = UBound(bmFadeToBlack) To 0 Step -1
+            'UPGRADE_WARNING: Couldn't resolve default property of object bmFadeToBlack(c). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            bmFadeToBlack(c) = bmInfo
+            For i = 0 To 255
+                bmFadeToBlack(c).bmiColors(i).rgbRed = bmInfo.bmiColors(i).rgbRed * (c / UBound(bmFadeToBlack))
+                bmFadeToBlack(c).bmiColors(i).rgbGreen = bmInfo.bmiColors(i).rgbGreen * (c / UBound(bmFadeToBlack))
+                bmFadeToBlack(c).bmiColors(i).rgbBlue = bmInfo.bmiColors(i).rgbBlue * (c / UBound(bmFadeToBlack))
+            Next i
+        Next c
+    End Sub
 End Module
