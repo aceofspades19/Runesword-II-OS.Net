@@ -1911,10 +1911,8 @@ BackToPreviousState:
 
             LoadCreaturePic(CreatureX)
             picConvoList.Image = CType(CopyRect(picMisc, New RectangleF(8, 8 + 87 * Pos, 74, 84), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
-            'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: PictureBox property picConvoList.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picConvoList.hdc, 12, 12 + 87 * Pos, 66, 76, picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
-			' Show name and stats
+            picConvoList.Image = CType(CopyRect(picFaces, New RectangleF(12, 12 + 87 * Pos, 66, 76), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
+            ' Show name and stats
 			ShowText(picConvoList, 80, 12 + 87 * Pos, 250, 14, bdFontElixirWhite, (CreatureX.Name), True, False)
 			If CreatureX.HPNow < 1 Then
 				ShowText(picConvoList, 80, 28 + 87 * Pos, 250, 14, bdFontNoxiousWhite, "Lvl " & CreatureX.Level & " * Health DEAD", True, False)
@@ -1936,14 +1934,10 @@ BackToPreviousState:
 				ShowText(picConvoList, 80, 44 + 87 * Pos, 250, 14, bdFontNoxiousWhite, "No Skills", True, False)
 			End If
 			' Show Select Box
-			If ScrollSelect = c Then
-				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picConvoList.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picConvoList.hdc, 12, 12 + 87 * Pos, 66, 76, picFaces.hdc, bdFaceSelect + 66, 0, SRCAND)
-				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picConvoList.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picConvoList.hdc, 12, 12 + 87 * Pos, 66, 76, picFaces.hdc, bdFaceSelect, 0, SRCPAINT)
-			End If
+            If ScrollSelect = c Then
+                picConvoList.Image = CType(CopyRect(picFaces, New RectangleF(12, 12 + 87 * Pos, 66, 76), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                picConvoList.Image = CType(CopyRect(picFaces, New RectangleF(12, 12 + 87 * Pos, 66, 76), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+            End If
 			Pos = Pos + 1
 		Next c
 		ScrollBarShow(picConvoList, 331, 2, 269, ScrollTop, ScrollList.Count() - 2, 0)
@@ -2174,13 +2168,10 @@ BackToPreviousState:
 		For c = ScrollTop To Least(ScrollTop + 6, ScrollList.Count())
 			ItemX = ScrollList.Item(c)
 			' Show Picture
-			LoadItemPic(ItemX)
-			'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: PictureBox property picConvoList.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picConvoList.hdc, 12, 9 + 37 * Pos, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, picItem.hdc, 64 * ItemX.Pic - 32, 96 * 2, SRCAND)
-			'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: PictureBox property picConvoList.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picConvoList.hdc, 12, 9 + 37 * Pos, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, picItem.hdc, 64 * ItemX.Pic - 64, 96 * 2, SRCPAINT)
+            LoadItemPic(ItemX)
+            picConvoList.Image = CType(CopyRect(picItem, New RectangleF(12, 9 + 37 * Pos, ItemPicWidth(ItemX.Pic) / 3, _
+                                                                        ItemPicHeight(ItemX.Pic) / 3), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+            rc = BitBlt(picConvoList.hdc, 12, 9 + 37 * Pos, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, picItem.hdc, 64 * ItemX.Pic - 64, 96 * 2, SRCPAINT)
 			' Show Description
 			If ScrollSelect = c Then
 				ShowText(picConvoList, 53, 20 + 37 * Pos, 275, 14, bdFontNoxiousGold, (ItemX.Name), False, False)
