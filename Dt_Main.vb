@@ -2171,8 +2171,9 @@ BackToPreviousState:
             LoadItemPic(ItemX)
             picConvoList.Image = CType(CopyRect(picItem, New RectangleF(12, 9 + 37 * Pos, ItemPicWidth(ItemX.Pic) / 3, _
                                                                         ItemPicHeight(ItemX.Pic) / 3), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
-            rc = BitBlt(picConvoList.hdc, 12, 9 + 37 * Pos, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, picItem.hdc, 64 * ItemX.Pic - 64, 96 * 2, SRCPAINT)
-			' Show Description
+            picConvoList.Image = CType(CopyRect(picItem, New RectangleF(12, 9 + 37 * Pos, ItemPicWidth(ItemX.Pic) / 3, _
+                                                                       ItemPicHeight(ItemX.Pic) / 3), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+            ' Show Description
 			If ScrollSelect = c Then
 				ShowText(picConvoList, 53, 20 + 37 * Pos, 275, 14, bdFontNoxiousGold, (ItemX.Name), False, False)
 			Else
@@ -3187,26 +3188,19 @@ BackToPreviousState:
 		Dim Distance, MaxRange As Short
 		' Sort all pictures in order
 		CombatPaintSort()
-		' Draw background wallpaper
-		'UPGRADE_ISSUE: PictureBox property picWallPaper.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(picGrid.hdc, 0, 0, picGrid.Width, picGrid.Height, picWallPaper.hdc, 0, 0, SRCCOPY)
-		' Draw Action Point globes at Top (500 Pixels is the total width of 20 ActionPoints)
+        ' Draw background wallpaper
+        picGrid.Image = CType(CopyRect(picWallPaper, New RectangleF(0, 0, picGrid.Width, picGrid.Height), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
+        ' Draw Action Point globes at Top (500 Pixels is the total width of 20 ActionPoints)
 		X = (picGrid.Width - 500) / 2
-		For c = 0 To 19
-			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picGrid.hdc, X + c * 25, 8, 25, 25, picMisc.hdc, 50, 121, SRCAND)
-			If c < CreatureWithTurn.ActionPoints Then
-				'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picGrid.hdc, X + c * 25, 8, 25, 25, picMisc.hdc, 0, 121, SRCPAINT)
-			Else
-				'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picGrid.hdc, X + c * 25, 8, 25, 25, picMisc.hdc, 25, 121, SRCPAINT)
-			End If
-		Next c
+        For c = 0 To 19
+            picGrid = CType(CopyRect(picMisc, New RectangleF(X + c * 25, 8, 25, 25), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+            If c < CreatureWithTurn.ActionPoints Then
+                picGrid = CType(CopyRect(picMisc, New RectangleF(X + c * 25, 8, 25, 25), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+
+            Else
+                picGrid = CType(CopyRect(picMisc, New RectangleF(X + c * 25, 8, 25, 25), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+            End If
+        Next c
 		' Draw path to Target
 		If Target > -1 Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object CombatRange(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
