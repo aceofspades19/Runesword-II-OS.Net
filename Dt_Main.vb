@@ -3213,14 +3213,10 @@ BackToPreviousState:
 			For c = CombatStepTop To Greatest(CombatStepTop - CreatureWithTurn.MovementRange, 0) Step -1
 				GridToCursor(X, Y, CombatStepRow(c), CombatStepCol(c), GridWidth)
 				OffX = ((bdCombatGridWidth * CommonScale) - bdCombatGridWidth) / 2
-				OffY = ((bdCombatGridHeight * CommonScale) - bdCombatGridHeight) / 2
-				'UPGRADE_ISSUE: PictureBox property picSteps.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picGrid.hdc, X + OffX, Y - bdCombatGridHeight + OffY, bdCombatGridWidth, bdCombatGridHeight, picSteps.hdc, 0, bdCombatGridHeight, SRCAND)
-				'UPGRADE_ISSUE: PictureBox property picSteps.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picGrid.hdc, X + OffX, Y - bdCombatGridHeight + OffY, bdCombatGridWidth, bdCombatGridHeight, picSteps.hdc, 0, 0, SRCPAINT)
-			Next c
+                OffY = ((bdCombatGridHeight * CommonScale) - bdCombatGridHeight) / 2
+                picGrid = CType(CopyRect(picSteps, New RectangleF(X + OffX, Y - bdCombatGridHeight + OffY, bdCombatGridWidth, bdCombatGridHeight), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                picGrid = CType(CopyRect(picSteps, New RectangleF(X + OffX, Y - bdCombatGridHeight + OffY, bdCombatGridWidth, bdCombatGridHeight), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+            Next c
 		End If
 		' Determine color of rectangle based on distance from CreatureWithTurn
 		For c = 0 To CombatTurn
@@ -3240,41 +3236,29 @@ BackToPreviousState:
 			X = X - (Width_Renamed - GridWidth) / 2
 			' Paint Yellow around TurnNow, Red outline around Target, others are Black
 			If Paint_Renamed(c) = TurnNow Then
-				' Yellow
-				'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picGrid.hdc, X, Y, Width_Renamed, Height_Renamed, picCPic(n).hdc, Turns(Paint_Renamed(c)).Ref.Facing * Width_Renamed, Height_Renamed, SRCAND)
-				'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picGrid.hdc, X, Y, Width_Renamed, Height_Renamed, picCPic(n).hdc, Turns(Paint_Renamed(c)).Ref.Facing * Width_Renamed, Height_Renamed * 2, SRCPAINT)
-			ElseIf Paint_Renamed(c) = Target Then 
-				'UPGRADE_WARNING: Couldn't resolve default property of object CombatRange(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If IsBetween(CombatRange(CreatureWithTurn, (CreatureTarget.Col), (CreatureTarget.Row)), CreatureWithTurn.ItemMinRange, CreatureWithTurn.ItemMaxRange) Then
-					' Red
-					'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, X, Y, Width_Renamed, Height_Renamed, picCPic(n).hdc, Turns(Paint_Renamed(c)).Ref.Facing * Width_Renamed, Height_Renamed, SRCAND)
-					'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, X, Y, Width_Renamed, Height_Renamed, picCPic(n).hdc, Turns(Paint_Renamed(c)).Ref.Facing * Width_Renamed, Height_Renamed * 3, SRCPAINT)
-				Else
-					' Normal
-					'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, X, Y, Width_Renamed, Height_Renamed, picCPic(n).hdc, Turns(Paint_Renamed(c)).Ref.Facing * Width_Renamed, Height_Renamed, SRCAND)
-					'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, X, Y, Width_Renamed, Height_Renamed, picCPic(n).hdc, Turns(Paint_Renamed(c)).Ref.Facing * Width_Renamed, 0, SRCPAINT)
-				End If
+                ' Yellow
+                picGrid = CType(CopyRect(picCPic(n), New RectangleF(X, Y, Width_Renamed, Height_Renamed), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                picGrid = CType(CopyRect(picCPic(n), New RectangleF(X, Y, Width_Renamed, Height_Renamed), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+
+            ElseIf Paint_Renamed(c) = Target Then
+                If IsBetween(CombatRange(CreatureWithTurn, (CreatureTarget.Col), (CreatureTarget.Row)), CreatureWithTurn.ItemMinRange, CreatureWithTurn.ItemMaxRange) Then
+                    ' Red
+                    picGrid = CType(CopyRect(picCPic(n), New RectangleF(X, Y, Width_Renamed, Height_Renamed), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                    picGrid = CType(CopyRect(picCPic(n), New RectangleF(X, Y, Width_Renamed, Height_Renamed), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+
+                Else
+                    ' Normal
+                    picGrid = CType(CopyRect(picCPic(n), New RectangleF(X, Y, Width_Renamed, Height_Renamed), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                    picGrid = CType(CopyRect(picCPic(n), New RectangleF(X, Y, Width_Renamed, Height_Renamed), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+
+                End If
 			Else
-				' Normal
-				'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picGrid.hdc, X, Y, Width_Renamed, Height_Renamed, picCPic(n).hdc, Turns(Paint_Renamed(c)).Ref.Facing * Width_Renamed, Height_Renamed, SRCAND)
-				'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picGrid.hdc, X, Y, Width_Renamed, Height_Renamed, picCPic(n).hdc, Turns(Paint_Renamed(c)).Ref.Facing * Width_Renamed, 0, SRCPAINT)
-			End If
+                ' Normal
+                picGrid = CType(CopyRect(picCPic(n), New RectangleF(X, Y, Width_Renamed, Height_Renamed), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                picGrid = CType(CopyRect(picCPic(n), New RectangleF(X, Y, Width_Renamed, Height_Renamed), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+
+            End If
+
 			' Draw MsgQue
 			'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
 			If (Paint_Renamed(c) = Target And IsNothing(ShowMsg) = False) Or (Paint_Renamed(c) = TurnNow And (Target = -1 Or IsNothing(ShowMsg) = True)) Then
@@ -3398,10 +3382,8 @@ BackToPreviousState:
 		picWallPaper.Width = picGrid.Width
 		picWallPaper.Height = picGrid.Height
 		' Draw Wallpaper
-		'UPGRADE_ISSUE: PictureBox property picWallPaper.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picWallPaper.hdc, 3)
-		'UPGRADE_ISSUE: PictureBox property picWallPaper.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picWallPaper.hdc, 0, 0, picWallPaper.Width, picWallPaper.Height, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SetSBMode(picWallPaper, 3)
+        rc = SDIBits(picWallPaper, 0, 0, picWallPaper.Width, picWallPaper.Height, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		' Release memory
 		rc = GlobalUnlock(hMem)
 		rc = GlobalFree(hMem)
@@ -3835,41 +3817,42 @@ BackToPreviousState:
 				Y = Int(Y - Height_Renamed)
 				X = X - (Width_Renamed - GridWidth) / 2
 				' Determine if cursor in picture
-				If PointIn(CombatMouseX, CombatMouseY, X, Y, Width_Renamed, Height_Renamed) Then
-					'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					If GetPixel(picCPic(n).hdc, CombatMouseX - X + Turns(Paint_Renamed(c)).Ref.Facing * Width_Renamed, CombatMouseY - Y + Height_Renamed) = 0 Then
-						CreatureTarget = Turns(Paint_Renamed(c)).Ref
-						' Determine if valid to target this creature
-						Found = False
-						Select Case MenuNow
-							Case bdMenuTargetCreature
-								If CreatureWithTurn.Friendly <> CreatureTarget.Friendly Then
-									Found = True
-								End If
-							Case bdMenuTargetAny
-								Found = True
-							Case bdMenuTargetParty
-								If CreatureWithTurn.Friendly = CreatureTarget.Friendly Then
-									Found = True
-								End If
-							Case Else
-								Found = True
-						End Select
-						If Found = True Then
-							Target = Paint_Renamed(c)
-							If Target <> LastTarget Then
-								Call PlayClickSnd(modIOFunc.ClickType.ifClickPass)
-								LastTarget = Paint_Renamed(c)
-								CombatDrawAttack(CreatureWithTurn, CreatureTarget, False)
-								CombatFindPath(CreatureWithTurn, CreatureTarget.Col, CreatureTarget.Row)
-								CombatDraw(1)
-							End If
-						Else
-							Target = -1
-						End If
-						Exit Sub
-					End If
-				End If
+                If PointIn(CombatMouseX, CombatMouseY, X, Y, Width_Renamed, Height_Renamed) Then
+                    Dim src As Graphics = picCPic(n).CreateGraphics()
+                    Dim hdc As IntPtr = src.GetHdc
+                    If GetPixel(hdc, CombatMouseX - X + Turns(Paint_Renamed(c)).Ref.Facing * Width_Renamed, CombatMouseY - Y + Height_Renamed) = 0 Then
+                        CreatureTarget = Turns(Paint_Renamed(c)).Ref
+                        ' Determine if valid to target this creature
+                        Found = False
+                        Select Case MenuNow
+                            Case bdMenuTargetCreature
+                                If CreatureWithTurn.Friendly <> CreatureTarget.Friendly Then
+                                    Found = True
+                                End If
+                            Case bdMenuTargetAny
+                                Found = True
+                            Case bdMenuTargetParty
+                                If CreatureWithTurn.Friendly = CreatureTarget.Friendly Then
+                                    Found = True
+                                End If
+                            Case Else
+                                Found = True
+                        End Select
+                        If Found = True Then
+                            Target = Paint_Renamed(c)
+                            If Target <> LastTarget Then
+                                Call PlayClickSnd(modIOFunc.ClickType.ifClickPass)
+                                LastTarget = Paint_Renamed(c)
+                                CombatDrawAttack(CreatureWithTurn, CreatureTarget, False)
+                                CombatFindPath(CreatureWithTurn, CreatureTarget.Col, CreatureTarget.Row)
+                                CombatDraw(1)
+                            End If
+                        Else
+                            Target = -1
+                        End If
+                        Exit Sub
+                    End If
+                End If
 			End If
 		Next c
 		If LastTarget <> -1 Then
@@ -4149,14 +4132,11 @@ BackToPreviousState:
 			n = Int(n / 2 + 0.5)
 			' Display (c = Number of Shields-1, k = Type of Shield)
 			If k > -1 Then
-				For c = 0 To n - 1
-					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picToHit.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picToHit.hdc, 268 + c * 36, 2, 32, 32, picMisc.hdc, 96, 197, SRCAND)
-					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picToHit.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picToHit.hdc, 268 + c * 36, 2, 32, 32, picMisc.hdc, k * 32, 197, SRCPAINT)
-				Next c
+                For c = 0 To n - 1
+                    picToHit = CType(CopyRect(picMisc, New RectangleF(268 + c * 36, 2, 32, 32), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                    picToHit = CType(CopyRect(picMisc, New RectangleF(268 + c * 36, 2, 32, 32), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+
+                Next c
 			End If
 			If RollIt Then
 				n = Int(Rnd() * 5) + 5
