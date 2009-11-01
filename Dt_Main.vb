@@ -4204,29 +4204,18 @@ BackToPreviousState:
 			End Select
 		End If
 		If InCombat = True Then
-			If DicePos = 0 Then
-				'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picToHit.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picToHit.hdc, 132, 40, 40, 40, picDice.hdc, X + picDice.ClientRectangle.Width / 2, Y, SRCAND)
-				'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picToHit.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picToHit.hdc, 132, 40, 40, 40, picDice.hdc, X, Y, SRCPAINT)
-			Else
-				'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picToHit.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picToHit.hdc, 134 + DicePos * 46, 40, 40, 40, picDice.hdc, X + picDice.ClientRectangle.Width / 2, Y, SRCAND)
-				'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picToHit.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picToHit.hdc, 134 + DicePos * 46, 40, 40, 40, picDice.hdc, X, Y, SRCPAINT)
-			End If
-		Else
-			'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picConvo.hdc, 60 + DicePos * 46, picConvo.Height - 52, 40, 40, picDice.hdc, X + picDice.ClientRectangle.Width / 2, Y, SRCAND)
-			'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picConvo.hdc, 60 + DicePos * 46, picConvo.Height - 52, 40, 40, picDice.hdc, X, Y, SRCPAINT)
-		End If
+            If DicePos = 0 Then
+                picToHit = CType(CopyRect(picDice, New RectangleF(132, 40, 40, 40), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                picToHit = CType(CopyRect(picMisc, New RectangleF(132, 40, 40, 40), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+
+            Else
+                picToHit = CType(CopyRect(picDice, New RectangleF(134 + DicePos * 46, 40, 40, 40), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+                picToHit = CType(CopyRect(picDice, New RectangleF(134 + DicePos * 46, 40, 40, 40), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+            End If
+        Else
+            picConvo = CType(CopyRect(picDice, New RectangleF(60 + DicePos * 46, picConvo.Height - 52, 40, 40), CInt(&H8800C6)), System.Drawing.Bitmap).Clone
+            picConvo = CType(CopyRect(picDice, New RectangleF(60 + DicePos * 46, picConvo.Height - 52, 40, 40), CInt(&HEE0086)), System.Drawing.Bitmap).Clone
+        End If
 	End Sub
 	
 	Public Function DiceRoll(ByRef DiceCnt As Short, ByRef DiceToRoll As Short, ByRef Bonus As Short, ByRef Attack As Short, ByRef InCombat As Short) As Short
@@ -4567,9 +4556,7 @@ BackToPreviousState:
 		PosY = ShowText(picConvo, 0, LastY, picConvo.Width, 14, bdFontSmallWhite, "RuneSword Community Forums : www.runesword.com", True, True)
 		DialogSetButton(1, "Wait")
 		ShowButton(picConvo, picConvo.Width - 6 - 96, picConvo.Height - 30, "Wait", False)
-		'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(picConvo.hdc, 0, picConvo.Height - 6, picConvo.Width, 6, picConvoBottom.hdc, 0, 0, SRCCOPY)
+        picConvo = CType(CopyRect(picConvoBottom, New RectangleF(0, picConvo.Height - 6, picConvo.Height, 6), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
 		picConvo.Top = Greatest((picBox.ClientRectangle.Height - picConvo.ClientRectangle.Height) / 2, 0)
 		picConvo.Refresh()
 		picConvo.Visible = True
@@ -4863,11 +4850,9 @@ BackToPreviousState:
 			picCreateName.Visible = True
 			If Index = 0 Then
 				' Display an image of the Map
-				'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = SetStretchBltMode(picTomeNew.hdc, 3)
-				'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = StretchBlt(picTomeNew.hdc, 327, 83, 220, 165, picMap.hdc, 0, 0, picBox.Width, picBox.Height, SRCCOPY)
+                rc = SetSBMode(picTomeNew, 3)
+                rc = SBlt(picTomeNew, picMap, 327, 83, 220, 165, 0, 0, picBox.Width, picBox.Height, SRCCOPY)
+
 				ShowText(picTomeNew, 324, 260, 230, 18, bdFontNoxiousBlack, VB6.Format(Now, "ddd mmm dd yyyy hh:mm AM/PM"), True, False)
 			End If
 		End If
@@ -4902,7 +4887,7 @@ BackToPreviousState:
 				picTmp.Image = System.Drawing.Image.FromFile(ClipPath(ScrollList.Item(c).FileName) & "\screen.bmp")
 				'UPGRADE_ISSUE: PictureBox property picTmp.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picTomeNew.hdc, 327, 83, 220, 165, picTmp.hdc, 0, 0, SRCCOPY)
+                rc = BBlt(picTomeNew, picTmp, 327, 83, 220, 165, 0, 0, SRCCOPY)
 				' Show Date/Time Saved
 				'UPGRADE_WARNING: Couldn't resolve default property of object ScrollList().FileName. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				ShowText(picTomeNew, 324, 260, 230, 18, bdFontNoxiousBlack, VB6.Format(FileDateTime(ScrollList.Item(c).FileName), "ddd mmm dd yyyy hh:mm AM/PM"), True, False)
@@ -4967,39 +4952,25 @@ BackToPreviousState:
 					ShowText(picTomeNew, 328, 98, 215, 14, bdFontNoxiousBlack, "Solo     2-3     4-6     7-9", True, False)
 					For i = 0 To 3
 						If TomeWizardParty = i Then
-							'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(picTomeNew.hdc, 347 + i * 55, 114, 18, 18, picMisc.hdc, 18, 18, SRCCOPY)
+                            rc = BBlt(picTomeNew, picMisc, 347 + i * 55, 114, 18, 18, 18, 18, SRCCOPY)
 						Else
-							'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(picTomeNew.hdc, 347 + i * 55, 114, 18, 18, picMisc.hdc, 0, 18, SRCCOPY)
+                            rc = BBlt(picTomeNew, picMisc, 347 + i * 55, 114, 18, 18, 0, 18, SRCCOPY)
 						End If
 					Next i
 					ShowText(picTomeNew, 328, 146, 215, 14, bdFontElixirBlack, "Experience Level", True, False)
 					ShowText(picTomeNew, 332, 164, 215, 14, bdFontNoxiousBlack, "1-3     4-6     7-10     10+", True, False)
 					For i = 0 To 3
 						If TomeWizardLevel = i Then
-							'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(picTomeNew.hdc, 347 + i * 55, 180, 18, 18, picMisc.hdc, 18, 18, SRCCOPY)
+                            rc = BBlt(picTomeNew, picMisc, 347 + i * 55, 180, 18, 18, 18, 18, SRCCOPY)
 						Else
-							'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(picTomeNew.hdc, 347 + i * 55, 180, 18, 18, picMisc.hdc, 0, 18, SRCCOPY)
+                            rc = BBlt(picTomeNew, picMisc, 347 + i * 55, 180, 18, 18, 0, 18, SRCCOPY)
 						End If
 					Next i
 					' Show Story Listing
 					ShowText(picTomeNew, 328, 212, 215, 14, bdFontElixirBlack, "Story", True, False)
-					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picTomeNew.hdc, 328, 230, 86, 18, picMisc.hdc, 0, 0, SRCCOPY)
-					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picTomeNew.hdc, 414, 230, 82, 18, picMisc.hdc, 4, 0, SRCCOPY)
-					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picTomeNew.hdc, 496, 230, 50, 18, picMisc.hdc, 40, 0, SRCCOPY)
+                    rc = BBlt(picTomeNew, picMisc, 328, 230, 86, 18, 0, 0, SRCCOPY)
+                    rc = BBlt(picTomeNew, picMisc, 414, 230, 82, 18, 4, 0, SRCCOPY)
+                    rc = BBlt(picTomeNew, picMisc, 496, 230, 50, 18, 40, 0, SRCCOPY)
 					If UberWizMaps.MainMapIndex < 1 Then
 						ShowText(picTomeNew, 328, 233, 220, 14, bdFontElixirWhite, "Random", True, False)
 					Else
@@ -5011,13 +4982,9 @@ BackToPreviousState:
 					ShowText(picTomeNew, 324, 278, 220, 14, bdFontNoxiousBlack, "Small   Medium   Large   Huge", True, False)
 					For i = 0 To 3
 						If TomeWizardSize = i Then
-							'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(picTomeNew.hdc, 338 + i * 61, 294, 18, 18, picMisc.hdc, 18, 18, SRCCOPY)
+                            rc = BBlt(picTomeNew, picMisc, 338 + i * 61, 294, 18, 18, 18, 18, SRCCOPY)
 						Else
-							'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(picTomeNew.hdc, 338 + i * 61, 294, 18, 18, picMisc.hdc, 0, 18, SRCCOPY)
+                            rc = BBlt(picTomeNew, picMisc, 338 + i * 61, 294, 18, 18, 0, 18, SRCCOPY)
 						End If
 					Next i
 					' Show Build Message

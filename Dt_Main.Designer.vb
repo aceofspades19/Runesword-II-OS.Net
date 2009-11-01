@@ -62,7 +62,7 @@
 	Public WithEvents picWallPaper As System.Windows.Forms.PictureBox
 	Public WithEvents picGrid As System.Windows.Forms.PictureBox
 	Public WithEvents fraMediaPlayerAVI As System.Windows.Forms.Panel
-	Public WithEvents picMap As System.Windows.Forms.Panel
+    Public WithEvents picMap As System.Windows.Forms.PictureBox
 	Public WithEvents picBox As System.Windows.Forms.Panel
 	Public WithEvents picCMap As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
 	Public WithEvents picCPic As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
@@ -98,7 +98,7 @@
 		Me.picConvoEnter = New System.Windows.Forms.PictureBox
 		Me.picConvoList = New System.Windows.Forms.PictureBox
 		Me.lblHyperLink = New System.Windows.Forms.Label
-		Me.picTPic = New System.Windows.Forms.PictureBox
+        Me.picTPic = New System.Windows.Forms.Panel
 		Me.picTomeNew = New System.Windows.Forms.Panel
 		Me.picCreateName = New System.Windows.Forms.PictureBox
 		Me.picMainMenu = New System.Windows.Forms.PictureBox
