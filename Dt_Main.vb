@@ -5995,9 +5995,7 @@ BackToPreviousState:
 		' Position Thumb Button
 		ThumbY = Int((Height_Renamed - 54) / Greatest(1, Count - 1)) * (Index - 1)
 		WorldScrollBarShow = Y + 18 + ThumbY
-		'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		'UPGRADE_ISSUE: PictureBox property picBox.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(picBox.hdc, X, WorldScrollBarShow, 18, 18, picMisc.hdc, 0, 18, SRCCOPY)
+        rc = BBlt(picBox, picMisc, X, WorldScrollBarShow, 18, 18, 0, 18, SRCCOPY)
 	End Function
 	
 	'UPGRADE_NOTE: Text was upgraded to Text_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
@@ -6072,15 +6070,15 @@ BackToPreviousState:
 				If n = 59 Then ' Special Box as back slash
 					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_WARNING: Couldn't resolve default property of object picBox.hdc. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					rc = BitBlt(picBox.hdc, PosX + 2, PosY - 1, 16, 16, picMisc.hdc, 1, 19, SRCCOPY)
+                    rc = BBlt(picBox, picMisc, PosX + 2, PosY - 1, 16, 16, 1, 19, SRCCOPY)
 					PosX = PosX + 18
 				ElseIf n > -1 And n < 90 Then 
 					'UPGRADE_ISSUE: PictureBox property picFonts.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_WARNING: Couldn't resolve default property of object picBox.hdc. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					rc = BitBlt(picBox.hdc, PosX, PosY, aW(FontIndex, n), FontHeight_Renamed, picFonts.hdc, aX(FontIndex, n), aY(FontIndex, n) + FontMask, SRCAND)
+                    rc = BBlt(picBox, picFonts, PosX, PosY, aW(FontIndex, n), FontHeight_Renamed, aX(FontIndex, n), aY(FontIndex, n) + FontMask, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picFonts.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_WARNING: Couldn't resolve default property of object picBox.hdc. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					rc = BitBlt(picBox.hdc, PosX, PosY, aW(FontIndex, n), FontHeight_Renamed, picFonts.hdc, aX(FontIndex, n), aY(FontIndex, n) + FontTop, SRCPAINT)
+                    rc = BBlt(picBox, picFonts, PosX, PosY, aW(FontIndex, n), FontHeight_Renamed, aX(FontIndex, n), aY(FontIndex, n) + FontTop, SRCPAINT)
 					PosX = PosX + aW(FontIndex, n)
 				Else
 					PosX = PosX + FontSpace
@@ -6111,7 +6109,7 @@ BackToPreviousState:
 		c = FreeFile
 		FileOpen(c, sPath & "\" & Tome.FileName, OpenMode.Binary)
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.SaveToFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Tome.SaveToFile(c)
+        Tome_Renamed.SaveToFile(c)
 		FileClose(c)
 		' Save Area
 		c = FreeFile
@@ -6150,10 +6148,10 @@ Err_Handler:
 		'UPGRADE_ISSUE: PictureBox method picTmp.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         picTmp = Nothing : picTmp.Width = 220 : picTmp.Height = 165
 		'UPGRADE_ISSUE: PictureBox property picTmp.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picTmp.hdc, 3)
+        rc = SetSBMode(picTmp, 3)
 		'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: PictureBox property picTmp.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picTmp.hdc, 0, 0, 220, 165, picMap.hdc, 0, 0, picBox.Width, picBox.Height, SRCCOPY)
+        rc = SBlt(picTmp, picMap, 0, 0, 220, 165, 0, 0, picBox.Width, picBox.Height, SRCCOPY)
 		' Save screen shot
 		'UPGRADE_WARNING: SavePicture was upgraded to System.Drawing.Image.Save and has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
 		picTmp.Image.Save(PathName & "\screen.bmp")
@@ -6419,7 +6417,7 @@ ErrorHandler:
                 c = Map_Renamed.MiddleTile(XMap, YMap)
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If c > 0 And (Map_Renamed.Hidden(XMap, YMap) = False Or Map.Hidden(Least(XMap + 1, Map.Width), YMap) = False Or Map.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
+                If c > 0 And (Map_Renamed.Hidden(XMap, YMap) = False Or Map_Renamed.Hidden(Least(XMap + 1, Map_Renamed.Width), YMap) = False Or Map_Renamed.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     c = Map_Renamed.Tiles("L" & c).Pic
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -6478,14 +6476,14 @@ ErrorHandler:
 		End If
 		' LayerTile: XMap, YMap, x, y, width, height, offx, offy
 		' Plot blank tile if out of bounds
-		If XMap < 0 Or YMap < 0 Or XMap > Map.Width Or YMap > Map.Height Then
-			PlotTileMicro(bdTileBlack, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
-		Else
-			LayerTileMicro(bdMapBottom, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
-			LayerTileMicro(bdMapMiddle, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
-			LayerTileMicro(bdMapTop, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
-			DrawTileAnnotate(XMap, YMap)
-		End If
+        If XMap < 0 Or YMap < 0 Or XMap > MainMap.Width Or YMap > MainMap.Height Then
+            PlotTileMicro(bdTileBlack, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
+        Else
+            LayerTileMicro(bdMapBottom, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
+            LayerTileMicro(bdMapMiddle, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
+            LayerTileMicro(bdMapTop, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
+            DrawTileAnnotate(XMap, YMap)
+        End If
 	End Sub
 	
 	Private Sub PlotTileMicro(ByRef TileToPlot As Short, ByRef X As Short, ByRef Y As Short, ByRef XWidth As Short, ByRef YWidth As Short, ByRef XSrcOff As Short, ByRef YSrcOff As Short, ByRef XFlip As Short)
@@ -6496,10 +6494,10 @@ ErrorHandler:
 		If TileToPlot < 0 Then
 			'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picMicroMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMicroMap.hdc, X, Y, XWidth, YWidth, picBlack.hdc, bdBlackWidth + XSrcOff, YSrcOff, SRCAND)
+            rc = BBlt(picMicroMap, picBlack, X, Y, XWidth, YWidth, bdBlackWidth + XSrcOff, YSrcOff, SRCAND)
 			'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picMicroMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMicroMap.hdc, X, Y, XWidth, YWidth, picBlack.hdc, bdBlackWidth + XSrcOff, picBlackHeightSmall + YSrcOff, SRCPAINT)
+            rc = BBlt(picMicroMap, picBlack, X, Y, XWidth, YWidth, bdBlackWidth + XSrcOff, picBlackHeightSmall + YSrcOff, SRCPAINT)
 		Else
 			' Set height, width and location of tile in bmp
 			MaxHeight = (picTSmall.Height / (bdTileHeight * 2))
@@ -6511,10 +6509,10 @@ ErrorHandler:
 			End If
 			'UPGRADE_ISSUE: PictureBox property picTSmall.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picMicroMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMicroMap.hdc, X, Y, XWidth, YWidth, picTSmall.hdc, TileX + XSrcOff, TileY + YSrcOff + (picTSmall.Height / 2), SRCAND)
+            rc = BBlt(picMicroMap, picTSmall, X, Y, XWidth, YWidth, TileX + XSrcOff, TileY + YSrcOff + (picTSmall.Height / 2), SRCAND)
 			'UPGRADE_ISSUE: PictureBox property picTSmall.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picMicroMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMicroMap.hdc, X, Y, XWidth, YWidth, picTSmall.hdc, TileX + XSrcOff, TileY + YSrcOff, SRCPAINT)
+            rc = BBlt(picMicroMap, picTSmall, X, Y, XWidth, YWidth, TileX + XSrcOff, TileY + YSrcOff, SRCPAINT)
 		End If
 	End Sub
 	
@@ -6823,11 +6821,11 @@ ErrorHandler:
 		Const bdRuneStatement As Short = 23
 		Frozen = True
 		'UPGRADE_ISSUE: PictureBox method picTomeNew.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTomeNew.Cls()
+        picTomeNew = Nothing
 		TomeAction = bdMenuSkill
 		CreateSkillsIndex = Index
 		'UPGRADE_ISSUE: PictureBox method picTomeNew.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTomeNew.Cls()
+        picTomeNew = Nothing
 		ShowText(picTomeNew, 30, 12, 519, 14, bdFontElixirWhite, CreatureWithTurn.Name & " Skills", True, False)
 		ShowText(picTomeNew, 28, 45, 255, 14, bdFontElixirWhite, "Skill Points " & CreatureWithTurn.SkillPoints, False, False)
 		ShowText(picTomeNew, 212, 45, 64, 14, bdFontElixirWhite, "Level", True, False)
@@ -6855,11 +6853,11 @@ ErrorHandler:
 						If CreatureWithTurn.CombatAction1 = ScrollList.Item(c).Index And CreatureWithTurn.CombatAction2 = ScrollList2.Item(c) Then
 							'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 							'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(picTomeNew.hdc, 500, 325, 18, 18, picMisc.hdc, 18, 18, SRCCOPY)
+                            rc = BBlt(picTomeNew, picMisc, 500, 325, 18, 18, 18, 18, SRCCOPY)
 						Else
 							'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 							'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(picTomeNew.hdc, 500, 325, 18, 18, picMisc.hdc, 0, 18, SRCCOPY)
+                            rc = BBlt(picTomeNew, picMisc, 500, 325, 18, 18, 0, 18, SRCCOPY)
 						End If
 						ShowButton(picTomeNew, picTomeNew.ClientRectangle.Width - 198, 364, "Use", False)
 					Case Else
@@ -7090,11 +7088,11 @@ ErrorHandler:
 		Dim rc As Integer
 		Frozen = True
 		'UPGRADE_ISSUE: PictureBox method picMainMenu.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picMainMenu.Cls()
+        picMainMenu = Nothing
 		TomeMenu = bdTomeOptions
 		'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: PictureBox property picMainMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(picMainMenu.hdc, 122, 103, 288, 195, picBlack.hdc, 0, 340, SRCCOPY)
+        rc = BBlt(picMainMenu, picBlack, 122, 103, 288, 195, 0, 340, SRCCOPY)
 		ShowText(picMainMenu, 30, 12, 519, 14, bdFontElixirWhite, "Show which game World is active.", True, False)
 		picMainMenu.Visible = True
 		picMainMenu.BringToFront()
@@ -7115,7 +7113,7 @@ ErrorHandler:
 		picTomeNew.Top = (Me.ClientRectangle.Height - picTomeNew.ClientRectangle.Height) / 2
 		picTomeNew.Left = (Me.ClientRectangle.Width - picTomeNew.ClientRectangle.Width) / 2
 		'UPGRADE_ISSUE: PictureBox method picTomeNew.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTomeNew.Cls()
+        picTomeNew = Nothing
 		ShowText(picTomeNew, 30, 12, 519, 14, bdFontElixirWhite, "Set Game Options", True, False)
 		ShowText(picTomeNew, 19, 45, 273, 14, bdFontElixirWhite, "Options", True, False)
 		n = 0
@@ -7224,11 +7222,11 @@ ErrorHandler:
 				If Status > 0 Then
 					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picTomeNew.hdc, 26, 73 + n * 25, 18, 18, picMisc.hdc, 18, 18, SRCCOPY)
+                    rc = BBlt(picTomeNew, picMisc, 26, 73 + n * 25, 18, 18, 18, 18, SRCCOPY)
 				Else
 					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picTomeNew.hdc, 26, 73 + n * 25, 18, 18, picMisc.hdc, 0, 18, SRCCOPY)
+                    rc = BBlt(picTomeNew, picMisc, 26, 73 + n * 25, 18, 18, 0, 18, SRCCOPY)
 				End If
 				n = n + 1
 			End If
@@ -7243,16 +7241,16 @@ ErrorHandler:
 		If Index = 14 Then ' [Titi 2.4.9] show an example of the dice set
 			'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picTomeNew.hdc, 365, 210, 40, 40, picDice.hdc, picDice.ClientRectangle.Width / 2, 0, SRCAND)
+            rc = BBlt(picTomeNew, picDice, 365, 210, 40, 40, picDice.ClientRectangle.Width / 2, 0, SRCAND)
 			'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picTomeNew.hdc, 365, 210, 40, 40, picDice.hdc, 0, 0, SRCPAINT)
+            rc = BBlt(picTomeNew, picDice, 365, 210, 40, 40, 0, 0, SRCPAINT)
 			'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picTomeNew.hdc, 460, 210, 40, 40, picDice.hdc, picDice.ClientRectangle.Width / 2, 200, SRCAND)
+            rc = BBlt(picTomeNew, picDice, 460, 210, 40, 40, picDice.ClientRectangle.Width / 2, 200, SRCAND)
 			'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picTomeNew.hdc, 460, 210, 40, 40, picDice.hdc, 0, 200, SRCPAINT)
+            rc = BBlt(picTomeNew, picDice, 460, 210, 40, 40, 0, 200, SRCPAINT)
 			'        rc = BitBlt(picTomeNew.hdc, 365, 230, picDice.Width / 16, picDice.Height / 9, picDice.hdc, 0, 0, SRCCOPY)
 			'        rc = BitBlt(picTomeNew.hdc, 460, 230, picDice.Width / 16, picDice.Height / 9, picDice.hdc, 0, picDice.Height / 9 * 5, SRCCOPY)
 		ElseIf Index = 15 Then  ' [Titi 2.4.9] display current shortcuts keys
