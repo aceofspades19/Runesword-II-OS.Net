@@ -26,7 +26,7 @@ Friend Class frmMain
     Dim CombatDiceValue(5) As Short
     Dim MainMap As Map
     Dim tome As Tome
-
+    Dim area As Area
 	Const bdCombatGridWidth As Short = 48
 	Const bdCombatGridHeight As Short = 24
 	Const bdCombatTop As Short = 135
@@ -7350,18 +7350,14 @@ ErrorHandler:
 			If blnShow2 Then ResizePicture(picToHit, Size2, X2, Y2)
 			If blnShow1 And blnShow2 Then
 				' two pics available
-				'UPGRADE_ISSUE: PictureBox method picTomeNew.PaintPicture was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				picTomeNew.PaintPicture(picTmp, 330 + X1, 202 + Y1, picTmp.Width * Size1, picTmp.Height * Size1)
-				'UPGRADE_ISSUE: PictureBox method picTomeNew.PaintPicture was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				picTomeNew.PaintPicture(picToHit, 434 + X2, 202 + Y2, picToHit.Width * Size2, picToHit.Height * Size2)
+                DrawImage(picTmp, 330 + X1, 202 + Y1, picTmp.Width * Size1, picTmp.Height * Size1)
+                DrawImage(picToHit, 434 + X2, 202 + Y2, picToHit.Width * Size2, picToHit.Height * Size2)
 			ElseIf blnShow1 Then 
-				' only the first pic
-				'UPGRADE_ISSUE: PictureBox method picTomeNew.PaintPicture was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				picTomeNew.PaintPicture(picTmp, 382 + X1, 202 + Y1, picTmp.Width * Size1, picTmp.Height * Size1)
-			ElseIf blnShow2 Then 
-				' only the second pic
-				'UPGRADE_ISSUE: PictureBox method picTomeNew.PaintPicture was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				picTomeNew.PaintPicture(picToHit, 382 + X2, 202 + Y2, picToHit.Width * Size2, picToHit.Height * Size2)
+                ' only the first pic
+                DrawImage(picTmp, 382 + X1, 202 + Y1, picTmp.Width * Size1, picTmp.Height * Size1)
+            ElseIf blnShow2 Then
+                ' only the second pic
+                DrawImage(picToHit, 382 + X2, 202 + Y2, picToHit.Width * Size2, picToHit.Height * Size2)
 			Else
 				' nothing, in that case default to the world map
 				If oFileSys.CheckExists(gAppPath & "\Roster\" & WorldTemp.Name & "\" & WorldTemp.PictureFile, clsInOut.IOActionType.File) = False Then
@@ -7378,7 +7374,7 @@ ErrorHandler:
 				End If
 				ResizePicture(picTmp, Size1, X1, Y1)
 				'UPGRADE_ISSUE: PictureBox method picTomeNew.PaintPicture was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				picTomeNew.PaintPicture(picTmp, 382 + X1, 202 + Y1, picTmp.Width * Size1, picTmp.Height * Size1)
+                DrawImage(picTmp, 382 + X1, 202 + Y1, picTmp.Width * Size1, picTmp.Height * Size1)
 			End If
 			' now, reset picToHit
 			picToHit.Image = System.Drawing.Image.FromFile(gDataPath & "\Interface\" & GlobalInterfaceName & "\" & "CombatRoll.bmp")
@@ -7480,13 +7476,14 @@ ErrorHandler:
 					BorderDrawButtons(0)
 					Me.Refresh()
 					'UPGRADE_ISSUE: PictureBox method picMainMenu.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					picMainMenu.Cls()
+                    picMainMenu = Nothing
+                    picMainMenu.Invalidate()
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMainMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMainMenu.hdc, 122, 103, 288, 195, picBlack.hdc, 0, 340, SRCCOPY)
+                    rc = BBlt(picMainMenu, picBlack, 122, 103, 288, 195, 0, 340, SRCCOPY)
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMainMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMainMenu.hdc, 122, 103 + 0 * 39, 288, 39, picBlack.hdc, 0, 536 + 0 * 39, SRCCOPY)
+                    rc = BBlt(picMainMenu, picBlack, 122, 103 + 0 * 39, 288, 39, 0, 536 + 0 * 39, SRCCOPY)
 					picMainMenu.Refresh()
 					If picGrid.Visible = False Then
 						MenuDrawParty()
@@ -7528,12 +7525,12 @@ ErrorHandler:
 					GlobalCredits = "0"
 					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picTomeNew.hdc, 26, 73 + 14 * 25, 18, 18, picMisc.hdc, 0, 18, SRCCOPY)
+                    rc = BBlt(picTomeNew, picMisc, 26, 73 + 14 * 25, 18, 18, 0, 18, SRCCOPY)
 				Else
 					GlobalCredits = "1"
 					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picTomeNew.hdc, 26, 73 + 14 * 25, 18, 18, picMisc.hdc, 18, 18, SRCCOPY)
+                    rc = BBlt(picTomeNew, picMisc, 26, 73 + 14 * 25, 18, 18, 18, 18, SRCCOPY)
 				End If
 				Call oErr.LogText("Splash option changed. GlobalCredits = " & GlobalCredits)
 		End Select
@@ -7922,7 +7919,7 @@ ErrorHandler:
 					Me.Refresh()
 					Call PlayClickSnd(modIOFunc.ClickType.ifClickCast)
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Map.Runes(c) = Map.Runes(c) + 1
+                    Map_Renamed.Runes(c) = Map_Renamed.Runes(c) + 1
 				End If
 			Next c
 			BorderDrawSides(True, -1)
@@ -8051,8 +8048,8 @@ ErrorHandler:
 		DoorNearBy = False
 		For c = 1 To 3
 			If c > 1 Then
-				X = Greatest(Least(AtX + DirX(c), (Map.Width)), 0)
-				Y = Greatest(Least(AtY + DirY(c), (Map.Height)), 0)
+                X = Greatest(Least(AtX + DirX(c), (Map_Renamed.Width)), 0)
+                Y = Greatest(Least(AtY + DirY(c), (Map_Renamed.Height)), 0)
 			Else
 				X = AtX
 				Y = AtY
@@ -8060,11 +8057,11 @@ ErrorHandler:
 			' Check all layers for a door
 			For i = 0 To 2
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If DoorNearByTile(Map.Tile(i, X, Y)) = True Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object DoorNearBy. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					DoorNearBy = True
-					Exit For
-				End If
+                If DoorNearByTile(Map_Renamed.Tile(i, X, Y)) = True Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object DoorNearBy. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    DoorNearBy = True
+                    Exit For
+                End If
 			Next i
 			'UPGRADE_WARNING: Couldn't resolve default property of object DoorNearBy. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			If DoorNearBy = True Then
@@ -8096,8 +8093,8 @@ ErrorHandler:
 		Found = False
 		For c = 1 To 3
 			If c > 1 Then
-				X = Greatest(Least(AtX + DirX(c), (Map.Width)), 0)
-				Y = Greatest(Least(AtY + DirY(c), (Map.Height)), 0)
+                X = Greatest(Least(AtX + DirX(c), (Map_Renamed.Width)), 0)
+                Y = Greatest(Least(AtY + DirY(c), (Map_Renamed.Height)), 0)
 			Else
 				X = AtX
 				Y = AtY
@@ -8105,13 +8102,13 @@ ErrorHandler:
 			' Look at all levels
 			For i = 0 To 2
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If DoorNearByTile(Map.Tile(i, X, Y)) = True Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					TileX = Map.Tiles("L" & Map.Tile(i, X, Y))
-					Found = True
-					Exit For
-				End If
+                If DoorNearByTile(Map_Renamed.Tile(i, X, Y)) = True Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    TileX = Map_Renamed.Tiles("L" & Map_Renamed.Tile(i, X, Y))
+                    Found = True
+                    Exit For
+                End If
 			Next i
 			If Found = True Then
 				Exit For
@@ -8164,24 +8161,24 @@ ErrorHandler:
 							'                        Map.Tiles("L" & Map.Tile(i, X, Y)).Chance = 0
 							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							Map.Tiles("L" & Map.Tile(i, X, Y)).Key = 0
+                            Map_Renamed.Tiles("L" & Map_Renamed.Tile(i, X, Y)).Key = 0
 						Else
 							DialogDM(CreatureWithTurn.Name & " failed to pick the lock on the door.")
 							' [Titi 2.4.9] failure - it is now more difficult to pick the lock!
 							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							Map.Tiles("L" & Map.Tile(i, X, Y)).Chance = Map.Tiles("L" & Map.Tile(i, X, Y)).Chance - 5
+                            Map_Renamed.Tiles("L" & Map_Renamed.Tile(i, X, Y)).Chance = Map_Renamed.Tiles("L" & Map_Renamed.Tile(i, X, Y)).Chance - 5
 							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							If Map.Tiles("L" & Map.Tile(i, X, Y)).Chance <= 0 Then
-								' too many failures - only option now is to bash the door open...
-								'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								Map.Tiles("L" & Map.Tile(i, X, Y)).Chance = Int(Rnd() * 100)
-								'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								Map.Tiles("L" & Map.Tile(i, X, Y)).Key = 0
-							End If
+                            If Map_Renamed.Tiles("L" & Map_Renamed.Tile(i, X, Y)).Chance <= 0 Then
+                                ' too many failures - only option now is to bash the door open...
+                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                Map_Renamed.Tiles("L" & Map_Renamed.Tile(i, X, Y)).Chance = Int(Rnd() * 100)
+                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                Map_Renamed.Tiles("L" & Map_Renamed.Tile(i, X, Y)).Key = 0
+                            End If
 						End If
 					Else
 						DialogDM("The door is locked.")
@@ -8207,7 +8204,7 @@ ErrorHandler:
 				NoFail = FireTriggers(EncounterNow, bdPreOpen)
 				If NoFail Then
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Map.Tile(i, X, Y) = TileX.SwapTile
+                    Map_Renamed.Tile(i, X, Y) = TileX.SwapTile
 					'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 					'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 					MovePartySet(0, 0, Tome.MapX, Tome.MapY)
@@ -8578,7 +8575,8 @@ ErrorHandler:
 		InvContainer = ContainerX
 		InvContainer.Selected = True
 		'UPGRADE_ISSUE: PictureBox method picContainer.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picContainer.Cls()
+        picContainer = Nothing
+        picContainer.Invalidate()
 		' Show header
 		ShowText(picContainer, 0, 12, picContainer.Width, 14, bdFontElixirWhite, (InvContainer.Name), True, False)
 		' Clear current locations
@@ -8602,10 +8600,10 @@ ErrorHandler:
 					' Paint the Item picture
 					'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picContainer.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picContainer.hdc, X, Y, Width_Renamed, Height_Renamed - yOffSet, picItem.hdc, 64 * ItemX.Pic - 64, 96, SRCAND)
+                    rc = BBlt(picContainer, picItem, X, Y, Width_Renamed, Height_Renamed - yOffSet, 64 * ItemX.Pic - 64, 96, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picContainer.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picContainer.hdc, X, Y, Width_Renamed, Height_Renamed - yOffSet, picItem.hdc, 64 * ItemX.Pic - 64, 0, SRCPAINT)
+                    rc = BBlt(picContainer, picItem, X, Y, Width_Renamed, Height_Renamed - yOffSet, 64 * ItemX.Pic - 64, 0, SRCPAINT)
 					If ItemX.Capacity > 0 And yOffSet = 0 Then
 						ShowText(picContainer, X, Y, Width_Renamed, 10, bdFontSmallWhite, "(" & ItemX.Items.Count() & ")", 1, False)
 					End If
@@ -8662,65 +8660,65 @@ ErrorHandler:
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If Map.EncPointer(Tome.MapX, Tome.MapY) = 0 Then
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.AddEncounter. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				EncounterNow = Map.AddEncounter
-				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Map.EncPointer(Tome.MapX, Tome.MapY) = EncounterNow.Index
-			End If
+            If Map_Renamed.EncPointer(Tome_Renamed.MapX, Tome_Renamed.MapY) = 0 Then
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.AddEncounter. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                EncounterNow = Map_Renamed.AddEncounter
+                'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                Map_Renamed.EncPointer(Tome_Renamed.MapX, Tome_Renamed.MapY) = EncounterNow.Index
+            End If
 			ItemX = EncounterNow.AddItem
 			ItemX.Copy(ItemToDrop)
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			PositionItem(Map, EncounterNow, ItemX)
-			NoFail = FireTriggers(ItemToDrop, bdPostDropItem)
-			DropItem = True
-		Else
-			DropItem = False
-		End If
-	End Function
-	
-	Private Function DestroyItem(ByRef FromChar As Creature, ByRef ItemToDestroy As Item) As Short
-		' Unready (if necessary)
-		If UnReadyItem(FromChar, ItemToDestroy) Then
-			' If above checks ok, drop item between characters/lists
-			FromChar.RemoveItem("I" & ItemToDestroy.Index)
-			DestroyItem = True
-		Else
-			DestroyItem = False
-		End If
-	End Function
-	
-	Private Sub GameEnd(ByRef AskToEnd As Short)
-		Dim c As Short
-		' Ask if really wish to stop
-		picMainMenu.Visible = False
-		If AskToEnd = True Then
-			DialogSetUp(modGameGeneral.DLGTYPE.bdDlgNoReply)
-			DialogSetButton(1, "No")
-			DialogSetButton(2, "Yes")
-			DialogShow("DM", "Do you really wish to quit this game?")
-			DialogHide()
-		End If
-		If ConvoAction = 0 Or AskToEnd = False Then
-			GameClear()
-			' Back to Main Menu
-			'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
-			System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-			picMenu.Visible = False
-			Frozen = True
-			'UPGRADE_ISSUE: Form method frmMain.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			frmMain.Cls()
-			BorderDrawAll(False)
-			TomeMenu = bdNone
-			picMainMenu.Visible = True
-			Call PlayMusic(WorldNow.IntroMusic, Me, WorldNow.MusicFolder)
-			Me.Refresh()
-		Else
-			Frozen = False
-		End If
-	End Sub
+            PositionItem(Map_Renamed, EncounterNow, ItemX)
+            NoFail = FireTriggers(ItemToDrop, bdPostDropItem)
+            DropItem = True
+        Else
+            DropItem = False
+        End If
+    End Function
+
+    Private Function DestroyItem(ByRef FromChar As Creature, ByRef ItemToDestroy As Item) As Short
+        ' Unready (if necessary)
+        If UnReadyItem(FromChar, ItemToDestroy) Then
+            ' If above checks ok, drop item between characters/lists
+            FromChar.RemoveItem("I" & ItemToDestroy.Index)
+            DestroyItem = True
+        Else
+            DestroyItem = False
+        End If
+    End Function
+
+    Private Sub GameEnd(ByRef AskToEnd As Short)
+        Dim c As Short
+        ' Ask if really wish to stop
+        picMainMenu.Visible = False
+        If AskToEnd = True Then
+            DialogSetUp(modGameGeneral.DLGTYPE.bdDlgNoReply)
+            DialogSetButton(1, "No")
+            DialogSetButton(2, "Yes")
+            DialogShow("DM", "Do you really wish to quit this game?")
+            DialogHide()
+        End If
+        If ConvoAction = 0 Or AskToEnd = False Then
+            GameClear()
+            ' Back to Main Menu
+            'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+            picMenu.Visible = False
+            Frozen = True
+            'UPGRADE_ISSUE: Form method frmMain.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+            Me.Invalidate()
+            BorderDrawAll(False)
+            TomeMenu = bdNone
+            picMainMenu.Visible = True
+            Call PlayMusic(WorldNow.IntroMusic, Me, WorldNow.MusicFolder)
+            Me.Refresh()
+        Else
+            Frozen = False
+        End If
+    End Sub
 	
 	Private Sub GameClear()
 		Dim c As Short
@@ -8747,7 +8745,7 @@ ErrorHandler:
 		MessageShow("Clearing Map..", 0)
 		Area = New Area
 		MessageShow("Clearing Map...", 0)
-		Map = New Map
+        MainMap = New Map
 		MessageShow("Clearing Map....", 0)
 		EncounterNow = New Encounter
 	End Sub
@@ -8818,15 +8816,15 @@ ErrorHandler:
 				For c = 0 To Cels
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picTmp.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picTmp.hdc, 0, 0, Width_Renamed, Height_Renamed, picGrid.hdc, FromX + c * RateX, FromY + c * RateY, SRCCOPY)
+                    rc = BBlt(picTmp, picGrid, 0, 0, Width_Renamed, Height_Renamed, FromX + c * RateX, FromY + c * RateY, SRCCOPY)
 					picTmp.Refresh()
 					i = LoopNumber(0, Frames - 1, i, 1)
 					'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, picSFXPic(Pic).hdc, i * Width_Renamed + Flip, Height_Renamed, SRCAND)
+                    rc = BBlt(picGrid, picSFXPic(Pic), FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, i * Width_Renamed + Flip, Height_Renamed, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, picSFXPic(Pic).hdc, i * Width_Renamed + Flip, 0, SRCPAINT)
+                    rc = BBlt(picGrid, picSFXPic(Pic), FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, i * Width_Renamed + Flip, 0, SRCPAINT)
 					picGrid.Refresh()
 					Select Case Speed
 						Case 0 ' Fast
@@ -8838,7 +8836,7 @@ ErrorHandler:
 					End Select
 					'UPGRADE_ISSUE: PictureBox property picTmp.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, picTmp.hdc, 0, 0, SRCCOPY)
+                    rc = BBlt(picGrid, picTmp, FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, 0, 0, SRCCOPY)
 				Next c
 			Case bdSFXStream
 				i = 0
@@ -8846,10 +8844,10 @@ ErrorHandler:
 					i = LoopNumber(0, Frames - 1, i, 1)
 					'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, picSFXPic(Pic).hdc, i * Width_Renamed + Flip, Height_Renamed, SRCAND)
+                    rc = BBlt(picGrid, picSFXPic(Pic), FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, i * Width_Renamed + Flip, Height_Renamed, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, picSFXPic(Pic).hdc, i * Width_Renamed + Flip, 0, SRCPAINT)
+                    rc = BBlt(picGrid, picSFXPic(Pic), FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, i * Width_Renamed + Flip, 0, SRCPAINT)
 					picGrid.Refresh()
 					Select Case Speed
 						Case 0 ' Fast
@@ -8872,10 +8870,10 @@ ErrorHandler:
 					i = LoopNumber(0, Frames - 1, i, 1)
 					'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, picSFXPic(Pic).hdc, i * Width_Renamed + Flip, Height_Renamed, SRCAND)
+                    rc = BBlt(picGrid, picSFXPic(Pic), FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, i * Width_Renamed + Flip, Height_Renamed, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, picSFXPic(Pic).hdc, i * Width_Renamed + Flip, 0, SRCPAINT)
+                    rc = BBlt(picGrid, picSFXPic(Pic), FromX + c * RateX, FromY + c * RateY, Width_Renamed, Height_Renamed, i * Width_Renamed + Flip, 0, SRCPAINT)
 					picGrid.Refresh()
 					Select Case Speed
 						Case 0 ' Fast
@@ -8891,14 +8889,14 @@ ErrorHandler:
 				For i = 0 To Frames - 1
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picTmp.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picTmp.hdc, 0, 0, Width_Renamed, Height_Renamed, picGrid.hdc, FromX, FromY, SRCCOPY)
+                    rc = BBlt(picTmp, picGrid, 0, 0, Width_Renamed, Height_Renamed, FromX, FromY, SRCCOPY)
 					picTmp.Refresh()
 					'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, FromX, FromY, Width_Renamed, Height_Renamed, picSFXPic(Pic).hdc, i * Width_Renamed + Flip, Height_Renamed, SRCAND)
+                    rc = BBlt(picGrid, picSFXPic(Pic), FromX, FromY, Width_Renamed, Height_Renamed, i * Width_Renamed + Flip, Height_Renamed, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, FromX, FromY, Width_Renamed, Height_Renamed, picSFXPic(Pic).hdc, i * Width_Renamed + Flip, 0, SRCPAINT)
+                    rc = BBlt(picGrid, picSFXPic(Pic), FromX, FromY, Width_Renamed, Height_Renamed, i * Width_Renamed + Flip, 0, SRCPAINT)
 					picGrid.Refresh()
 					Select Case Speed
 						Case 0 ' Fast
@@ -8910,20 +8908,20 @@ ErrorHandler:
 					End Select
 					'UPGRADE_ISSUE: PictureBox property picTmp.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, FromX, FromY, Width_Renamed, Height_Renamed, picTmp.hdc, 0, 0, SRCCOPY)
+                    rc = BBlt(picGrid, picTmp, FromX, FromY, Width_Renamed, Height_Renamed, 0, 0, SRCCOPY)
 				Next i
 			Case bdSFXBurstThere
 				For i = 0 To Frames - 1
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picTmp.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picTmp.hdc, 0, 0, Width_Renamed, Height_Renamed, picGrid.hdc, ToX, ToY, SRCCOPY)
+                    rc = BBlt(picTmp, picGrid, 0, 0, Width_Renamed, Height_Renamed, ToX, ToY, SRCCOPY)
 					picTmp.Refresh()
 					'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, ToX, ToY, Width_Renamed, Height_Renamed, picSFXPic(Pic).hdc, i * Width_Renamed + Flip, Height_Renamed, SRCAND)
+                    rc = BBlt(picGrid, picSFXPic(Pic), ToX, ToY, Width_Renamed, Height_Renamed, i * Width_Renamed + Flip, Height_Renamed, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, ToX, ToY, Width_Renamed, Height_Renamed, picSFXPic(Pic).hdc, i * Width_Renamed + Flip, 0, SRCPAINT)
+                    rc = BBlt(picGrid, picSFXPic(Pic), ToX, ToY, Width_Renamed, Height_Renamed, i * Width_Renamed + Flip, 0, SRCPAINT)
 					picGrid.Refresh()
 					Select Case Speed
 						Case 0 ' Fast
@@ -8935,7 +8933,7 @@ ErrorHandler:
 					End Select
 					'UPGRADE_ISSUE: PictureBox property picTmp.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picGrid.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picGrid.hdc, ToX, ToY, Width_Renamed, Height_Renamed, picTmp.hdc, 0, 0, SRCCOPY)
+                    rc = BBlt(picGrid, picTmp, ToX, ToY, Width_Renamed, Height_Renamed, 0, 0, SRCCOPY)
 				Next i
 		End Select
 		picGrid.Refresh()
@@ -9001,14 +8999,14 @@ ErrorHandler:
 		Dim Map_Renamed As Object
 		' If TileSet is not loaded, load it now
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If TileSetLoaded <> Map.PictureFile Then
-			LoadTileSet(Darker, False)
-			LoadTileSetMicro()
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			MicroMapLeft = Map.Left
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			MicroMapTop = Map.Top
-		End If
+        If TileSetLoaded <> Map_Renamed.PictureFile Then
+            LoadTileSet(Darker, False)
+            LoadTileSetMicro()
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            MicroMapLeft = Map_Renamed.Left
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            MicroMapTop = Map_Renamed.Top
+        End If
 		' Draw map
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
@@ -9025,7 +9023,7 @@ ErrorHandler:
 		For c = 0 To Int(Me.ClientRectangle.Width / bdIntWidth)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, c * bdIntWidth, 0, bdIntWidth, bdIntHeight, picMisc.hdc, 38, 180, SRCCOPY)
+            rc = BBlt(Me, picMisc, c * bdIntWidth, 0, bdIntWidth, bdIntHeight, 38, 180, SRCCOPY)
 		Next c
 		' Top Corners
 		'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'

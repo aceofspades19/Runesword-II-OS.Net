@@ -208,6 +208,12 @@ Module modBitmaps
 		End Sub
     End Structure
 
+    'Replacement for PaintPicture ;)
+    Public Sub DrawImage(ByVal PB As PictureBox, ByVal x As Integer, ByVal y As Integer, ByVal width As Integer, ByVal height As Integer)
+        Dim g As Graphics = PB.CreateGraphics
+        g.DrawImage(PB.Image, New Rectangle(x, y, width, height))
+    End Sub
+
     Public Function BBlt(ByVal destPic As PictureBox, ByVal srcPic As PictureBox, ByVal nxDest As Integer, ByVal nYDest As Integer, _
                         ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal nXSrc As Integer, ByVal nYSrc As Integer, _
                         ByVal dwRop As Int32) As Integer
