@@ -214,6 +214,20 @@ Module modBitmaps
         g.DrawImage(PB.Image, New Rectangle(x, y, width, height))
     End Sub
 
+    'wrapper function for bblt that gets the hdc of a form
+    Public Function BBltForm(ByVal destForm As Form, ByVal srcPic As PictureBox, ByVal nxDest As Integer, ByVal nYDest As Integer, _
+                             ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal nXSrc As Integer, ByVal nYSrc As Integer, _
+                             ByVal dwRop As Int32) As Integer
+        Dim gr As Graphics = destForm.CreateGraphics
+        Dim bmf As New System.Drawing.Bitmap(destForm.ClientSize.Width, destForm.ClientSize.Height, gr)
+        Dim bm_gr As Graphics = Graphics.FromImage(bmf)
+        Dim bm_hdc As IntPtr = bm_gr.GetHdc
+        Dim src As Graphics = srcPic.CreateGraphics
+        Dim shdc As IntPtr = src.GetHdc
+        BitBlt(bm_hdc, nxDest, nYDest, nWidth, nHeight, shdc, nXSrc, nYSrc, dwRop)
+    End Function
+
+    'Wrapper function for BitBlt
     Public Function BBlt(ByVal destPic As PictureBox, ByVal srcPic As PictureBox, ByVal nxDest As Integer, ByVal nYDest As Integer, _
                         ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal nXSrc As Integer, ByVal nYSrc As Integer, _
                         ByVal dwRop As Int32) As Integer
@@ -223,6 +237,8 @@ Module modBitmaps
         Dim shdc As IntPtr = src.GetHdc
         BitBlt(dhdc, nxDest, nYDest, nWidth, nHeight, shdc, nXSrc, nYSrc, dwRop)
     End Function
+
+    'Wrapper function for StretchBlt
     Public Function SBlt(ByVal PicDest As PictureBox, ByVal PicSrc As PictureBox, ByVal X As Integer, ByVal Y As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal xSrc As Integer, ByVal ySrc As Integer, _
                          ByVal nSrcWidth As Integer, ByVal nSrcHeight As Integer, ByVal dwRop As Integer) As Integer
         Dim dest As Graphics = PicDest.CreateGraphics
@@ -232,6 +248,7 @@ Module modBitmaps
         StretchBlt(dhdc, X, Y, nWidth, nHeight, shdc, xSrc, ySrc, nSrcWidth, nSrcHeight, dwRop)
     End Function
 
+    'Wrapper for StretchDIBits
     Public Function SDIBits(ByVal pic As PictureBox, ByVal DestX As Integer, ByVal DestY As Integer, ByVal wDestWidth As Integer, _
                             ByVal wDestHeight As Integer, ByVal SrcX As Integer, ByVal srcY As Integer, ByVal wSrvWidth As Integer, _
                             ByVal wSrcHeight As Integer, ByVal lpBits As Long, ByVal BitsInfo As BITMAPINFO, ByVal wUsage As Integer, _

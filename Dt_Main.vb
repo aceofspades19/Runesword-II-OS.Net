@@ -9023,15 +9023,15 @@ ErrorHandler:
 		For c = 0 To Int(Me.ClientRectangle.Width / bdIntWidth)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-            rc = BBlt(Me, picMisc, c * bdIntWidth, 0, bdIntWidth, bdIntHeight, 38, 180, SRCCOPY)
+            rc = BBltForm(Me, picMisc, c * bdIntWidth, 0, bdIntWidth, bdIntHeight, 38, 180, SRCCOPY)
 		Next c
 		' Top Corners
 		'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(Me.hdc, 0, 0, bdIntHeight * 2, bdIntHeight, picMisc.hdc, 139, 180, SRCCOPY)
+        rc = BBltForm(Me, picMisc, 0, 0, bdIntHeight * 2, bdIntHeight, 139, 180, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(Me.hdc, Me.ClientRectangle.Width - bdIntHeight * 2, 0, bdIntHeight * 2, bdIntHeight, picMisc.hdc, 139, 180, SRCCOPY)
+        rc = BBltForm(Me, picMisc, Me.ClientRectangle.Width - bdIntHeight * 2, 0, bdIntHeight * 2, bdIntHeight, 139, 180, SRCCOPY)
 	End Sub
 	
 	Private Sub BorderDrawBottom()
@@ -9041,15 +9041,15 @@ ErrorHandler:
 		For c = 0 To Int(Me.ClientRectangle.Width / bdIntWidth)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, c * bdIntWidth, Me.ClientRectangle.Height - bdIntHeight, bdIntWidth, bdIntHeight, picMisc.hdc, 38, 180, SRCCOPY)
+            rc = BBltForm(Me, picMisc, c * bdIntWidth, Me.ClientRectangle.Height - bdIntHeight, bdIntWidth, bdIntHeight, 38, 180, SRCCOPY)
 		Next c
 		' Bottom Corners
 		'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(Me.hdc, 0, Me.ClientRectangle.Height - bdIntHeight, bdIntHeight * 2, bdIntHeight, picMisc.hdc, 139, 180, SRCCOPY)
+        rc = BBltForm(Me, picMisc, 0, Me.ClientRectangle.Height - bdIntHeight, bdIntHeight * 2, bdIntHeight, 139, 180, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(Me.hdc, Me.ClientRectangle.Width - bdIntHeight * 2, Me.ClientRectangle.Height - bdIntHeight, bdIntHeight * 2, bdIntHeight, picMisc.hdc, 139, 180, SRCCOPY)
+        rc = BBltForm(Me, picMisc, Me.ClientRectangle.Width - bdIntHeight * 2, Me.ClientRectangle.Height - bdIntHeight, bdIntHeight * 2, bdIntHeight, 139, 180, SRCCOPY)
 	End Sub
 	
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
@@ -9061,53 +9061,53 @@ ErrorHandler:
 		For c = 0 To Int(Me.ClientRectangle.Height / bdIntWidth)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, 0, 16 + c * bdIntWidth, bdIntHeight * 2, VB6.PixelsToTwipsX(Width), picMisc.hdc, 139, 89, SRCCOPY)
+            rc = BBltForm(Me, picMisc, 0, 16 + c * bdIntWidth, bdIntHeight * 2, VB6.PixelsToTwipsX(Width), 139, 89, SRCCOPY)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, Me.ClientRectangle.Width - bdIntHeight * 2, 16 + c * bdIntWidth, bdIntHeight * 2, bdIntWidth, picMisc.hdc, 139, 89, SRCCOPY)
+            rc = BBltForm(Me, picMisc, Me.ClientRectangle.Width - bdIntHeight * 2, 16 + c * bdIntWidth, bdIntHeight * 2, bdIntWidth, 139, 89, SRCCOPY)
 		Next c
 		' If InGame then Draw Rune Pool
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.IsNoRunes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If InGame = True And Map.IsNoRunes = False Then
-			' Draw number of Runes available
-			For c = 0 To 19
-				If c > 9 Then
-					X = Me.ClientRectangle.Width - 32 : Y = (c - 10) * 32 + 16
-					fx = c * 32 - 320
-					fy = 32
-				Else
-					X = 0 : Y = c * 32 + 16
-					fx = c * 32
-					fy = 0
-				End If
-				If c = ShowRune Then
-					'UPGRADE_ISSUE: PictureBox property picRuneSet.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(Me.hdc, X, Y, 32, 32, picRuneSet.hdc, fx, fy + 128, SRCCOPY)
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					ShowText(Me, X, Y + 22, 32, 10, bdFontSmallWhite, VB6.Format(Map.Runes(c)), True, False)
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				ElseIf Map.Runes(c) > 0 Then 
-					'UPGRADE_ISSUE: PictureBox property picRuneSet.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(Me.hdc, X, Y, 32, 32, picRuneSet.hdc, fx, fy, SRCCOPY)
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					ShowText(Me, X, Y + 22, 32, 10, bdFontSmallWhite, VB6.Format(Map.Runes(c)), True, False)
-				Else
-					'UPGRADE_ISSUE: PictureBox property picRuneSet.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(Me.hdc, X, Y, 32, 32, picRuneSet.hdc, fx, fy + 64, SRCCOPY)
-					ShowText(Me, X, Y + 22, 32, 10, bdFontSmallWhite, "-", True, False)
-				End If
-			Next c
-		End If
+        If InGame = True And Map_Renamed.IsNoRunes = False Then
+            ' Draw number of Runes available
+            For c = 0 To 19
+                If c > 9 Then
+                    X = Me.ClientRectangle.Width - 32 : Y = (c - 10) * 32 + 16
+                    fx = c * 32 - 320
+                    fy = 32
+                Else
+                    X = 0 : Y = c * 32 + 16
+                    fx = c * 32
+                    fy = 0
+                End If
+                If c = ShowRune Then
+                    'UPGRADE_ISSUE: PictureBox property picRuneSet.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                    'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                    rc = BBltForm(Me, picRuneSet, X, Y, 32, 32, fx, fy + 128, SRCCOPY)
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    ShowText(Me, X, Y + 22, 32, 10, bdFontSmallWhite, VB6.Format(Map_Renamed.Runes(c)), True, False)
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                ElseIf Map_Renamed.Runes(c) > 0 Then
+                    'UPGRADE_ISSUE: PictureBox property picRuneSet.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                    'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                    rc = BBltForm(Me, picRuneSet, X, Y, 32, 32, fx, fy, SRCCOPY)
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    ShowText(Me, X, Y + 22, 32, 10, bdFontSmallWhite, VB6.Format(Map_Renamed.Runes(c)), True, False)
+                Else
+                    'UPGRADE_ISSUE: PictureBox property picRuneSet.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                    'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                    rc = BBltForm(Me, picRuneSet, X, Y, 32, 32, fx, fy + 64, SRCCOPY)
+                    ShowText(Me, X, Y + 22, 32, 10, bdFontSmallWhite, "-", True, False)
+                End If
+            Next c
+        End If
 		' Bottom Corners
 		'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(Me.hdc, 0, Me.ClientRectangle.Height - bdIntHeight, bdIntHeight * 2, bdIntHeight, picMisc.hdc, 139, 180, SRCCOPY)
+        rc = BBltForm(Me, picMisc, 0, Me.ClientRectangle.Height - bdIntHeight, bdIntHeight * 2, bdIntHeight, 139, 180, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(Me.hdc, Me.ClientRectangle.Width - bdIntHeight * 2, Me.ClientRectangle.Height - bdIntHeight, bdIntHeight * 2, bdIntHeight, picMisc.hdc, 139, 180, SRCCOPY)
+        rc = BBltForm(Me, picMisc, Me.ClientRectangle.Width - bdIntHeight * 2, Me.ClientRectangle.Height - bdIntHeight, bdIntHeight * 2, bdIntHeight, 139, 180, SRCCOPY)
 	End Sub
 	
 	Private Sub BorderDrawButtons(ByRef ButtonDown As Short, Optional ByVal Ymouse As Short = 0)
@@ -9121,10 +9121,10 @@ ErrorHandler:
 		For c = 0 To Int(Me.ClientRectangle.Width / bdIntWidth)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, c * bdIntWidth, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, bdIntWidth, bdIntHeight, picMisc.hdc, 38, 180, SRCCOPY)
+            rc = BBltForm(Me, picMisc, c * bdIntWidth, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, bdIntWidth, bdIntHeight, 38, 180, SRCCOPY)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, c * bdIntWidth, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 2, bdIntWidth, bdIntHeight, picMisc.hdc, 38, 180, SRCCOPY)
+            rc = BBltForm(Me, picMisc, c * bdIntWidth, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 2, bdIntWidth, bdIntHeight, 38, 180, SRCCOPY)
 		Next c
 		' Draw Buttons
 		Y = Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3 + 7
