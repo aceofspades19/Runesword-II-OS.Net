@@ -40,7 +40,7 @@
 	Public WithEvents picConvoEnter As System.Windows.Forms.PictureBox
 	Public WithEvents picConvoList As System.Windows.Forms.PictureBox
 	Public WithEvents lblHyperLink As System.Windows.Forms.Label
-	Public WithEvents picConvo As System.Windows.Forms.Panel
+    Public WithEvents picConvo As System.Windows.Forms.PictureBox
 	Public WithEvents picTPic As System.Windows.Forms.PictureBox
 	Public WithEvents picCreateName As System.Windows.Forms.PictureBox
     Public WithEvents picTomeNew As System.Windows.Forms.PictureBox

@@ -9202,40 +9202,40 @@ ErrorHandler:
 		If ButtonDown = 7 Then
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, 0, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, picMisc.hdc, 32, 147, SRCCOPY)
+            rc = BBltForm(Me, picMisc, 0, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, 32, 147, SRCCOPY)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, Me.ClientRectangle.Width - 32, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, picMisc.hdc, 64, 147, SRCCOPY)
+            rc = BBltForm(Me, picMisc, Me.ClientRectangle.Width - 32, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, 64, 147, SRCCOPY)
 		ElseIf ButtonDown = 8 Then 
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, 0, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, picMisc.hdc, 0, 147, SRCCOPY)
+            rc = BBltForm(Me, picMisc, 0, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, 0, 147, SRCCOPY)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, Me.ClientRectangle.Width - 32, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, picMisc.hdc, 96, 147, SRCCOPY)
+            rc = BBltForm(Me, picMisc, Me.ClientRectangle.Width - 32, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, 96, 147, SRCCOPY)
 		Else
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, 0, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, picMisc.hdc, 0, 147, SRCCOPY)
+            rc = BBltForm(Me, picMisc, 0, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, 0, 147, SRCCOPY)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, Me.ClientRectangle.Width - 32, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, picMisc.hdc, 64, 147, SRCCOPY)
+            rc = BBltForm(Me, picMisc, Me.ClientRectangle.Width - 32, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - bdIntHeight * 3, 32, 32, 64, 147, SRCCOPY)
 		End If
 		' Fill in around menu sides
 		If picGrid.Visible = False Then
 			'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, 32, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - 16, (Me.ClientRectangle.Width - picMenu.ClientRectangle.Width - 64) / 2, picMenu.ClientRectangle.Height, picConvoBottom.hdc, 0, 6, SRCCOPY)
+            rc = BBltForm(Me, picConvoBottom, 32, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - 16, (Me.ClientRectangle.Width - picMenu.ClientRectangle.Width - 64) / 2, picMenu.ClientRectangle.Height, 0, 6, SRCCOPY)
 			'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, 32 + (Me.ClientRectangle.Width - picMenu.ClientRectangle.Width - 64) / 2 + picMenu.ClientRectangle.Width, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - 16, (Me.ClientRectangle.Width - picMenu.ClientRectangle.Width - 64) / 2, picMenu.ClientRectangle.Height, picConvoBottom.hdc, 0, 6, SRCCOPY)
+            rc = BBltForm(Me, picConvoBottom, 32 + (Me.ClientRectangle.Width - picMenu.ClientRectangle.Width - 64) / 2 + picMenu.ClientRectangle.Width, Me.ClientRectangle.Height - picMenu.ClientRectangle.Height - 16, (Me.ClientRectangle.Width - picMenu.ClientRectangle.Width - 64) / 2, picMenu.ClientRectangle.Height, 0, 6, SRCCOPY)
 		Else
 			'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, 32, Me.ClientRectangle.Height - picToHit.ClientRectangle.Height - 16, (Me.ClientRectangle.Width - picToHit.ClientRectangle.Width - 64) / 2, picToHit.ClientRectangle.Height, picConvoBottom.hdc, 0, 6, SRCCOPY)
+            rc = BBltForm(Me, picConvoBottom, 32, Me.ClientRectangle.Height - picToHit.ClientRectangle.Height - 16, (Me.ClientRectangle.Width - picToHit.ClientRectangle.Width - 64) / 2, picToHit.ClientRectangle.Height, 0, 6, SRCCOPY)
 			'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(Me.hdc, 32 + (Me.ClientRectangle.Width - picToHit.ClientRectangle.Width - 64) / 2 + picToHit.ClientRectangle.Width, Me.ClientRectangle.Height - picToHit.ClientRectangle.Height - 16, (Me.ClientRectangle.Width - picToHit.ClientRectangle.Width - 64) / 2, picToHit.ClientRectangle.Height, picConvoBottom.hdc, 0, 6, SRCCOPY)
+            rc = BBltForm(Me, picConvoBottom, 32 + (Me.ClientRectangle.Width - picToHit.ClientRectangle.Width - 64) / 2 + picToHit.ClientRectangle.Width, Me.ClientRectangle.Height - picToHit.ClientRectangle.Height - 16, (Me.ClientRectangle.Width - picToHit.ClientRectangle.Width - 64) / 2, picToHit.ClientRectangle.Height, 0, 6, SRCCOPY)
 		End If
 	End Sub
 	
@@ -9311,10 +9311,10 @@ ErrorHandler:
 		picConvoBottom.Width = picConvo.Width : picConvoBottom.Height = 6 + picMenu.ClientRectangle.Height
 		'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(picConvoBottom.hdc, 0, 0, picConvo.ClientRectangle.Width, picConvo.ClientRectangle.Height, picConvo.hdc, 0, picConvo.Height - 6, SRCCOPY)
+        rc = BBlt(picConvoBottom, picConvo, 0, 0, picConvo.ClientRectangle.Width, picConvo.ClientRectangle.Height, 0, picConvo.Height - 6, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(picConvoBottom.hdc, 0, 6, picConvo.ClientRectangle.Width, picConvo.ClientRectangle.Height, picConvo.hdc, 6, 64, SRCCOPY)
+        rc = BBlt(picConvoBottom, picConvo, 0, 6, picConvo.ClientRectangle.Width, picConvo.ClientRectangle.Height, 6, 64, SRCCOPY)
 		picConvoBottom.Refresh()
 		picConvoEnter.Image = System.Drawing.Image.FromFile(sPath & "DialogAcceptText.bmp")
 		picConvoList.Image = System.Drawing.Image.FromFile(sPath & "DialogListBox.bmp")
@@ -9708,7 +9708,7 @@ ErrorHandler:
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 		'UPGRADE_ISSUE: Form property frmMain.Image was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		GetObject_Renamed(Image, Len(bm), bm)
+        'GetObject_Renamed(bm.Picture, Len(bm), bm) fix later
 		GlobalScreenX = GetSystemMetrics(SM_CXSCREEN)
 		GlobalScreenY = GetSystemMetrics(SM_CYSCREEN)
 		GlobalScreenColor = CShort(VB6.Format(bm.bmBitsPixel))
@@ -9725,7 +9725,8 @@ ErrorHandler:
 		JournalMode = 0
 		' Load the Options for the Game
 		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTPic.Cls()
+        picTPic = Nothing
+        picTPic.Invalidate()
 		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading game options", True, True)
 		picTPic.Refresh()
 		oErr.logError("GameInit: " & "Loading game options - started")
@@ -9741,7 +9742,8 @@ ErrorHandler:
 		picItem.Height = 96 * 2 + 32
 		' Init all the game variables
 		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTPic.Cls()
+        picTPic = Nothing
+        picTPic.Invalidate()
 		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading game variables", True, True)
 		picTPic.Refresh()
 		Call GameInitVariables()
@@ -9753,7 +9755,8 @@ ErrorHandler:
 		oErr.logError("GameInit: " & "Loading game variables - finished")
 		' Load bones picture for Creature
 		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTPic.Cls()
+        picTPic = Nothing
+        picTPic.Invalidate()
 		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading bones picture", True, True)
 		picTPic.Refresh()
 		oErr.logError("GameInit: " & "Loading bones picture - Started")
@@ -9767,7 +9770,8 @@ ErrorHandler:
 		' Load up the Roster Defaults
 		oErr.logError("GameInit: " & "Loading bones picture - Finished")
 		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTPic.Cls()
+        picTPic = Nothing
+        picTPic.Invalidate()
 		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Roster Defaults", True, True)
 		picTPic.Refresh()
 		Call CreatePCLoadWorlds()
@@ -9781,14 +9785,16 @@ ErrorHandler:
 		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 		' Now load the Story Tomes for the Tome Wizard
 		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTPic.Cls()
+        picTPic = Nothing
+        picTPic.Invalidate()
 		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Story Tomes for the Tome Wizard", True, True)
 		picTPic.Refresh()
 		UberWizMaps = New UberWizard
 		modDungeonMaker.InitUberWizMaps(UberWizMaps)
 		oErr.logError("GameInit: " & "Loading Story Tomes for the Tome Wizard - Started")
 		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTPic.Cls()
+        picTPic = Nothing
+        picTPic.Invalidate()
 		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Interface List", True, True)
 		picTPic.Refresh()
 		' Load Interface List
@@ -9819,7 +9825,8 @@ ErrorHandler:
 		oErr.logError("GameInit: " & "Loading Interface List - Finished")
 		' Load Dice List
 		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTPic.Cls()
+        picTPic = Nothing
+        picTPic.Invalidate()
 		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Dice List", True, True)
 		picTPic.Refresh()
 		oErr.logError("GameInit: " & "Loading Dice List - Started")
@@ -9848,7 +9855,8 @@ ErrorHandler:
 		GlobalDiceIndex = 1
 		oErr.logError("GameInit: " & "Loading Dice List - Finished")
 		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTPic.Cls()
+        picTPic = Nothing
+        picTPic.Invalidate()
 		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Finishing Game Init . . .", True, True)
 		picTPic.Refresh()
 		oErr.logError("GameInit: " & "Finishing Game Init . . .")
@@ -9861,7 +9869,8 @@ ErrorHandler:
 		UberWizMaps.MainMapIndex = 0
 		' Load the splash logo
 		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTPic.Cls()
+        picTPic = Nothing
+        picTPic.Invalidate()
 		picTPic.Visible = False
 		oErr.logError("GameInit: " & "Splash Screen")
 		If (Val(GlobalCredits) = 1) Then
@@ -9956,19 +9965,19 @@ Err_Handler:
 			MakeFadeToBlack(bmSplash, bmFadeToBlack)
 			lpMem = GlobalLock(hMemSplash)
 			'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = SetStretchBltMode(picMap.hdc, 3)
+            rc = SetSBMode(picMap, 3)
 			Width_Renamed = bmSplash.bmiHeader.biWidth
 			Height_Renamed = bmSplash.bmiHeader.biHeight
 			Y = (Me.ClientRectangle.Height - Height_Renamed - picMenu.Height) / 2
 			X = (Me.ClientRectangle.Width - Width_Renamed - 64) / 2
 			'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = StretchDIBits(picMap.hdc, X, Y, Width_Renamed, Height_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmSplash, DIB_RGB_COLORS, SRCCOPY)
+            rc = SDIBits(picMap, X, Y, Width_Renamed, Height_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmSplash, DIB_RGB_COLORS, SRCCOPY)
 			
 			
 			If bFade = 0 Then ' Fade In
 				For c = 0 To 255
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = StretchDIBits(picMap.hdc, X, Y, Width_Renamed, Height_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmFadeToBlack(c), DIB_RGB_COLORS, SRCCOPY)
+                    rc = SDIBits(picMap, X, Y, Width_Renamed, Height_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmFadeToBlack(c), DIB_RGB_COLORS, SRCCOPY)
 					picMap.Refresh()
 					Sleep(10)
 					System.Windows.Forms.Application.DoEvents()
@@ -9988,7 +9997,7 @@ Err_Handler:
 				
 				For c = 255 To 0 Step -5
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = StretchDIBits(picMap.hdc, X, Y, Width_Renamed, Height_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmFadeToBlack(c), DIB_RGB_COLORS, SRCCOPY)
+                    rc = SDIBits(picMap, X, Y, Width_Renamed, Height_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmFadeToBlack(c), DIB_RGB_COLORS, SRCCOPY)
 					picMap.Refresh()
 					Sleep(10)
 					System.Windows.Forms.Application.DoEvents()
@@ -10030,7 +10039,7 @@ Err_Handler:
 		' Que the Rune
 		CreatureX.Runes(c) = RuneToQue + 1
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Map.Runes(RuneToQue) = Map.Runes(RuneToQue) - 1
+        Map_Renamed.Runes(RuneToQue) = Map_Renamed.Runes(RuneToQue) - 1
 		' Show after
 		BorderDrawSides(True, -1)
 		BorderDrawButtons(0)
@@ -10097,7 +10106,7 @@ Err_Handler:
 	
 	Public Function SorceryMatchRunes(ByRef CreatureX As Creature, ByRef Runes() As Byte, ByRef CastIt As Short) As Short
 		Dim k, n, c, i, Found As Short
-		Dim OldPointer As Short
+        Dim OldPointer As Cursor
 		' Returns 0= Ok, 1 = Not Enough ActionPoints, 2 = Undefined, 3 = Too Many Runes, 4 = Not Enough Runes, 99 = Undefined
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		OldPointer = System.Windows.Forms.Cursor.Current
@@ -10412,7 +10421,8 @@ Err_Handler:
 		Dim CreatureX As Creature
 		' List Portraits
 		'UPGRADE_ISSUE: PictureBox method picTalk.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTalk.Cls()
+        picTalk = Nothing
+        picTalk.Invalidate()
 		ShowText(picTalk, 0, 12, picTalk.Width, 14, bdFontElixirWhite, "Talk with " & CreatureTarget.Name, True, False)
 		ScrollTop = Greatest(Least(ScrollTop, ScrollList.Count() - 3), 1)
 		ScrollSelect = Least(Greatest(ScrollSelect, 1), ScrollList.Count())
