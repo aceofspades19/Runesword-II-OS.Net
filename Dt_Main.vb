@@ -10432,15 +10432,15 @@ Err_Handler:
 			LoadCreaturePic(CreatureX)
 			'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTalk.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picTalk.hdc, 18, 38 + 80 * (c - ScrollTop), 66, 76, picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
+            rc = BBlt(picTalk, picFaces, 18, 38 + 80 * (c - ScrollTop), 66, 76, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
 			' Show select indicator
 			If c = ScrollSelect Then
 				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picTalk.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picTalk.hdc, 18, 38 + 80 * (c - ScrollTop), 66, 76, picFaces.hdc, bdFaceSelect + 66, 0, SRCAND)
+                rc = BBlt(picTalk, picFaces, 18, 38 + 80 * (c - ScrollTop), 66, 76, bdFaceSelect + 66, 0, SRCAND)
 				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picTalk.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(picTalk.hdc, 18, 38 + 80 * (c - ScrollTop), 66, 76, picFaces.hdc, bdFaceSelect, 0, SRCPAINT)
+                rc = BBlt(picTalk, picFaces, 18, 38 + 80 * (c - ScrollTop), 66, 76, bdFaceSelect, 0, SRCPAINT)
 			End If
 		Next c
 		' Show Current Reply and Topics
@@ -10839,9 +10839,9 @@ ErrorHandler:
 		Next CreatureX
 		' Draw Borders (turn off drawing runes for a moment) [Titi 2.4.9] moved here to have the borders free of runes when tomes titles/splashscreens show
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.IsNoRunes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Found = Map.IsNoRunes '[Titi 2.4.9]
+        Found = Map_Renamed.IsNoRunes '[Titi 2.4.9]
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.IsNoRunes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Map.IsNoRunes = True
+        Map_Renamed.IsNoRunes = True
 		BorderDrawAll(True)
 		' Fire Post-EnterTome Triggers
 		If TomeX.OnAdventure = False Then
@@ -10873,7 +10873,7 @@ ErrorHandler:
 		' Draw Borders (turn off drawing runes for a moment)
 		'[Titi 2.4.9] set the runes back to the correct status
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.IsNoRunes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Map.IsNoRunes = Found
+        Map_Renamed.IsNoRunes = Found
 		BorderDrawAll(True)
 		picMap.Focus()
 	End Sub
@@ -11023,7 +11023,7 @@ ErrorHandler:
 		'UPGRADE_WARNING: Couldn't resolve default property of object Area.Plot. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		For	Each MapX In Area.Plot.Maps
 			If MapX.Index = MapIndex Or MapX.Name = MapName Then
-				Map = MapX
+                Map_Renamed = MapX
 				Found = True
 				Exit For
 			End If
@@ -11045,11 +11045,11 @@ ErrorHandler:
 		End If
 		' ReGen Map if set
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.GenerateUponEntry. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If Map.GenerateUponEntry = True Then
-			modDungeonMaker.MakeMap(Map, True)
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.GenerateUponEntry. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Map.GenerateUponEntry = False
-		End If
+        If Map_Renamed.GenerateUponEntry = True Then
+            modDungeonMaker.MakeMap(Map_Renamed, True)
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.GenerateUponEntry. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            Map_Renamed.GenerateUponEntry = False
+        End If
 		' Locate EntryPoint and set (if first time in)
 		Found = False
 		For	Each EntryX In MapX.EntryPoints
@@ -11102,15 +11102,15 @@ ErrorHandler:
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If Map.EncPointer(Tome.MapX, Tome.MapY) > 0 Then
-			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			EncounterNow = Map.Encounters("E" & Map.EncPointer(Tome.MapX, Tome.MapY))
-		Else
-			EncounterNow = New Encounter
-		End If
+        If Map_Renamed.EncPointer(tome.MapX, tome.MapY) > 0 Then
+            'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            EncounterNow = Map_Renamed.Encounters("E" & Map_Renamed.EncPointer(tome.MapX, tome.MapY))
+        Else
+            EncounterNow = New Encounter
+        End If
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
 		' Enter Encounter
@@ -11144,26 +11144,26 @@ ErrorHandler:
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		FileName = Dir(Tome.FullPath & "\" & Map.PictureFile)
+        FileName = Dir(tome.FullPath & "\" & Map_Renamed.PictureFile)
 		If FileName = "" Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-			FileName = Dir(Tome.FullPath & "\tiles\" & Map.PictureFile)
+            FileName = Dir(tome.FullPath & "\tiles\" & Map_Renamed.PictureFile)
 			If FileName = "" Then
 				'FileName = Dir(gAppPath & "\data\graphics\tiles\" & Map.PictureFile)
 				'        FileName = gAppPath & "\data\graphics\tiles\" & Map.PictureFile
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				FileName = gDataPath & "\graphics\tiles\" & Map.PictureFile
+                FileName = gDataPath & "\graphics\tiles\" & Map_Renamed.PictureFile
 			Else
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				FileName = Tome.FullPath & "\tiles\" & Map.PictureFile
+                FileName = tome.FullPath & "\tiles\" & Map_Renamed.PictureFile
 			End If
 		Else
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			FileName = Tome.FullPath & "\" & Map.PictureFile
+            FileName = tome.FullPath & "\" & Map_Renamed.PictureFile
 		End If
 		ReadBitmapFile(FileName, bmTiles, hMemTiles, TransparentRGB)
 		' Make a copy of the current palette for the picture
