@@ -225,6 +225,9 @@ Module modBitmaps
         Dim src As Graphics = srcPic.CreateGraphics
         Dim shdc As IntPtr = src.GetHdc
         BitBlt(bm_hdc, nxDest, nYDest, nWidth, nHeight, shdc, nXSrc, nYSrc, dwRop)
+        gr.ReleaseHdc()
+        src.ReleaseHdc()
+
     End Function
 
     'Wrapper function for BitBlt
@@ -236,6 +239,9 @@ Module modBitmaps
         Dim src As Graphics = srcPic.CreateGraphics
         Dim shdc As IntPtr = src.GetHdc
         BitBlt(dhdc, nxDest, nYDest, nWidth, nHeight, shdc, nXSrc, nYSrc, dwRop)
+        dest.ReleaseHdc()
+        src.ReleaseHdc()
+
     End Function
 
     'Wrapper function for StretchBlt
@@ -246,6 +252,9 @@ Module modBitmaps
         Dim src As Graphics = PicSrc.CreateGraphics
         Dim shdc As IntPtr = src.GetHdc
         StretchBlt(dhdc, X, Y, nWidth, nHeight, shdc, xSrc, ySrc, nSrcWidth, nSrcHeight, dwRop)
+        src.ReleaseHdc()
+        dest.ReleaseHdc()
+
     End Function
 
     'Wrapper for StretchDIBits
@@ -305,6 +314,21 @@ Module modBitmaps
         srcMem.Dispose()
     End Function
 
+    'wrapper for GetPIxel win api function
+    Public Function GPixel(ByVal pic As PictureBox, ByVal X As Integer, ByVal Y As Integer) As Integer
+        Dim src As Graphics = pic.CreateGraphics
+        Dim hdc As IntPtr = src.GetHdc
+        GetPixel(hdc, X, Y)
+        src.ReleaseHdc()
+    End Function
+
+    'wrapper for SetPixel win api function
+    Public Function SPixel(ByVal pic As PictureBox, ByVal X As Integer, ByVal Y As Integer, ByVal crColor As Integer) As Integer
+        Dim src As Graphics = pic.CreateGraphics
+        Dim hdc As IntPtr = src.GetHdc
+        SetPixel(hdc, X, Y, crColor)
+        src.ReleaseHdc()
+    End Function
     Public Function ChangeScreenSettings(ByRef lWidth As Short, ByRef lHeight As Short, ByRef lColors As Short) As Short
         Dim tDevMode As DEVMODE
         Dim lTemp, lIndex As Integer

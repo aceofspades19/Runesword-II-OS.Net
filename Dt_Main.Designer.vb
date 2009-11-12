@@ -94,12 +94,12 @@
 		Me.picInventoryStatus = New System.Windows.Forms.PictureBox
 		Me.picItem = New System.Windows.Forms.PictureBox
 		Me.picInventory = New System.Windows.Forms.PictureBox
-		Me.picConvo = New System.Windows.Forms.Panel
+        Me.picConvo = New System.Windows.Forms.PictureBox
 		Me.picConvoEnter = New System.Windows.Forms.PictureBox
 		Me.picConvoList = New System.Windows.Forms.PictureBox
 		Me.lblHyperLink = New System.Windows.Forms.Label
-        Me.picTPic = New System.Windows.Forms.Panel
-		Me.picTomeNew = New System.Windows.Forms.Panel
+        Me.picTPic = New System.Windows.Forms.PictureBox
+        Me.picTomeNew = New System.Windows.Forms.PictureBox
 		Me.picCreateName = New System.Windows.Forms.PictureBox
 		Me.picMainMenu = New System.Windows.Forms.PictureBox
 		Me._picCMap_0 = New System.Windows.Forms.PictureBox
@@ -117,7 +117,7 @@
 		Me.picTSmall = New System.Windows.Forms.PictureBox
 		Me.fraMediaPlayerMusic = New System.Windows.Forms.Panel
 		Me.picBox = New System.Windows.Forms.Panel
-		Me.picMap = New System.Windows.Forms.Panel
+        Me.picMap = New System.Windows.Forms.PictureBox
 		Me.picWallPaper = New System.Windows.Forms.PictureBox
 		Me.picGrid = New System.Windows.Forms.PictureBox
 		Me.fraMediaPlayerAVI = New System.Windows.Forms.Panel

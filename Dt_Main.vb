@@ -11180,19 +11180,19 @@ ErrorHandler:
 		picTSmall.Width = Width_Renamed * 2 * bdMicroSize
 		picTSmall.Height = Height_Renamed * 2 * bdMicroSize
 		'UPGRADE_ISSUE: PictureBox property picTSmall.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picTSmall.hdc, 3)
+        rc = SetSBMode(picTSmall, 3)
 		' Upper left quad: normal picture
 		'UPGRADE_ISSUE: PictureBox property picTSmall.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picTSmall.hdc, 0, 0, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmTiles, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picTSmall, 0, 0, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmTiles, DIB_RGB_COLORS, SRCCOPY)
 		' Upper right quad: flip normal picture
 		'UPGRADE_ISSUE: PictureBox property picTSmall.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picTSmall.hdc, Width_Renamed * bdMicroSize, 0, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, picTSmall.hdc, Width_Renamed * bdMicroSize - 1, 0, -Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, SRCCOPY)
+        rc = SBlt(picTSmall, picTSmall, Width_Renamed * bdMicroSize, 0, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, Width_Renamed * bdMicroSize - 1, 0, -Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, SRCCOPY)
 		' Lower left quad: mask
 		'UPGRADE_ISSUE: PictureBox property picTSmall.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picTSmall.hdc, 0, Height_Renamed * bdMicroSize, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picTSmall, 0, Height_Renamed * bdMicroSize, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		' Lower right quadrant: flip mask
 		'UPGRADE_ISSUE: PictureBox property picTSmall.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picTSmall.hdc, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, picTSmall.hdc, Width_Renamed * bdMicroSize - 1, Height_Renamed * bdMicroSize, -Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, SRCCOPY)
+        rc = SBlt(picTSmall, picTSmall, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, Width_Renamed * bdMicroSize - 1, Height_Renamed * bdMicroSize, -Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, SRCCOPY)
 		' Set Current TileSet Name and release memory
 		rc = GlobalUnlock(hMemTiles)
 		rc = GlobalFree(hMemTiles)
@@ -11208,9 +11208,9 @@ ErrorHandler:
 		picBlack.Width = bdBlackWidth + Width_Renamed * bdMicroSize
 		' Writes out normal tiles (black border) to upper left.
 		'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picBlack.hdc, 3)
+        rc = SetSBMode(picBlack, 3)
 		'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picBlack.hdc, bdBlackWidth, 0, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmTiles, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picBlack, bdBlackWidth, 0, Width_Renamed * bdMicroSize, Height_Renamed * bdMicroSize, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmTiles, DIB_RGB_COLORS, SRCCOPY)
 		' Release memory
 		rc = GlobalUnlock(hMemTiles)
 		rc = GlobalFree(hMemTiles)
@@ -11247,25 +11247,25 @@ ErrorHandler:
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		FileName = Dir(Tome.FullPath & "\" & Map.PictureFile)
+        FileName = Dir(tome.FullPath & "\" & Map_Renamed.PictureFile)
 		If FileName = "" Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-			FileName = Dir(Tome.FullPath & "\tiles\" & Map.PictureFile)
+            FileName = Dir(tome.FullPath & "\tiles\" & Map_Renamed.PictureFile)
 			If FileName = "" Then
 				'    FileName = gAppPath & "\data\graphics\tiles\" & Map.PictureFile
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				FileName = gDataPath & "\graphics\tiles\" & Map.PictureFile
+                FileName = gDataPath & "\graphics\tiles\" & Map_Renamed.PictureFile
 			Else
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				FileName = Tome.FullPath & "\tiles\" & Map.PictureFile
+                FileName = tome.FullPath & "\tiles\" & Map_Renamed.PictureFile
 			End If
 		Else
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			FileName = Tome.FullPath & "\" & Map.PictureFile
+            FileName = tome.FullPath & "\" & Map_Renamed.PictureFile
 		End If
 		ReadBitmapFile(FileName, bmTiles, hMemTiles, TransparentRGB)
 		' Make a copy of the current palette for the picture
@@ -11280,17 +11280,18 @@ ErrorHandler:
 		MakeMask(bmTiles, bmMask, TransparentRGB)
 		' Darken a bit
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.IsOutside. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If Map.IsOutside = True Then
-			MakeDark(bmBlack, bmDark, AsDark)
-		Else
-			MakeDark(bmBlack, bmDark, 0)
-		End If
+        If Map_Renamed.IsOutside = True Then
+            MakeDark(bmBlack, bmDark, AsDark)
+        Else
+            MakeDark(bmBlack, bmDark, 0)
+        End If
 		' Paint bitmap to picture box using converted palette
 		lpMem = GlobalLock(hMemTiles)
 		Width_Renamed = bmTiles.bmiHeader.biWidth
 		Height_Renamed = bmTiles.bmiHeader.biHeight
 		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picTPic.Cls()
+        picTPic = Nothing
+        picTPic.Invalidate()
 		picTPic.Width = Width_Renamed * 2
 		picTPic.Height = Height_Renamed * 2
 		If Not SupressMsg Then
@@ -11298,24 +11299,24 @@ ErrorHandler:
 		End If
 		' Upper left quad: normal picture
 		'UPGRADE_ISSUE: PictureBox property picTPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picTPic.hdc, 3)
+        rc = SetSBMode(picTPic, 3)
 		'UPGRADE_ISSUE: PictureBox property picTPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picTPic.hdc, 0, 0, Width_Renamed, Height_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmDark, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picTPic, 0, 0, Width_Renamed, Height_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmDark, DIB_RGB_COLORS, SRCCOPY)
 		If Not SupressMsg Then
 			MessageShow("Loading Map......", 0)
 		End If
 		' Upper right quad: flip normal picture
 		'UPGRADE_ISSUE: PictureBox property picTPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picTPic.hdc, Width_Renamed, 0, Width_Renamed, Height_Renamed, picTPic.hdc, Width_Renamed - 1, 0, -Width_Renamed, Height_Renamed, SRCCOPY)
+        rc = SBlt(picTPic, picTPic, Width_Renamed, 0, Width_Renamed, Height_Renamed, Width_Renamed - 1, 0, -Width_Renamed, Height_Renamed, SRCCOPY)
 		' Lower left quad: mask
 		'UPGRADE_ISSUE: PictureBox property picTPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picTPic.hdc, 0, Height_Renamed, Width_Renamed, Height_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picTPic, 0, Height_Renamed, Width_Renamed, Height_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		If Not SupressMsg Then
 			MessageShow("Loading Map........", 0)
 		End If
 		' Lower right quadrant: flip mask
 		'UPGRADE_ISSUE: PictureBox property picTPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picTPic.hdc, Width_Renamed, Height_Renamed, Width_Renamed, Height_Renamed, picTPic.hdc, Width_Renamed - 1, Height_Renamed, -Width_Renamed, Height_Renamed, SRCCOPY)
+        rc = SBlt(picTPic, picTPic, Width_Renamed, Height_Renamed, Width_Renamed, Height_Renamed, Width_Renamed - 1, Height_Renamed, -Width_Renamed, Height_Renamed, SRCCOPY)
 		picTPic.Refresh()
 		' Release memory
 		If Not SupressMsg Then
@@ -11323,7 +11324,7 @@ ErrorHandler:
 		End If
 		' Set Current TileSet Name
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		TileSetLoaded = Map.PictureFile
+        TileSetLoaded = Map_Renamed.PictureFile
 		rc = GlobalUnlock(hMemTiles)
 		rc = GlobalFree(hMemTiles)
 		If Not SupressMsg Then
@@ -11350,24 +11351,24 @@ ErrorHandler:
 				Case bdTileBlack ' Pure Black
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMap.hdc, X, Y, XWidth, YWidth, picBlack.hdc, XSrcOff, 72 + YSrcOff, SRCAND)
+                    rc = BBlt(picMap, picBlack, X, Y, XWidth, YWidth, XSrcOff, 72 + YSrcOff, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMap.hdc, X, Y, XWidth, YWidth, picBlack.hdc, XSrcOff, YSrcOff, SRCPAINT)
+                    rc = BBlt(picMap, picBlack, X, Y, XWidth, YWidth, XSrcOff, YSrcOff, SRCPAINT)
 				Case bdTileGrey ' Light Dim
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMap.hdc, X, Y, XWidth, YWidth, picBlack.hdc, 96 + XSrcOff, YSrcOff, SRCAND)
+                    rc = BBlt(picMap, picBlack, X, Y, XWidth, YWidth, 96 + XSrcOff, YSrcOff, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMap.hdc, X, Y, XWidth, YWidth, picBlack.hdc, XSrcOff, YSrcOff, SRCPAINT)
+                    rc = BBlt(picMap, picBlack, X, Y, XWidth, YWidth, XSrcOff, YSrcOff, SRCPAINT)
 				Case bdTileDark ' Dark Dim
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMap.hdc, X, Y, XWidth, YWidth, picBlack.hdc, 96 + XSrcOff, YSrcOff, SRCAND)
+                    rc = BBlt(picMap, picBlack, X, Y, XWidth, YWidth, 96 + XSrcOff, YSrcOff, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMap.hdc, X, Y, XWidth, YWidth, picBlack.hdc, XSrcOff, YSrcOff, SRCPAINT)
+                    rc = BBlt(picMap, picBlack, X, Y, XWidth, YWidth, XSrcOff, YSrcOff, SRCPAINT)
 			End Select
 		Else
 			' Set height, width and location of tile in bmp
@@ -11380,17 +11381,17 @@ ErrorHandler:
 			End If
 			'UPGRADE_ISSUE: PictureBox property picTPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMap.hdc, X, Y, XWidth, YWidth, picTPic.hdc, TileX + XSrcOff, TileY + YSrcOff + (picTPic.Height / 2), SRCAND)
+            rc = BBlt(picMap, picTPic, X, Y, XWidth, YWidth, TileX + XSrcOff, TileY + YSrcOff + (picTPic.Height / 2), SRCAND)
 			'UPGRADE_ISSUE: PictureBox property picTPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMap.hdc, X, Y, XWidth, YWidth, picTPic.hdc, TileX + XSrcOff, TileY + YSrcOff, SRCPAINT)
+            rc = BBlt(picMap, picTPic, X, Y, XWidth, YWidth, TileX + XSrcOff, TileY + YSrcOff, SRCPAINT)
 		End If
 		Exit Sub
 ErrorHandler: 
 		oErr.logError("PlotTile")
 		If Err.Number = 11 Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			DialogDM("Sorry, you cannot enter this area without the tileset named " & Map.PictureFile)
+            DialogDM("Sorry, you cannot enter this area without the tileset named " & Map_Renamed.PictureFile)
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			Tome.MoveToX = FromEntryPoint.MapX
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -11499,10 +11500,10 @@ ErrorHandler:
 				' advance time
 				If GlobalFastMove > 0 Then
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.MovementCost. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					TotalStepsTaken = TotalStepsTaken + (Map.MovementCost(mx, my_Renamed) + Int(sinTooHeavy)) * 3
+                    TotalStepsTaken = TotalStepsTaken + (Map_Renamed.MovementCost(mx, my_Renamed) + Int(sinTooHeavy)) * 3
 				Else
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.MovementCost. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					TotalStepsTaken = TotalStepsTaken + Map.MovementCost(mx, my_Renamed) + Int(sinTooHeavy)
+                    TotalStepsTaken = TotalStepsTaken + Map_Renamed.MovementCost(mx, my_Renamed) + Int(sinTooHeavy)
 				End If
 			End If
 			' Party takes a step
@@ -11523,25 +11524,25 @@ ErrorHandler:
 			End If
 			' If moving to a new encounter, then save laststep information to FleeTo
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If Map.EncPointer(mx, my_Renamed) <> EncounterNow.Index Then
-				' Check to see if the new Encounter is truly Active
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Map.EncPointer(mx, my_Renamed) > 0 Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					If Map.Encounters("E" & Map.EncPointer(mx, my_Renamed)).IsActive = True Then
-						NewEncounter = True
-					End If
-				Else
-					NewEncounter = True
-				End If
-				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FleeToX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Tome.FleeToX = Tome.MapX
-				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FleeToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Tome.FleeToY = Tome.MapY
-			End If
+            If Map_Renamed.EncPointer(mx, my_Renamed) <> EncounterNow.Index Then
+                ' Check to see if the new Encounter is truly Active
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                If Map_Renamed.EncPointer(mx, my_Renamed) > 0 Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    If Map_Renamed.Encounters("E" & Map_Renamed.EncPointer(mx, my_Renamed)).IsActive = True Then
+                        NewEncounter = True
+                    End If
+                Else
+                    NewEncounter = True
+                End If
+                'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FleeToX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                tome.FleeToX = tome.MapX
+                'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FleeToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                tome.FleeToY = tome.MapY
+            End If
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			Tome.MapX = mx
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -11549,10 +11550,10 @@ ErrorHandler:
 			' Add one to steps. If exceed 9, then take a turn
 			If GlobalFastMove > 0 Then
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.MovementCost. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				TotalStepsTaken = TotalStepsTaken + Map.MovementCost(mx, my_Renamed) * 3
+                TotalStepsTaken = TotalStepsTaken + Map_Renamed.MovementCost(mx, my_Renamed) * 3
 			Else
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.MovementCost. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				TotalStepsTaken = TotalStepsTaken + Map.MovementCost(mx, my_Renamed)
+                TotalStepsTaken = TotalStepsTaken + Map_Renamed.MovementCost(mx, my_Renamed)
 			End If
 			If TotalStepsTaken > 9 Then
 				Do Until TotalStepsTaken < 10
@@ -11590,7 +11591,7 @@ ErrorHandler:
 		End If
 		' Line of Site fill to show any hidden tiles
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Map.Hidden(mx, my_Renamed) = False
+        Map_Renamed.Hidden(mx, my_Renamed) = False
 		For k = 0 To 3
 			For c = 0 To 5 : cx = mx : cy = my_Renamed : For i = 0 To 5
 					cdir = LosDir(c, i)
@@ -11613,39 +11614,39 @@ ErrorHandler:
 							End If
 					End Select
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.See. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					If Map.See(cx, cy, cdir) = False Then
-						Select Case cdir
-							Case 0 ' Up
-								cy = Greatest(cy - 1, 0)
-							Case 1 ' Right
-								'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								cx = Least(cx + 1, Map.Width)
-							Case 2 ' Left
-								cx = Greatest(cx - 1, 0)
-							Case 3 ' Down
-								'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								cy = Least(cy + 1, Map.Height)
-						End Select
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						If Map.Hidden(cx, cy) = True Then
-							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							Map.Hidden(cx, cy) = False
-							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							MinX = Least(((cy - Map.Top) + (cx - Map.Left)) * 48, MinX)
-							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							MinY = Least(((cy - Map.Top) - (cx - Map.Left)) * 24 - 24, MinY)
-							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							MaxX = Greatest(((cy - Map.Top) + (cx - Map.Left)) * 48 + 96, MaxX)
-							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							MaxY = Greatest(((cy - Map.Top) - (cx - Map.Left)) * 24 + 48, MaxY)
-						End If
-					Else
-						Exit For
-					End If
+                    If Map_Renamed.See(cx, cy, cdir) = False Then
+                        Select Case cdir
+                            Case 0 ' Up
+                                cy = Greatest(cy - 1, 0)
+                            Case 1 ' Right
+                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                cx = Least(cx + 1, Map_Renamed.Width)
+                            Case 2 ' Left
+                                cx = Greatest(cx - 1, 0)
+                            Case 3 ' Down
+                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                cy = Least(cy + 1, Map_Renamed.Height)
+                        End Select
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        If Map_Renamed.Hidden(cx, cy) = True Then
+                            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            Map_Renamed.Hidden(cx, cy) = False
+                            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            MinX = Least(((cy - Map_Renamed.Top) + (cx - Map_Renamed.Left)) * 48, MinX)
+                            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            MinY = Least(((cy - Map_Renamed.Top) - (cx - Map_Renamed.Left)) * 24 - 24, MinY)
+                            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            MaxX = Greatest(((cy - Map_Renamed.Top) + (cx - Map_Renamed.Left)) * 48 + 96, MaxX)
+                            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            MaxY = Greatest(((cy - Map_Renamed.Top) - (cx - Map_Renamed.Left)) * 24 + 48, MaxY)
+                        End If
+                    Else
+                        Exit For
+                    End If
 				Next i : Next c
 		Next k
 		' Determine bounding rectangle for party
@@ -11654,10 +11655,10 @@ ErrorHandler:
 			' Anchor at corners of picture
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			X = (CreatureX.MapY + CreatureX.MapX - Map.Top - Map.Left) * 48 + CreatureX.TileSpotX
+            X = (CreatureX.MapY + CreatureX.MapX - Map_Renamed.Top - Map_Renamed.Left) * 48 + CreatureX.TileSpotX
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Y = (CreatureX.MapY - CreatureX.MapX - Map.Top + Map.Left) * 24 + CreatureX.TileSpotY - 24
+            Y = (CreatureX.MapY - CreatureX.MapX - Map_Renamed.Top + Map_Renamed.Left) * 24 + CreatureX.TileSpotY - 24
 			MinX = Least(X, MinX)
 			MinY = Least(Y - picCMap(CreatureX.Pic).Height / 2, MinY)
 			MaxX = Greatest(X + picCMap(CreatureX.Pic).Width / 2, MaxX)
@@ -11668,14 +11669,14 @@ ErrorHandler:
 		' If NewEncounter found, then deal with it
 		If NewEncounter = True Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If Map.EncPointer(mx, my_Renamed) < 1 Then
-				EncounterNow = New Encounter
-			Else
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				EncounterNow = Map.Encounters("E" & Map.EncPointer(mx, my_Renamed))
-				EncounterEnter()
-			End If
+            If Map_Renamed.EncPointer(mx, my_Renamed) < 1 Then
+                EncounterNow = New Encounter
+            Else
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                EncounterNow = Map_Renamed.Encounters("E" & Map_Renamed.EncPointer(mx, my_Renamed))
+                EncounterEnter()
+            End If
 		End If
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -11684,14 +11685,14 @@ ErrorHandler:
 		If Tome.MoveToX = Tome.MapX And Tome.MoveToY = Tome.MapY Then
 			' save coordinates in case the tileset for the next area is missing
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EntryPoints. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			For	Each EntryPointX In Map.EntryPoints
-				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If EntryPointX.MapX = Tome.MapX And EntryPointX.MapY = Tome.MapY Then
-					FromEntryPoint = EntryPointX
-					Exit For
-				End If
-			Next EntryPointX
+            For Each EntryPointX In Map_Renamed.EntryPoints
+                'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                If EntryPointX.MapX = tome.MapX And EntryPointX.MapY = tome.MapY Then
+                    FromEntryPoint = EntryPointX
+                    Exit For
+                End If
+            Next EntryPointX
 			' If have arrived, then stop the party
 			tmrMoveParty.Enabled = False
 			MovePartyExit()
@@ -11713,95 +11714,95 @@ ErrorHandler:
 		Dim cdir As Short
 		Dim EntryPointX As EntryPoint
 		' Determine if stopped on an EntryPoint
-		For	Each EntryPointX In Map.EntryPoints
-			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If Tome.MapX = EntryPointX.MapX And Tome.MapY = EntryPointX.MapY Then
-				tmrMoveParty.Enabled = False
-				' Ask Yes/No question to leave through exit
-				ConvoAction = 0
-				If Not (blnDontShowMsg And FromEntryPoint Is Nothing) Then ' but only if we're not coming back from an error
-					DialogSetUp(modGameGeneral.DLGTYPE.bdDlgNoReply)
-					DialogSetButton(1, "No")
-					DialogSetButton(2, "Yes")
-					If Len(EntryPointX.Description) > 0 Then
-						DialogShow("DM", (EntryPointX.Description))
-					ElseIf EntryPointX.AreaIndex = 0 Then 
-						DialogShow("DM", "Do you want to exit this Tome and return to the Main Menu?")
-					Else
-						DialogShow("DM", "Do you want to exit to the next area?")
-					End If
-				End If
-				If ConvoAction = 0 Then
-					' If leaving to the MainMenu
-					If EntryPointX.AreaIndex = 0 Then
-						TomeStartArea(0, 0, 0, 0, 0)
-					Else
-						TomeStartArea((EntryPointX.AreaIndex), (EntryPointX.MapIndex), (EntryPointX.EntryIndex), (EntryPointX.MapX), (EntryPointX.MapY))
-						'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						mx = Tome.MapX
-						'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						my_Renamed = Tome.MapY
-						'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						Tome.MoveToX = mx
-						'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						Tome.MoveToY = my_Renamed
-						MapCenter(mx, my_Renamed)
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						Map.Hidden(mx, my_Renamed) = False
-						For k = 0 To 3
-							For c = 0 To 5 : cx = mx : cy = my_Renamed : For i = 0 To 5
-									cdir = LosDir(c, i)
-									Select Case k
-										Case 0 ' Normal
-										Case 1 ' Flip X
-											If LosDir(c, i) = 1 Then
-												cdir = 2
-											End If
-										Case 2 ' Flip Y
-											If LosDir(c, i) = 0 Then
-												cdir = 3
-											End If
-										Case 3 ' Flip X and Y
-											If LosDir(c, i) = 1 Then
-												cdir = 2
-											End If
-											If LosDir(c, i) = 0 Then
-												cdir = 3
-											End If
-									End Select
-									'UPGRADE_WARNING: Couldn't resolve default property of object Map.See. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-									If Map.See(cx, cy, cdir) = False Then
-										Select Case cdir
-											Case 0 ' Up
-												cy = Greatest(cy - 1, 0)
-											Case 1 ' Right
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												cx = Least(cx + 1, Map.Width)
-											Case 2 ' Left
-												cx = Greatest(cx - 1, 0)
-											Case 3 ' Down
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												cy = Least(cy + 1, Map.Height)
-										End Select
-										'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-										If Map.Hidden(cx, cy) = True Then
-											'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-											Map.Hidden(cx, cy) = False
-										End If
-									Else
-										Exit For
-									End If
-								Next i : Next c
-						Next k
-						' Cycle a turn to check map lighting
-						TurnCycleTime()
-					End If
-				End If
-				DialogHide()
-				Exit For
-			End If
-		Next EntryPointX
+        For Each EntryPointX In Map_Renamed.EntryPoints
+            'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            If tome.MapX = EntryPointX.MapX And tome.MapY = EntryPointX.MapY Then
+                tmrMoveParty.Enabled = False
+                ' Ask Yes/No question to leave through exit
+                ConvoAction = 0
+                If Not (blnDontShowMsg And FromEntryPoint Is Nothing) Then ' but only if we're not coming back from an error
+                    DialogSetUp(modGameGeneral.DLGTYPE.bdDlgNoReply)
+                    DialogSetButton(1, "No")
+                    DialogSetButton(2, "Yes")
+                    If Len(EntryPointX.Description) > 0 Then
+                        DialogShow("DM", (EntryPointX.Description))
+                    ElseIf EntryPointX.AreaIndex = 0 Then
+                        DialogShow("DM", "Do you want to exit this Tome and return to the Main Menu?")
+                    Else
+                        DialogShow("DM", "Do you want to exit to the next area?")
+                    End If
+                End If
+                If ConvoAction = 0 Then
+                    ' If leaving to the MainMenu
+                    If EntryPointX.AreaIndex = 0 Then
+                        TomeStartArea(0, 0, 0, 0, 0)
+                    Else
+                        TomeStartArea((EntryPointX.AreaIndex), (EntryPointX.MapIndex), (EntryPointX.EntryIndex), (EntryPointX.MapX), (EntryPointX.MapY))
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        mx = tome.MapX
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        my_Renamed = tome.MapY
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        tome.MoveToX = mx
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        tome.MoveToY = my_Renamed
+                        MapCenter(mx, my_Renamed)
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        Map_Renamed.Hidden(mx, my_Renamed) = False
+                        For k = 0 To 3
+                            For c = 0 To 5 : cx = mx : cy = my_Renamed : For i = 0 To 5
+                                    cdir = LosDir(c, i)
+                                    Select Case k
+                                        Case 0 ' Normal
+                                        Case 1 ' Flip X
+                                            If LosDir(c, i) = 1 Then
+                                                cdir = 2
+                                            End If
+                                        Case 2 ' Flip Y
+                                            If LosDir(c, i) = 0 Then
+                                                cdir = 3
+                                            End If
+                                        Case 3 ' Flip X and Y
+                                            If LosDir(c, i) = 1 Then
+                                                cdir = 2
+                                            End If
+                                            If LosDir(c, i) = 0 Then
+                                                cdir = 3
+                                            End If
+                                    End Select
+                                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.See. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                    If Map_Renamed.See(cx, cy, cdir) = False Then
+                                        Select Case cdir
+                                            Case 0 ' Up
+                                                cy = Greatest(cy - 1, 0)
+                                            Case 1 ' Right
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                cx = Least(cx + 1, Map_Renamed.Width)
+                                            Case 2 ' Left
+                                                cx = Greatest(cx - 1, 0)
+                                            Case 3 ' Down
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                cy = Least(cy + 1, Map_Renamed.Height)
+                                        End Select
+                                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                        If Map_Renamed.Hidden(cx, cy) = True Then
+                                            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                            Map_Renamed.Hidden(cx, cy) = False
+                                        End If
+                                    Else
+                                        Exit For
+                                    End If
+                                Next i : Next c
+                        Next k
+                        ' Cycle a turn to check map lighting
+                        TurnCycleTime()
+                    End If
+                End If
+                DialogHide()
+                Exit For
+            End If
+        Next EntryPointX
 	End Sub
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
@@ -11815,7 +11816,7 @@ ErrorHandler:
 		NoFail = FireTriggers(EncounterNow, bdPreEnterEncounter)
 		' If ReGen set, do it now.
 		If EncounterNow.GenerateUponEntry = True Then
-			MakeEncounter(Map, EncounterNow)
+            MakeEncounter(MainMap, EncounterNow)
 		End If
 		' Load up Creature pictures if missing
 		For	Each CreatureX In EncounterNow.Creatures
@@ -12141,13 +12142,13 @@ ErrorHandler:
 		'UPGRADE_WARNING: Untranslated statement in FindPath. Please check source code.
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Dim pylist(CDbl(Map.Height + 1) * CDbl(Map.Width + 1)) As Short
+        Dim pylist(CDbl(Map_Renamed.Height + 1) * CDbl(Map_Renamed.Width + 1)) As Short
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Dim llist(CDbl(Map.Height + 1) * CDbl(Map.Width + 1)) As Short
+        Dim llist(CDbl(Map_Renamed.Height + 1) * CDbl(Map_Renamed.Width + 1)) As Short
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Dim lMap(Map.Width, Map.Height) As Short
+        Dim lMap(Map_Renamed.Width, Map_Renamed.Height) As Short
 		Dim Y, X, c As Short
 		Dim shortest, NumPoints, PathFound As Short
 		Dim dx, dy As Short
@@ -12174,11 +12175,11 @@ ErrorHandler:
 		mv = 1
 		' Set all coordinates in our traveled map to large value (we're not moving there)
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		For X = 0 To Map.Width
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			For Y = 0 To Map.Height
-				lMap(X, Y) = 32700
-			Next Y : Next X
+        For X = 0 To Map_Renamed.Width
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            For Y = 0 To Map_Renamed.Height
+                lMap(X, Y) = 32700
+            Next Y : Next X
 		' But plop a zero where we're starting from (we are moving there)
 		lMap(sx, sy) = 0
 		TotalTiles = 0
@@ -12213,41 +12214,41 @@ ErrorHandler:
 			' For every direction, see if can move that way
 			For Dir_Renamed = 0 To 3
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Blocked. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Not Map.Blocked(sx, sy, Dir_Renamed) Then
-					' If can, look at the movement cost compare to where we are
-					mx = sx + DirX(Dir_Renamed) : my_Renamed = sy + DirY(Dir_Renamed)
-					If lMap(sx, sy) < lMap(mx, my_Renamed) Then
-						' If where we are is less than where we're moving...
-						' (which means we haven't tried there yet)
-						' Compute the distance from our destination point
-						dx = mx - TomeX.MoveToX
-						dy = my_Renamed - TomeX.MoveToY
-						' Add a cost of one to the tile we were just in
-						lMap(mx, my_Renamed) = oldmv + 1
-						' Place on the top of the stack this new coordinate and distance
-						'UPGRADE_WARNING: Couldn't resolve default property of object pxlist(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						pxlist(NumPoints) = mx
-						pylist(NumPoints) = my_Renamed
-						llist(NumPoints) = (dx * dx) + (dy * dy)
-						' Store CloseX and CloseY
-						If llist(NumPoints) < CloseRange Then
-							CloseX = mx : CloseY = my_Renamed
-							CloseRange = llist(NumPoints)
-						End If
-						NumPoints = NumPoints + 1
-						' If we just moved to our final destination, you're done
-						If (mx = TomeX.MoveToX) And (my_Renamed = TomeX.MoveToY) Then
-							PathFound = 1
-							Exit Do
-						End If
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						If NumPoints > CDbl(Map.Height + 1) * CDbl(Map.Width + 1) Then
-							PathFound = 0
-							Exit Do
-						End If
-					End If
-				End If
+                If Not Map_Renamed.Blocked(sx, sy, Dir_Renamed) Then
+                    ' If can, look at the movement cost compare to where we are
+                    mx = sx + DirX(Dir_Renamed) : my_Renamed = sy + DirY(Dir_Renamed)
+                    If lMap(sx, sy) < lMap(mx, my_Renamed) Then
+                        ' If where we are is less than where we're moving...
+                        ' (which means we haven't tried there yet)
+                        ' Compute the distance from our destination point
+                        dx = mx - TomeX.MoveToX
+                        dy = my_Renamed - TomeX.MoveToY
+                        ' Add a cost of one to the tile we were just in
+                        lMap(mx, my_Renamed) = oldmv + 1
+                        ' Place on the top of the stack this new coordinate and distance
+                        'UPGRADE_WARNING: Couldn't resolve default property of object pxlist(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        pxlist(NumPoints) = mx
+                        pylist(NumPoints) = my_Renamed
+                        llist(NumPoints) = (dx * dx) + (dy * dy)
+                        ' Store CloseX and CloseY
+                        If llist(NumPoints) < CloseRange Then
+                            CloseX = mx : CloseY = my_Renamed
+                            CloseRange = llist(NumPoints)
+                        End If
+                        NumPoints = NumPoints + 1
+                        ' If we just moved to our final destination, you're done
+                        If (mx = TomeX.MoveToX) And (my_Renamed = TomeX.MoveToY) Then
+                            PathFound = 1
+                            Exit Do
+                        End If
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        If NumPoints > CDbl(Map_Renamed.Height + 1) * CDbl(Map_Renamed.Width + 1) Then
+                            PathFound = 0
+                            Exit Do
+                        End If
+                    End If
+                End If
 			Next Dir_Renamed
 			If NumPoints = 0 Then
 				PathFound = 0
@@ -12266,16 +12267,16 @@ ErrorHandler:
 			c = 32700
 			For Dir_Renamed = 0 To 3
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Blocked. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Not Map.Blocked(ex, ey, Dir_Renamed) Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					mx = Least(Greatest(ex + DirX(Dir_Renamed), 0), Map.Width)
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					my_Renamed = Least(Greatest(ey + DirY(Dir_Renamed), 0), Map.Height)
-					If lMap(mx, my_Renamed) < c Then
-						c = lMap(mx, my_Renamed)
-						nx = mx : ny = my_Renamed
-					End If
-				End If
+                If Not Map_Renamed.Blocked(ex, ey, Dir_Renamed) Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    mx = Least(Greatest(ex + DirX(Dir_Renamed), 0), Map_Renamed.Width)
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    my_Renamed = Least(Greatest(ey + DirY(Dir_Renamed), 0), Map_Renamed.Height)
+                    If lMap(mx, my_Renamed) < c Then
+                        c = lMap(mx, my_Renamed)
+                        nx = mx : ny = my_Renamed
+                    End If
+                End If
 			Next Dir_Renamed
 			TomeX.AddStep(ex, ey)
 			ex = nx : ey = ny
@@ -12316,10 +12317,10 @@ ErrorHandler:
 		Dim FromX, ToX As Short
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		SetMapCursor(Left_Renamed, Top_Renamed, Map.Left, Map.Top, FromX, FromY, XMap, YMap)
+        SetMapCursor(Left_Renamed, Top_Renamed, Map_Renamed.Left, Map_Renamed.Top, FromX, FromY, XMap, YMap)
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		SetMapCursor(Right_Renamed, Bottom_Renamed, Map.Left, Map.Top, ToX, ToY, XMap, YMap)
+        SetMapCursor(Right_Renamed, Bottom_Renamed, Map_Renamed.Left, Map_Renamed.Top, ToX, ToY, XMap, YMap)
 		FromX = Int(FromX / 96) : FromY = Int(FromY / 24) + (XMap + YMap) Mod 2
 		ToX = Int(ToX / 96) + 1 : ToY = Int(ToY / 24)
 		' Draw Top of Region
@@ -12393,9 +12394,9 @@ ErrorHandler:
 			ElseIf LastMove = True And picJournal.Visible = True And JournalMode = 2 Then 
 				LastMove = False
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				MicroMapLeft = Map.Left
+                MicroMapLeft = Map_Renamed.Left
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				MicroMapTop = Map.Top
+                MicroMapTop = Map_Renamed.Top
 				JournalShowMap()
 				Exit Sub
 			Else
@@ -12409,15 +12410,15 @@ ErrorHandler:
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If System.Math.Sqrt((Map.Top + MoveMapY + Int(System.Math.Sqrt((picMap.ClientRectangle.Width ^ 2) + (picMap.ClientRectangle.Height ^ 2)) / 108) - 1 - Tome.MapY) ^ 2 + (Map.Left - 2 + MoveMapX - Tome.MapX) ^ 2) > (picMap.ClientRectangle.Height / 54) Then
-			Exit Sub
-		End If
+        If System.Math.Sqrt((Map_Renamed.Top + MoveMapY + Int(System.Math.Sqrt((picMap.ClientRectangle.Width ^ 2) + (picMap.ClientRectangle.Height ^ 2)) / 108) - 1 - tome.MapY) ^ 2 + (Map_Renamed.Left - 2 + MoveMapX - tome.MapX) ^ 2) > (picMap.ClientRectangle.Height / 54) Then
+            Exit Sub
+        End If
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Map.Top = Map.Top + MoveMapY
+        Map_Renamed.Top = Map_Renamed.Top + MoveMapY
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Map.Left = Map.Left + MoveMapX
+        Map_Renamed.Left = Map_Renamed.Left + MoveMapX
 		LastMove = True
 		' Scroll Screen
 		'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -12425,28 +12426,28 @@ ErrorHandler:
 		If MoveMapX = -1 And MoveMapY = -1 Then
 			' Mouse Left (Shift Screen Right)
 			'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMap.hdc, 96, 0, picMap.ClientRectangle.Width - 96, picMap.ClientRectangle.Height, picMap.hdc, 0, 0, SRCCOPY)
+            rc = BBlt(picMap, picMap, 96, 0, picMap.ClientRectangle.Width - 96, picMap.ClientRectangle.Height, 0, 0, SRCCOPY)
 			DrawMapRegion(-48, 0, picMap.ClientRectangle.Height, 96)
 			'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		ElseIf MoveMapX = 1 And MoveMapY = 1 Then 
 			' Mouse Right (Shift Screen Left)
 			'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMap.hdc, 0, 0, picMap.ClientRectangle.Width - 96, picMap.ClientRectangle.Height, picMap.hdc, 96, 0, SRCCOPY)
+            rc = BBlt(picMap, picMap, 0, 0, picMap.ClientRectangle.Width - 96, picMap.ClientRectangle.Height, 96, 0, SRCCOPY)
 			DrawMapRegion(0, picMap.ClientRectangle.Width - 96, picMap.ClientRectangle.Height, picMap.ClientRectangle.Width)
 			'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		ElseIf MoveMapX = 1 And MoveMapY = -1 Then 
 			' Mouse Up (Shift Screen Down)
 			'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMap.hdc, 0, 48, picMap.ClientRectangle.Width, picMap.ClientRectangle.Height - 48, picMap.hdc, 0, 0, SRCCOPY)
+            rc = BBlt(picMap, picMap, 0, 48, picMap.ClientRectangle.Width, picMap.ClientRectangle.Height - 48, 0, 0, SRCCOPY)
 			DrawMapRegion(0, 0, 48, picMap.ClientRectangle.Width)
 			'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		ElseIf MoveMapX = -1 And MoveMapY = 1 Then 
 			' Mouse Down (Shift Screen Up)
 			'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMap.hdc, 0, 0, picMap.ClientRectangle.Width, picMap.ClientRectangle.Height - 48, picMap.hdc, 0, 48, SRCCOPY)
+            rc = BBlt(picMap, picMap, 0, 0, picMap.ClientRectangle.Width, picMap.ClientRectangle.Height - 48, 0, 48, SRCCOPY)
 			DrawMapRegion(picMap.ClientRectangle.Height - 48, 0, picMap.ClientRectangle.Height, picMap.ClientRectangle.Width)
 		End If
 	End Sub
@@ -12576,16 +12577,16 @@ ErrorHandler:
 		picSFXPic(PicToLoad).Height = Height_Renamed * 2
 		' Draw Normal and Flip (X = 0, X = Width respectively)
 		'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picSFXPic(PicToLoad).hdc, 3)
+        rc = SetSBMode(picSFXPic(PicToLoad), 3)
 		'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picSFXPic(PicToLoad).hdc, 0, 0, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picSFXPic(PicToLoad), 0, 0, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picSFXPic(PicToLoad).hdc, Width_Renamed, 0, Width_Renamed, Height_Renamed, picSFXPic(PicToLoad).hdc, Width_Renamed - 1, 0, -Width_Renamed, Height_Renamed, SRCCOPY)
+        rc = SBlt(picSFXPic(PicToLoad), picSFXPic(PicToLoad), Width_Renamed, 0, Width_Renamed, Height_Renamed, Width_Renamed - 1, 0, -Width_Renamed, Height_Renamed, SRCCOPY)
 		' Draw Mask Normal and Flip (Y = Height, X = 0 and X = Width respectively)
 		'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picSFXPic(PicToLoad).hdc, 0, Height_Renamed, Width_Renamed, Height_Renamed, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picSFXPic(PicToLoad), 0, Height_Renamed, Width_Renamed, Height_Renamed, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picSFXPic(PicToLoad).hdc, Width_Renamed, Height_Renamed, Width_Renamed, Height_Renamed, picSFXPic(PicToLoad).hdc, Width_Renamed - 1, Height_Renamed, -Width_Renamed, Height_Renamed, SRCCOPY)
+        rc = SBlt(picSFXPic(PicToLoad), picSFXPic(PicToLoad), Width_Renamed, Height_Renamed, Width_Renamed, Height_Renamed, Width_Renamed - 1, Height_Renamed, -Width_Renamed, Height_Renamed, SRCCOPY)
 		picSFXPic(PicToLoad).Refresh()
 		' Release memory
 		rc = GlobalUnlock(hMem)
@@ -12689,71 +12690,71 @@ ErrorHandler:
 		picCPic(PicToLoad).Width = Width_Renamed * 2
 		picCPic(PicToLoad).Height = Height_Renamed * 4
 		'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picCPic(PicToLoad).hdc, 3)
+        rc = SetSBMode(picCPic(PicToLoad), 3)
 		' Draw Normal and Flip
 		'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picCPic(PicToLoad).hdc, 0, 0, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picCPic(PicToLoad), 0, 0, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picCPic(PicToLoad).hdc, Width_Renamed, 0, Width_Renamed, Height_Renamed, picCPic(PicToLoad).hdc, Width_Renamed - 1, 0, -Width_Renamed, Height_Renamed, SRCCOPY)
+        rc = SBlt(picCPic(PicToLoad), picCPic(PicToLoad), Width_Renamed, 0, Width_Renamed, Height_Renamed, Width_Renamed - 1, 0, -Width_Renamed, Height_Renamed, SRCCOPY)
 		' Paint Mask Normal and Flip
 		'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picCPic(PicToLoad).hdc, 0, Height_Renamed, Width_Renamed, Height_Renamed, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picCPic(PicToLoad), 0, Height_Renamed, Width_Renamed, Height_Renamed, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picCPic(PicToLoad).hdc, Width_Renamed, Height_Renamed, Width_Renamed, Height_Renamed, picCPic(PicToLoad).hdc, Width_Renamed - 1, Height_Renamed, -Width_Renamed, Height_Renamed, SRCCOPY)
+        rc = SBlt(picCPic(PicToLoad), picCPic(PicToLoad), Width_Renamed, Height_Renamed, Width_Renamed, Height_Renamed, Width_Renamed - 1, Height_Renamed, -Width_Renamed, Height_Renamed, SRCCOPY)
 		' Draw Normal and Flip (Below for Yellow Outline)
 		'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picCPic(PicToLoad).hdc, 0, Height_Renamed * 2, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picCPic(PicToLoad), 0, Height_Renamed * 2, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picCPic(PicToLoad).hdc, Width_Renamed, Height_Renamed * 2, Width_Renamed, Height_Renamed, picCPic(PicToLoad).hdc, Width_Renamed - 1, 0, -Width_Renamed, Height_Renamed, SRCCOPY)
+        rc = SBlt(picCPic(PicToLoad), picCPic(PicToLoad), Width_Renamed, Height_Renamed * 2, Width_Renamed, Height_Renamed, Width_Renamed - 1, 0, -Width_Renamed, Height_Renamed, SRCCOPY)
 		' Draw Normal and Flip (Below for Red Outline)
 		'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picCPic(PicToLoad).hdc, 0, Height_Renamed * 3, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picCPic(PicToLoad), 0, Height_Renamed * 3, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picCPic(PicToLoad).hdc, Width_Renamed, Height_Renamed * 3, Width_Renamed, Height_Renamed, picCPic(PicToLoad).hdc, Width_Renamed - 1, 0, -Width_Renamed, Height_Renamed, SRCCOPY)
+        rc = SBlt(picCPic(PicToLoad), picCPic(PicToLoad), Width_Renamed, Height_Renamed * 3, Width_Renamed, Height_Renamed, Width_Renamed - 1, 0, -Width_Renamed, Height_Renamed, SRCCOPY)
 		' Find outline and paint it yellow and black
 		For Y = Height_Renamed To Height_Renamed * 2 - 1 : For X = 0 To Width_Renamed - 1
 				'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = GetPixel(picCPic(PicToLoad).hdc, X, Y)
+                rc = GPixel(picCPic(PicToLoad), X, Y)
 				If rc = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black) Then
 					For c = 0 To 3
 						Select Case c
 							Case 0
 								If X < Width_Renamed - 1 Then
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picCPic(PicToLoad).hdc, X + 1, Y)
+                                    rc = GPixel(picCPic(PicToLoad), X + 1, Y)
 								End If
 							Case 1
 								If Y > 0 Then
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picCPic(PicToLoad).hdc, X, Y - 1)
+                                    rc = GPixel(picCPic(PicToLoad), X, Y - 1)
 								End If
 							Case 2
 								If Y < Height_Renamed * 2 - 1 Then
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picCPic(PicToLoad).hdc, X, Y + 1)
+                                    rc = GPixel(picCPic(PicToLoad), X, Y + 1)
 								End If
 							Case 3
 								If X > 0 Then
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picCPic(PicToLoad).hdc, X - 1, Y)
+                                    rc = GPixel(picCPic(PicToLoad), X - 1, Y)
 								End If
 						End Select
 						If rc > System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black) Then
 							' Black Outline
 							'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = SetPixel(picCPic(PicToLoad).hdc, X, Y - Height_Renamed, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
+                            rc = SPixel(picCPic(PicToLoad), X, Y - Height_Renamed, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
 							'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = SetPixel(picCPic(PicToLoad).hdc, System.Math.Abs(X - Width_Renamed) + Width_Renamed, Y - Height_Renamed, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
+                            rc = SPixel(picCPic(PicToLoad), System.Math.Abs(X - Width_Renamed) + Width_Renamed, Y - Height_Renamed, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
 							' Yellow Outline
 							'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = SetPixel(picCPic(PicToLoad).hdc, X, Y + Height_Renamed, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow))
+                            rc = SPixel(picCPic(PicToLoad), X, Y + Height_Renamed, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow))
 							'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = SetPixel(picCPic(PicToLoad).hdc, System.Math.Abs(X - Width_Renamed) + Width_Renamed, Y + Height_Renamed, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow))
+                            rc = SPixel(picCPic(PicToLoad), System.Math.Abs(X - Width_Renamed) + Width_Renamed, Y + Height_Renamed, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow))
 							' Red Outline
 							'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = SetPixel(picCPic(PicToLoad).hdc, X, Y + Height_Renamed * 2, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red))
+                            rc = SPixel(picCPic(PicToLoad), X, Y + Height_Renamed * 2, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red))
 							'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = SetPixel(picCPic(PicToLoad).hdc, System.Math.Abs(X - Width_Renamed) + Width_Renamed, Y + Height_Renamed * 2, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red))
+                            rc = SPixel(picCPic(PicToLoad), System.Math.Abs(X - Width_Renamed) + Width_Renamed, Y + Height_Renamed * 2, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red))
 							Exit For
 						End If
 					Next c
@@ -12766,42 +12767,42 @@ ErrorHandler:
 		picCMap(PicToLoad).Width = PartyWidth
 		picCMap(PicToLoad).Height = PartyHeight * 2
 		'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picCMap(PicToLoad).hdc, 3)
+        rc = SetSBMode(picCMap(PicToLoad), 3)
 		'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picCMap(PicToLoad).hdc, 0, 0, PartyWidth, PartyHeight, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picCMap(PicToLoad), 0, 0, PartyWidth, PartyHeight, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picCMap(PicToLoad).hdc, 0, PartyHeight, PartyWidth, PartyHeight, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picCMap(PicToLoad), 0, PartyHeight, PartyWidth, PartyHeight, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		' Draw line around party mask picture
 		For Y = 0 To PartyHeight - 1 : For X = 0 To PartyWidth - 1
 				'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = GetPixel(picCMap(PicToLoad).hdc, X, Y)
+                rc = GPixel(picCMap(PicToLoad), X, Y)
 				If rc = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black) Then
 					For c = 0 To 3
 						Select Case c
 							Case 0
 								If X < PartyWidth - 1 Then
 									'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picCMap(PicToLoad).hdc, X + 1, Y)
+                                    rc = GPixel(picCMap(PicToLoad), X + 1, Y)
 								End If
 							Case 1
 								If Y > 0 Then
 									'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picCMap(PicToLoad).hdc, X, Y - 1)
+                                    rc = GPixel(picCMap(PicToLoad), X, Y - 1)
 								End If
 							Case 2
 								If Y < PartyHeight - 1 Then
 									'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picCMap(PicToLoad).hdc, X, Y + 1)
+                                    rc = GPixel(picCMap(PicToLoad), X, Y + 1)
 								End If
 							Case 3
 								If X > 0 Then
 									'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picCMap(PicToLoad).hdc, X - 1, Y)
+                                    rc = GPixel(picCMap(PicToLoad), X - 1, Y)
 								End If
 						End Select
 						If rc > System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black) Then
 							'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = SetPixel(picCMap(PicToLoad).hdc, X, Y + PartyHeight, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
+                            rc = SPixel(picCMap(PicToLoad), X, Y + PartyHeight, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
 							Exit For
 						End If
 					Next c
@@ -12810,9 +12811,9 @@ ErrorHandler:
 		picCMap(PicToLoad).Refresh()
 		' If have portrait, fetch that and paint. Else, scale face from picture.
 		'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picFaces.hdc, 3)
+        rc = SetSBMode(picFaces, 3)
 		'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(picFaces.hdc, bdFaceMin + 66 * PicToLoad, 0, 66, 76, picFaces.hdc, bdFaceBlank, 0, SRCCOPY)
+        rc = BBlt(picFaces, picFaces, bdFaceMin + 66 * PicToLoad, 0, 66, 76, bdFaceBlank, 0, SRCCOPY)
 		If Len(CreatureX.PortraitFile) > 0 Then
 			' Release memory
 			rc = GlobalUnlock(hMem)
@@ -12880,17 +12881,17 @@ ErrorHandler:
 			Height_Renamed = CShort(Height_Renamed * Size_Renamed)
 			Width_Renamed = CShort(Width_Renamed * Size_Renamed)
 			'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = StretchDIBits(picFaces.hdc, bdFaceMin + 66 * PicToLoad + X, Y, 66, 76, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
+            rc = SDIBits(picFaces, bdFaceMin + 66 * PicToLoad + X, Y, 66, 76, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
 			'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = StretchDIBits(picFaces.hdc, bdFaceMin + 66 * PicToLoad + X, Y, 66, 76, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
+            rc = SDIBits(picFaces, bdFaceMin + 66 * PicToLoad + X, Y, 66, 76, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
 			' Release memory
 			rc = GlobalUnlock(hMem)
 			rc = GlobalFree(hMem)
 		Else
 			'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = StretchDIBits(picFaces.hdc, bdFaceMin + 66 * PicToLoad, Greatest(-CreatureX.FaceTop - 15, 0), 66, 76, Greatest(CreatureX.FaceLeft - 6, 0), Greatest(bmBlack.bmiHeader.biHeight - Greatest(CreatureX.FaceTop - 15, 0) - 61, 0), Least(bmBlack.bmiHeader.biWidth - Greatest(CreatureX.FaceLeft - 6, 0), 53), Least(bmBlack.bmiHeader.biHeight - Greatest(CreatureX.FaceTop - 15, 0), 61), lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
+            rc = SDIBits(picFaces, bdFaceMin + 66 * PicToLoad, Greatest(-CreatureX.FaceTop - 15, 0), 66, 76, Greatest(CreatureX.FaceLeft - 6, 0), Greatest(bmBlack.bmiHeader.biHeight - Greatest(CreatureX.FaceTop - 15, 0) - 61, 0), Least(bmBlack.bmiHeader.biWidth - Greatest(CreatureX.FaceLeft - 6, 0), 53), Least(bmBlack.bmiHeader.biHeight - Greatest(CreatureX.FaceTop - 15, 0), 61), lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
 			'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = StretchDIBits(picFaces.hdc, bdFaceMin + 66 * PicToLoad, Greatest(-CreatureX.FaceTop - 15, 0), 66, 76, Greatest(CreatureX.FaceLeft - 6, 0), Greatest(bmBlack.bmiHeader.biHeight - Greatest(CreatureX.FaceTop - 15, 0) - 61, 0), Least(bmBlack.bmiHeader.biWidth - Greatest(CreatureX.FaceLeft - 6, 0), 53), Least(bmBlack.bmiHeader.biHeight - Greatest(CreatureX.FaceTop - 15, 0), 61), lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
+            rc = SDIBits(picFaces, bdFaceMin + 66 * PicToLoad, Greatest(-CreatureX.FaceTop - 15, 0), 66, 76, Greatest(CreatureX.FaceLeft - 6, 0), Greatest(bmBlack.bmiHeader.biHeight - Greatest(CreatureX.FaceTop - 15, 0) - 61, 0), Least(bmBlack.bmiHeader.biWidth - Greatest(CreatureX.FaceLeft - 6, 0), 53), Least(bmBlack.bmiHeader.biHeight - Greatest(CreatureX.FaceTop - 15, 0), 61), lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
 			' Release memory
 			rc = GlobalUnlock(hMem)
 			rc = GlobalFree(hMem)
@@ -12926,11 +12927,11 @@ ErrorHandler:
 		picDice.Height = Height_Renamed : picDice.Width = Width_Renamed * 2
 		' Paint the Item PIcture
 		'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picDice.hdc, 3)
+        rc = SetSBMode(picDice, 3)
 		'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picDice.hdc, 0, 0, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picDice, 0, 0, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picDice.hdc, Width_Renamed, 0, Width_Renamed, Height_Renamed, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picDice, Width_Renamed, 0, Width_Renamed, Height_Renamed, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		picDice.Refresh()
 		' Release memory
 		rc = GlobalUnlock(hMem)
@@ -13012,50 +13013,50 @@ ErrorHandler:
 		Y = (ItemPicHeight(PicToLoad) - Height_Renamed) / 2
 		' Paint the Item PIcture (normal and mask)
 		'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picItem.hdc, 3)
+        rc = SetSBMode(picItem, 3)
 		'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picItem.hdc, X, Y, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picItem, X, Y, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picItem.hdc, X, Y + 96, Width_Renamed, Height_Renamed, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picItem, X, Y + 96, Width_Renamed, Height_Renamed, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		' Paint micro size for map object
 		'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picItem.hdc, X, Y + 96 * 2, ItemPicWidth(PicToLoad) / 3, ItemPicHeight(PicToLoad) / 3, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picItem, X, Y + 96 * 2, ItemPicWidth(PicToLoad) / 3, ItemPicHeight(PicToLoad) / 3, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picItem.hdc, X + 32, Y + 96 * 2, ItemPicWidth(PicToLoad) / 3, ItemPicHeight(PicToLoad) / 3, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picItem, X + 32, Y + 96 * 2, ItemPicWidth(PicToLoad) / 3, ItemPicHeight(PicToLoad) / 3, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		' Find outline and paint it black
 		For YY = Y + 96 To Y + 96 * 2 - 1 : For XX = X To X + Width_Renamed - 1
 				'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = GetPixel(picItem.hdc, XX, YY)
+                rc = GPixel(picItem, XX, YY)
 				If rc = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black) Then
 					For c = 0 To 3
 						Select Case c
 							Case 0
 								If XX < X + Width_Renamed - 1 Then
 									'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picItem.hdc, XX + 1, YY)
+                                    rc = GPixel(picItem, XX + 1, YY)
 								End If
 							Case 1
 								If YY > Y Then
 									'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picItem.hdc, XX, YY - 1)
+                                    rc = GPixel(picItem, XX, YY - 1)
 								End If
 							Case 2
 								If YY < Y + Height_Renamed * 2 - 1 Then
 									'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picItem.hdc, XX, YY + 1)
+                                    rc = GPixel(picItem, XX, YY + 1)
 								End If
 							Case 3
 								If XX > X Then
 									'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = GetPixel(picItem.hdc, XX - 1, YY)
+                                    rc = GPixel(picItem, XX - 1, YY)
 								End If
 						End Select
 						If rc > System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black) Then
 							' Black Outline
 							'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = SetPixel(picItem.hdc, XX, YY - 96, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
+                            rc = SPixel(picItem, XX, YY - 96, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
 							'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = SetPixel(picItem.hdc, System.Math.Abs(XX - Width_Renamed) + Width_Renamed, YY - 96, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
+                            rc = SPixel(picItem, System.Math.Abs(XX - Width_Renamed) + Width_Renamed, YY - 96, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
 							Exit For
 						End If
 					Next c
@@ -13076,49 +13077,49 @@ ErrorHandler:
 		Select Case Layer
 			Case bdMapBottom
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				c = Map.BottomTile(XMap, YMap)
+                c = Map_Renamed.BottomTile(XMap, YMap)
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If c > 0 And Map.Hidden(XMap, YMap) = False Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					c = Map.Tiles("L" & c).Pic
-				Else
-					c = bdTileBlack
-				End If
+                If c > 0 And Map_Renamed.Hidden(XMap, YMap) = False Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    c = Map_Renamed.Tiles("L" & c).Pic
+                Else
+                    c = bdTileBlack
+                End If
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Flip = Map.BottomFlip(XMap, YMap)
+                Flip = Map_Renamed.BottomFlip(XMap, YMap)
 				PlotTile(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
 			Case bdMapMiddle
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				c = Map.MiddleTile(XMap, YMap)
+                c = Map_Renamed.MiddleTile(XMap, YMap)
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If c > 0 And (Map.Hidden(XMap, YMap) = False Or Map.Hidden(Least(XMap + 1, Map.Width), YMap) = False Or Map.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					c = Map.Tiles("L" & c).Pic
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Flip = Map.MiddleFlip(XMap, YMap)
-					PlotTile(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
-				End If
+                If c > 0 And (Map_Renamed.Hidden(XMap, YMap) = False Or Map_Renamed.Hidden(Least(XMap + 1, Map_Renamed.Width), YMap) = False Or Map_Renamed.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    c = Map_Renamed.Tiles("L" & c).Pic
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    Flip = Map_Renamed.MiddleFlip(XMap, YMap)
+                    PlotTile(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
+                End If
 			Case bdMapTop
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				c = Map.TopTile(XMap, YMap)
+                c = Map_Renamed.TopTile(XMap, YMap)
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If c > 0 And (Map.Hidden(XMap, YMap) = False Or Map.Hidden(Least(XMap + 1, Map.Width), YMap) = False Or Map.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					c = Map.Tiles("L" & c).Pic
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Flip = Map.TopFlip(XMap, YMap)
-					PlotTile(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
-				End If
+                If c > 0 And (Map_Renamed.Hidden(XMap, YMap) = False Or Map_Renamed.Hidden(Least(XMap + 1, Map_Renamed.Width), YMap) = False Or Map_Renamed.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    c = Map_Renamed.Tiles("L" & c).Pic
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    Flip = Map_Renamed.TopFlip(XMap, YMap)
+                    PlotTile(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
+                End If
 			Case bdMapDim
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				c = Map.TopTile(XMap, YMap)
+                c = Map_Renamed.TopTile(XMap, YMap)
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Map.Hidden(XMap, YMap) = True And (Map.Hidden(Least(XMap + 1, Map.Width), YMap) = False Or Map.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
-					PlotTile(bdTileDark, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
-				End If
+                If Map_Renamed.Hidden(XMap, YMap) = True And (Map_Renamed.Hidden(Least(XMap + 1, Map_Renamed.Width), YMap) = False Or Map_Renamed.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
+                    PlotTile(bdTileDark, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
+                End If
 		End Select
 	End Sub
 	
@@ -13137,9 +13138,9 @@ ErrorHandler:
 		Dim XMap, YMap As Short
 		' Convert AtX and AtY to Map Coordinates
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		XMap = Map.Left + AtX - Int(AtY / 2)
+        XMap = Map_Renamed.Left + AtX - Int(AtY / 2)
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		YMap = Map.Top + AtX + Int((AtY + 1) / 2) - 1
+        YMap = Map_Renamed.Top + AtX + Int((AtY + 1) / 2) - 1
 		X = (AtX * 2 - 1 + (AtY Mod 2)) * 48
 		Y = (AtY - 2) * 24
 		' The calc above is spot on. I've double checked it.
@@ -13165,16 +13166,16 @@ ErrorHandler:
 		' Plot blank tile if out of bounds
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If XMap < 0 Or YMap < 0 Or XMap > Map.Width Or YMap > Map.Height Then
-			PlotTile(bdTileBlack, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
-		Else
-			LayerTile(bdMapBottom, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
-			LayerTile(bdMapMiddle, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
-			LayerTile(bdMapTop, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
-			DrawTileObjects(XMap, YMap)
-			DrawTileExitSign(XMap, YMap)
-			LayerTile(bdMapDim, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
-		End If
+        If XMap < 0 Or YMap < 0 Or XMap > Map_Renamed.Width Or YMap > Map_Renamed.Height Then
+            PlotTile(bdTileBlack, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
+        Else
+            LayerTile(bdMapBottom, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
+            LayerTile(bdMapMiddle, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
+            LayerTile(bdMapTop, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
+            DrawTileObjects(XMap, YMap)
+            DrawTileExitSign(XMap, YMap)
+            LayerTile(bdMapDim, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
+        End If
 	End Sub
 	
 	Private Sub DrawTileAnnotate(ByRef XMap As Short, ByRef YMap As Short)
@@ -13186,7 +13187,7 @@ ErrorHandler:
 			cy = ((YMap - MicroMapTop) - (XMap - MicroMapLeft)) * (bdTileHeight / 3) - 12
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picMicroMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(picMicroMap.hdc, cx, cy, 15, 15, picMisc.hdc, 36, 18, SRCCOPY)
+            rc = BBlt(picMicroMap, picMisc, cx, cy, 15, 15, 36, 18, SRCCOPY)
 		End If
 	End Sub
 	
@@ -13201,58 +13202,58 @@ ErrorHandler:
 		' Draw Encounter
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If Map.EncPointer(XMap, YMap) > 0 And Map.Hidden(XMap, YMap) = False Then
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			EncounterX = Map.Encounters("E" & Map.EncPointer(XMap, YMap))
-			If EncounterX.IsActive = True Then
-				' Encounter Items
-				For	Each ItemX In EncounterX.Items
-					If ItemX.MapX = 0 And ItemX.MapY = 0 Then
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						PositionItem(Map, EncounterX, ItemX)
-					End If
-					If ItemX.MapX = XMap And ItemX.MapY = YMap And Len(ItemX.PictureFile) > 0 Then
-						LoadItemPic(ItemX)
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						cx = ((YMap - Map.Top) + (XMap - Map.Left)) * 48 + ItemX.TileSpotX
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						cy = ((YMap - Map.Top) - (XMap - Map.Left)) * 24 - 24 + ItemX.TileSpotY - 24
-						'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						rc = BitBlt(picMap.hdc, cx, cy, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, picItem.hdc, 64 * ItemX.Pic - 32, 96 * 2, SRCAND)
-						'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						rc = BitBlt(picMap.hdc, cx, cy, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, picItem.hdc, 64 * ItemX.Pic - 64, 96 * 2, SRCPAINT)
-					End If
-				Next ItemX
-				' Encounter Creatures
-				For	Each CreatureX In EncounterX.Creatures
-					If CreatureX.MapX = XMap And CreatureX.MapY = YMap And CreatureX.IsInanimate = False And Len(CreatureX.PictureFile) > 0 Then
-						LoadCreaturePic(CreatureX)
-						If CreatureX.HPNow > 0 Then
-							n = CreatureX.Pic
-						Else
-							n = 0
-						End If
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						cx = ((YMap - Map.Top) + (XMap - Map.Left)) * 48 + CreatureX.TileSpotX
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						cy = ((YMap - Map.Top) - (XMap - Map.Left)) * 24 - 24 + CreatureX.TileSpotY - (picCMap(n).Height / 2)
-						'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						rc = BitBlt(picMap.hdc, cx, cy, picCMap(n).Width, picCMap(n).Height / 2, picCMap(n).hdc, 0, picCMap(n).Height / 2, SRCAND)
-						'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-						rc = BitBlt(picMap.hdc, cx, cy, picCMap(n).Width, picCMap(n).Height / 2, picCMap(n).hdc, 0, 0, SRCPAINT)
-					End If
-				Next CreatureX
-			End If
-		End If
+        If Map_Renamed.EncPointer(XMap, YMap) > 0 And Map_Renamed.Hidden(XMap, YMap) = False Then
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            EncounterX = Map_Renamed.Encounters("E" & Map_Renamed.EncPointer(XMap, YMap))
+            If EncounterX.IsActive = True Then
+                ' Encounter Items
+                For Each ItemX In EncounterX.Items
+                    If ItemX.MapX = 0 And ItemX.MapY = 0 Then
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        PositionItem(Map_Renamed, EncounterX, ItemX)
+                    End If
+                    If ItemX.MapX = XMap And ItemX.MapY = YMap And Len(ItemX.PictureFile) > 0 Then
+                        LoadItemPic(ItemX)
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        cx = ((YMap - Map_Renamed.Top) + (XMap - Map_Renamed.Left)) * 48 + ItemX.TileSpotX
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        cy = ((YMap - Map_Renamed.Top) - (XMap - Map_Renamed.Left)) * 24 - 24 + ItemX.TileSpotY - 24
+                        'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                        'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                        rc = BBlt(picMap, picItem, cx, cy, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, 64 * ItemX.Pic - 32, 96 * 2, SRCAND)
+                        'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                        'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                        rc = BBlt(picMap, picItem, cx, cy, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, 64 * ItemX.Pic - 64, 96 * 2, SRCPAINT)
+                    End If
+                Next ItemX
+                ' Encounter Creatures
+                For Each CreatureX In EncounterX.Creatures
+                    If CreatureX.MapX = XMap And CreatureX.MapY = YMap And CreatureX.IsInanimate = False And Len(CreatureX.PictureFile) > 0 Then
+                        LoadCreaturePic(CreatureX)
+                        If CreatureX.HPNow > 0 Then
+                            n = CreatureX.Pic
+                        Else
+                            n = 0
+                        End If
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        cx = ((YMap - Map_Renamed.Top) + (XMap - Map_Renamed.Left)) * 48 + CreatureX.TileSpotX
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        cy = ((YMap - Map_Renamed.Top) - (XMap - Map_Renamed.Left)) * 24 - 24 + CreatureX.TileSpotY - (picCMap(n).Height / 2)
+                        'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                        'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                        rc = BBlt(picMap, picCMap(n), cx, cy, picCMap(n).Width, picCMap(n).Height / 2, 0, picCMap(n).Height / 2, SRCAND)
+                        'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                        'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                        rc = BBlt(picMap, picCMap(n), cx, cy, picCMap(n).Width, picCMap(n).Height / 2, 0, 0, SRCPAINT)
+                    End If
+                Next CreatureX
+            End If
+        End If
 		' Draw Party
 		For	Each CreatureX In Tome.Creatures
 			'        If CreatureX.MapX = XMap And CreatureX.MapY = YMap And CreatureX.IsInanimate = False Then
@@ -13262,16 +13263,16 @@ ErrorHandler:
 					LoadCreaturePic(CreatureX)
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					cx = ((YMap - Map.Top) + (XMap - Map.Left)) * 48 + CreatureX.TileSpotX
+                    cx = ((YMap - Map_Renamed.Top) + (XMap - Map_Renamed.Left)) * 48 + CreatureX.TileSpotX
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					cy = ((YMap - Map.Top) - (XMap - Map.Left)) * 24 - 24 + CreatureX.TileSpotY - (picCMap(CreatureX.Pic).Height / 2)
+                    cy = ((YMap - Map_Renamed.Top) - (XMap - Map_Renamed.Left)) * 24 - 24 + CreatureX.TileSpotY - (picCMap(CreatureX.Pic).Height / 2)
 					'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMap.hdc, cx, cy, picCMap(CreatureX.Pic).Width, picCMap(CreatureX.Pic).Height / 2, picCMap(CreatureX.Pic).hdc, 0, picCMap(CreatureX.Pic).Height / 2, SRCAND)
+                    rc = BBlt(picMap, picCMap(CreatureX.Pic), cx, cy, picCMap(CreatureX.Pic).Width, picCMap(CreatureX.Pic).Height / 2, 0, picCMap(CreatureX.Pic).Height / 2, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMap.hdc, cx, cy, picCMap(CreatureX.Pic).Width, picCMap(CreatureX.Pic).Height / 2, picCMap(CreatureX.Pic).hdc, 0, 0, SRCPAINT)
+                    rc = BBlt(picMap, picCMap(CreatureX.Pic), cx, cy, picCMap(CreatureX.Pic).Width, picCMap(CreatureX.Pic).Height / 2, 0, 0, SRCPAINT)
 				End If
 			End If
 		Next CreatureX
@@ -13283,23 +13284,23 @@ ErrorHandler:
 		Dim EntryPointX As EntryPoint
 		Dim cx, cy As Short
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If Map.Hidden(XMap, YMap) = False Then
-			For	Each EntryPointX In Map.EntryPoints
-				If EntryPointX.MapX = XMap And EntryPointX.MapY = YMap And EntryPointX.IsNoExitSign = False Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					cx = ((YMap - Map.Top) + (XMap - Map.Left)) * 48
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					cy = ((YMap - Map.Top) - (XMap - Map.Left)) * 24
-					If EntryPointX.AreaIndex = 0 Then
-						ShowText(picMap, cx + 24, cy - 12, 48, 72, bdFontSmallWhite, "Main Exit", True, False)
-					Else
-						ShowText(picMap, cx, cy, 96, 72, bdFontSmallWhite, "Exit", True, False)
-					End If
-				End If
-			Next EntryPointX
-		End If
+        If Map_Renamed.Hidden(XMap, YMap) = False Then
+            For Each EntryPointX In Map_Renamed.EntryPoints
+                If EntryPointX.MapX = XMap And EntryPointX.MapY = YMap And EntryPointX.IsNoExitSign = False Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    cx = ((YMap - Map_Renamed.Top) + (XMap - Map_Renamed.Left)) * 48
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    cy = ((YMap - Map_Renamed.Top) - (XMap - Map_Renamed.Left)) * 24
+                    If EntryPointX.AreaIndex = 0 Then
+                        ShowText(picMap, cx + 24, cy - 12, 48, 72, bdFontSmallWhite, "Main Exit", True, False)
+                    Else
+                        ShowText(picMap, cx, cy, 96, 72, bdFontSmallWhite, "Exit", True, False)
+                    End If
+                End If
+            Next EntryPointX
+        End If
 	End Sub
 	
 	Private Sub frmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
@@ -13350,7 +13351,7 @@ ErrorHandler:
 		Dim sRune() As String
 		Dim PauseTime, Start As Single
 		' [Titi 2.4.9] no display when map doesn't have any runes!
-		If Map.IsNoRunes = True Then Exit Sub
+        If MainMap.IsNoRunes = True Then Exit Sub
 		' [Titi 2.4.8] get the runes names
 		modBD.InitializeRunes((WorldNow.Name))
 		ReDim sRune(intNbRunes + 1)
@@ -13685,18 +13686,20 @@ ErrorHandler:
 			c = Int((Y - 98) / 39)
 			If TomeAction <> c Then
 				'UPGRADE_ISSUE: PictureBox method picMainMenu.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				picMainMenu.Cls()
+                picMainMenu = Nothing
+                picMainMenu.Invalidate()
+
 				If TomeMenu = bdTomeOptions Then
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMainMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMainMenu.hdc, 122, 103, 288, 195, picBlack.hdc, 0, 340, SRCCOPY)
+                    rc = BBlt(picMainMenu, picBlack, 122, 103, 288, 195, 0, 340, SRCCOPY)
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMainMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMainMenu.hdc, 122, 103 + c * 39, 288, 39, picBlack.hdc, 0, 536 + c * 39, SRCCOPY)
+                    rc = BBlt(picMainMenu, picBlack, 122, 103 + c * 39, 288, 39, 0, 536 + c * 39, SRCCOPY)
 				Else
 					'UPGRADE_ISSUE: PictureBox property picBlack.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMainMenu.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(picMainMenu.hdc, 122, 103 + c * 39, 288, 39, picBlack.hdc, 0, 144 + c * 39, SRCCOPY)
+                    rc = BBlt(picMainMenu, picBlack, 122, 103 + c * 39, 288, 39, 0, 144 + c * 39, SRCCOPY)
 				End If
 				Call UpdateMainMenu()
 				TomeAction = c
@@ -14014,7 +14017,9 @@ ErrorHandler:
 		Static TimeToRead As Double
 		If DialogBriefSet.Count() > 0 And TimeToRead = 0 Then
 			'UPGRADE_ISSUE: PictureBox method picDialogBrief.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			picDialogBrief.Cls()
+            picDialogBrief = Nothing
+            picDialogBrief.Invalidate()
+
 			'UPGRADE_WARNING: Couldn't resolve default property of object DialogBriefSet().CreatureTalking. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			DialogShowFaceBrief(DialogBriefSet.Item(1).CreatureTalking)
 			'UPGRADE_WARNING: Couldn't resolve default property of object DialogBriefSet().Text. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
