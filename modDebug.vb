@@ -12,8 +12,10 @@ Module modDebug
 	Public Sub DebugAdd(ByRef TrigX As Trigger, ByRef StmtX As Statement)
 		Dim c As Short
 		Dim FactoidX As Factoid
-		Dim Text, Text2 As String
-		' Add Statement to Que
+        Dim Text, Text2 As String
+        Dim tome As Tome
+        Dim area As Area
+        ' Add Statement to Que
 		c = 1
 		For	Each FactoidX In DebugQue
 			If FactoidX.Index >= c Then
@@ -25,7 +27,7 @@ Module modDebug
 		FactoidX.Index = c
 		DebugQue.Add(FactoidX, "F" & FactoidX.Index)
 		' Show Statement
-		modBD.StatementToText(Tome, Area, TrigX, StmtX, Text)
+        modBD.StatementToText(tome, area, TrigX, StmtX, Text)
 		FactoidX.Text = Text
 		' Decrypt Statement
 		'    Select Case StmtX.Statement
@@ -92,7 +94,9 @@ Module modDebug
 		Dim FactoidX As Factoid
 		n = 0
 		'UPGRADE_ISSUE: PictureBox method picConvoList.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		frmMain.picConvoList.Cls()
+        frmMain.picConvoList = Nothing
+        frmMain.picConvoList.Invalidate()
+
 		For c = 0 To Least(18, DebugQue.Count() - DebugTop)
 			' Show Description
 			'ShowText frmMain.picConvoList, 8, 6 + 14 * n, 354, 10, bdFontSmallWhite, DebugQue(DebugTop + c).Text, False, False

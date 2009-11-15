@@ -2,7 +2,11 @@ Option Strict Off
 Option Explicit On
 Imports VB = Microsoft.VisualBasic
 Module modEvents
-	Private FrameNow As TriggerFrame
+    Private FrameNow As TriggerFrame
+    Private map As Map = Map.GetInstance()
+    Private tome As Tome = tome.getInstance()
+    Private area As Area = Area.getInstance()
+
 	Const bdIfSkip As Short = -1
 	Const bdIfProcess As Short = 0
 	Const bdIfEnd As Short = 1
@@ -118,16 +122,16 @@ Module modEvents
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If Map.EncPointer(Tome.MoveToX, Tome.MoveToY) > 0 Then
-			'Set FrameX.EncounterX(4) = frmMain.Map.Encounters("E" & frmMain.Map.EncPointer(frmMain.Tome.MoveToX, frmMain.Tome.MoveToY))
-			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			FrameX.EncounterX(4) = Map.Encounters("E" & Map.EncPointer(Tome.MoveToX, Tome.MoveToY))
-		Else
-			FrameX.EncounterX(4) = EncounterNow
-		End If
+        If map.EncPointer(tome.MoveToX, tome.MoveToY) > 0 Then
+            'Set FrameX.EncounterX(4) = frmMain.Map.Encounters("E" & frmMain.Map.EncPointer(frmMain.Tome.MoveToX, frmMain.Tome.MoveToY))
+            'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            FrameX.EncounterX(4) = map.Encounters("E" & map.EncPointer(tome.MoveToX, tome.MoveToY))
+        Else
+            FrameX.EncounterX(4) = EncounterNow
+        End If
 		FrameX.CreatureX(0) = CreatureNow
 		FrameX.CreatureX(4) = CreatureTarget
 		FrameX.ItemX(0) = ItemNow
@@ -508,7 +512,7 @@ Module modEvents
 											'modDungeonMaker.PositionCreature frmMain.Map, .EncounterX(StmtX.B(1)), ObjectX
 											'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 											'UPGRADE_WARNING: Couldn't resolve default property of object Map. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-											modDungeonMaker.PositionCreature(Map, .EncounterX(StmtX.B(1)), ObjectX)
+                                            modDungeonMaker.PositionCreature(map, .EncounterX(StmtX.B(1)), ObjectX)
 										Case 5
 											' [Titi 2.4.9] set the coordinates of the new creatures
 											'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -572,48 +576,48 @@ Module modEvents
 							Y = GetVarContext(StmtX.B(3), StmtX.B(4))
 							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 							'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							If PointIn(X, Y, 0, 0, Map.Width, Map.Height) Then
-								' Locate Tile Name in Current Map
-								'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								For	Each TileX In Map.Tiles
-									If TileX.Name = sText Then
-										Select Case StmtX.B(2)
-											Case 0 ' Bottom
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.BottomTile(X, Y) = TileX.Index
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.BottomFlip(X, Y) = False
-											Case 1 ' Bottom (Flip)
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.BottomTile(X, Y) = TileX.Index
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.BottomFlip(X, Y) = True
-											Case 2 ' Middle
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.MiddleTile(X, Y) = TileX.Index
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.MiddleFlip(X, Y) = False
-											Case 3 ' Middle (Flip)
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.MiddleTile(X, Y) = TileX.Index
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.MiddleFlip(X, Y) = True
-											Case 4 ' Top
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.TopTile(X, Y) = TileX.Index
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.TopFlip(X, Y) = False
-											Case 5 ' Top (Flip)
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.TopTile(X, Y) = TileX.Index
-												'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												Map.TopFlip(X, Y) = True
-										End Select
-										RefreshMap = True
-										Exit For
-									End If
-								Next TileX
-							End If
+                            If PointIn(X, Y, 0, 0, map.Width, map.Height) Then
+                                ' Locate Tile Name in Current Map
+                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                For Each TileX In map.Tiles
+                                    If TileX.Name = sText Then
+                                        Select Case StmtX.B(2)
+                                            Case 0 ' Bottom
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.BottomTile(X, Y) = TileX.Index
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.BottomFlip(X, Y) = False
+                                            Case 1 ' Bottom (Flip)
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.BottomTile(X, Y) = TileX.Index
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.BottomFlip(X, Y) = True
+                                            Case 2 ' Middle
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.MiddleTile(X, Y) = TileX.Index
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.MiddleFlip(X, Y) = False
+                                            Case 3 ' Middle (Flip)
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.MiddleTile(X, Y) = TileX.Index
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.MiddleFlip(X, Y) = True
+                                            Case 4 ' Top
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.TopTile(X, Y) = TileX.Index
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.TopFlip(X, Y) = False
+                                            Case 5 ' Top (Flip)
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.TopTile(X, Y) = TileX.Index
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                map.TopFlip(X, Y) = True
+                                        End Select
+                                        RefreshMap = True
+                                        Exit For
+                                    End If
+                                Next TileX
+                            End If
 						Case 22 ' CopyText
 							PutVarContext(StmtX.B(0), StmtX.B(1), sText)
 						Case 23 ' Runes
@@ -764,15 +768,15 @@ Module modEvents
 							GlobalMusicName = StmtX.Text
 						Case 35 ' MoveParty
 							'For Each MapX In frmMain.Area.Plot.Maps
-							For	Each MapX In Area.Plot.Maps
-								If MapX.Index = StmtX.B(5) Then
-									'UPGRADE_WARNING: Couldn't resolve default property of object GetVarContext(StmtX.B(3), StmtX.B(4)). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-									'UPGRADE_WARNING: Couldn't resolve default property of object GetVarContext(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-									'UPGRADE_WARNING: Couldn't resolve default property of object Area.Index. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-									frmMain.TomeStartArea(Area.Index, (MapX.Index), -1, GetVarContext(StmtX.B(0), StmtX.B(1)), GetVarContext(StmtX.B(3), StmtX.B(4)))
-									Exit For
-								End If
-							Next MapX
+                            For Each MapX In area.Plot.Maps
+                                If MapX.Index = StmtX.B(5) Then
+                                    'UPGRADE_WARNING: Couldn't resolve default property of object GetVarContext(StmtX.B(3), StmtX.B(4)). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                    'UPGRADE_WARNING: Couldn't resolve default property of object GetVarContext(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                    'UPGRADE_WARNING: Couldn't resolve default property of object Area.Index. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                    frmMain.TomeStartArea(area.Index, (MapX.Index), -1, GetVarContext(StmtX.B(0), StmtX.B(1)), GetVarContext(StmtX.B(3), StmtX.B(4)))
+                                    Exit For
+                                End If
+                            Next MapX
 						Case 36 ' DialogShow
 							Select Case StmtX.B(0)
 								Case 0 ' Normal
@@ -962,12 +966,12 @@ Module modEvents
 							End If
 						Case 61 ' RemoveTopic [Titi 2.4.9]
 							For	Each ConvoX In CreatureNow.Conversations
-								For	Each TopicX In ConvoX
-									If InStr(UCase(TopicX.Say), UCase(BreakText(sText, 1))) > 0 Then
-										'UPGRADE_WARNING: Couldn't resolve default property of object CreatureNow.Conversations().RemoveTopic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-										CreatureNow.Conversations.Item(ConvoX.Index).RemoveTopic("Q" & TopicX.Index)
-									End If
-								Next TopicX
+                                For Each TopicX In ConvoX.Topics
+                                    If InStr(UCase(TopicX.Say), UCase(BreakText(sText, 1))) > 0 Then
+                                        'UPGRADE_WARNING: Couldn't resolve default property of object CreatureNow.Conversations().RemoveTopic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                        CreatureNow.Conversations.Item(ConvoX.Index).RemoveTopic("Q" & TopicX.Index)
+                                    End If
+                                Next TopicX
 							Next ConvoX
 						Case 62 ' CombatAttackWithWeapon
 							frmMain.CombatAttack(62, "", 0, 0)
@@ -986,13 +990,13 @@ Module modEvents
 									Else
 										' Find Map Name in Area
 										'UPGRADE_WARNING: Couldn't resolve default property of object Area.Plot. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-										For	Each MapX In Area.Plot.Maps
-											If MapX.Name = StmtX.Text Then
-												'UPGRADE_WARNING: Couldn't resolve default property of object GetVarContext(StmtX.B(3), StmtX.B(4)). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												'UPGRADE_WARNING: Couldn't resolve default property of object GetVarContext(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-												frmMain.TomeStartArea((AreaX.Index), (MapX.Index), -1, GetVarContext(StmtX.B(0), StmtX.B(1)), GetVarContext(StmtX.B(3), StmtX.B(4)))
-											End If
-										Next MapX
+                                        For Each MapX In area.Plot.Maps
+                                            If MapX.Name = StmtX.Text Then
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object GetVarContext(StmtX.B(3), StmtX.B(4)). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                'UPGRADE_WARNING: Couldn't resolve default property of object GetVarContext(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                                frmMain.TomeStartArea((AreaX.Index), (MapX.Index), -1, GetVarContext(StmtX.B(0), StmtX.B(1)), GetVarContext(StmtX.B(3), StmtX.B(4)))
+                                            End If
+                                        Next MapX
 										Exit For
 									End If
 								End If
@@ -1197,7 +1201,8 @@ Module modEvents
 									' Draw Normal and Flip
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									'UPGRADE_ISSUE: PictureBox method picCPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									frmMain.picCPic(ObjectX.Pic).Cls()
+
+                                    frmMain.picCPic(ObjectX.Pic).Invalidate()
 									'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'

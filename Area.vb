@@ -1,7 +1,8 @@
 Option Strict Off
 Option Explicit On
 Friend Class Area
-	
+
+    Private Shared instance As Area
 	' Version of Class
 	Private myVersion As Short
 	' Unique index for this Area
@@ -15,7 +16,12 @@ Friend Class Area
 	' Plot reference (not saved)
 	Private myPlot As Plot
 	
-	
+    Public Shared Function getInstance()
+        If instance Is Nothing Then
+            instace = New Area
+        End If
+        Return instance
+    End Function
 	Public Property Index() As Short
 		Get
 			Index = myIndex

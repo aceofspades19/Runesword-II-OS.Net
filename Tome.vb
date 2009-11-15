@@ -84,7 +84,14 @@ Friend Class Tome
 	Private myFactoids As New Collection
 	' Areas attached to this Tome
 	Private myAreas As New Collection
-	
+    Private Shared instance As Tome
+
+    Public Shared Function getInstance()
+        If instance Is Nothing Then
+            instance = New Tome
+        End If
+        Return instance
+    End Function
 	
 	Public Property Index() As Short
 		Get

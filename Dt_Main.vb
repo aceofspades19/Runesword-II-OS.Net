@@ -24,8 +24,8 @@ Friend Class frmMain
 	Dim Combat20Bonus, Combat20, CombatDmgBonus As Short
 	Dim CombatDiceType(5) As Short
     Dim CombatDiceValue(5) As Short
-    Dim MainMap As Map
-    Dim tome As Tome
+    Dim MainMap As Map = Map.GetInstance()
+    Dim tome As Tome = tome.getInstance()
     Dim area As Area
 	Const bdCombatGridWidth As Short = 48
 	Const bdCombatGridHeight As Short = 24
@@ -179,14 +179,14 @@ Friend Class frmMain
 	
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Function GetRunePool(ByRef Index As Short) As Short
-		Dim Map_Renamed As Object
+        'Dim Map_Renamed As Object
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         GetRunePool = MainMap.Runes(Index)
 	End Function
 	
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub LetRunePool(ByRef Index As Short, ByRef NewValue As Short)
-		Dim Map_Renamed As Object
+
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         MainMap.Runes(Index) = NewValue
 	End Sub
@@ -310,10 +310,10 @@ BackToPreviousState:
 		If PictureFile <> "" And Style < 5 Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-            FileName = Dir(Tome_Renamed.FullPath & "\" & PictureFile)
+            FileName = Dir(tome.FullPath & "\" & PictureFile)
 			If FileName <> "" Then
 				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                picWallPaper.Image = System.Drawing.Image.FromFile(Tome_Renamed.FullPath & "\" & FileName)
+                picWallPaper.Image = System.Drawing.Image.FromFile(tome.FullPath & "\" & FileName)
 			Else
 				Style = 5 ' Couldn't load picture, so default to no picture
 			End If
@@ -395,7 +395,7 @@ BackToPreviousState:
 	
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub MapCenter(ByRef XMap As Short, ByRef YMap As Short)
-		Dim Map_Renamed As Object
+
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         MainMap.Left = XMap + 2
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -405,8 +405,8 @@ BackToPreviousState:
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub MovePartySet(ByRef AtClickX As Short, ByRef AtClickY As Short, Optional ByRef AtMapX As Object = Nothing, Optional ByRef AtMapY As Object = Nothing)
-		Dim Tome_Renamed As Object
-		Dim Map_Renamed As Object
+
+
 		Dim Y, X, c As Short
 		Dim MoveToX, MoveToY As Short
 		Dim CreatureX As Creature
@@ -430,18 +430,18 @@ BackToPreviousState:
 			MoveToY = CShort(AtMapY)
 		End If
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Tome_Renamed.MoveToX = MoveToX
+        tome.MoveToX = MoveToX
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Tome_Renamed.MoveToY = MoveToY
+        tome.MoveToY = MoveToY
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        FindPath(Tome_Renamed)
+        FindPath(tome)
 		' Play a sound (maybe)
 		'    If GlobalWAVState = 1 Then
 		'        PlaySound "step" & Int(Rnd * 4) + 1, False
 		'    End If
 		c = -1
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        For Each CreatureX In Tome_Renamed.Creatures
+        For Each CreatureX In tome.Creatures
             c = LoopNumber(0, 8, c, 1)
             CreatureX.TileSpot = c
         Next CreatureX
@@ -635,8 +635,8 @@ BackToPreviousState:
         Next c
         ' Draw faces
         For c = 0 To 4
-            If PartyLeft + c < Tome_Renamed.Creatures.Count Then
-                MenuParty(c) = Tome_Renamed.Creatures(PartyLeft + c + 1)
+            If PartyLeft + c < tome.Creatures.Count Then
+                MenuParty(c) = tome.Creatures(PartyLeft + c + 1)
                 If picGrid.Visible = False Then
                     MenuDrawFace(MenuParty(c), c)
                 End If
@@ -651,7 +651,7 @@ BackToPreviousState:
             ' Left Arrow
             picMenu.Image = CType(CopyRect(picMisc, New RectangleF(8, 32, 18, 18), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
         End If
-        If PartyLeft + 5 < Tome_Renamed.Creatures.Count Then
+        If PartyLeft + 5 < tome.Creatures.Count Then
             ' Right Arrow
             picMenu.Image = CType(CopyRect(picMenu, New RectangleF(618, 32, 18, 18), CInt(&HCC0020)), System.Drawing.Bitmap).Clone
         End If
@@ -760,7 +760,7 @@ BackToPreviousState:
 			' Drop to Party member
 			c = Greatest(0, Least(Int((AtX - picMenu.Left) / 122), 4))
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            If IsBetween(c, 0, Tome_Renamed.Creatures.Count - 1) Then
+            If IsBetween(c, 0, tome.Creatures.Count - 1) Then
                 TradeItem(CreatureWithTurn, MenuParty(c), bdInvContainer, bdInvObjects, 0, 0, InvDragItem)
             End If
 		Else
@@ -898,7 +898,7 @@ BackToPreviousState:
 			' Drop to Party member
 			c = Greatest(0, Least(Int((AtX - picMenu.Left) / 122), 4))
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            If IsBetween(c, 0, Tome_Renamed.Creatures.Count - 1) Then
+            If IsBetween(c, 0, tome.Creatures.Count - 1) Then
                 TradeItem(CreatureWithTurn, MenuParty(c), bdInvObjects, bdInvParty, 0, 0, InvDragItem)
             End If
 		Else
@@ -1294,10 +1294,10 @@ BackToPreviousState:
 				sTmp = gDataPath & "\graphics\creatures\" & CreatureWithTurn.PictureFile
 				If Not oFileSys.CheckExists(sTmp, clsInOut.IOActionType.File) Then
 					'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    sTmp = Tome_Renamed.FullPath & "\" & CreatureWithTurn.PictureFile
+                    sTmp = tome.FullPath & "\" & CreatureWithTurn.PictureFile
 					If Not oFileSys.CheckExists(sTmp, clsInOut.IOActionType.File) Then
 						'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        sTmp = Tome_Renamed.FullPath & "\creatures\" & CreatureWithTurn.PictureFile
+                        sTmp = tome.FullPath & "\creatures\" & CreatureWithTurn.PictureFile
 						If Not oFileSys.CheckExists(sTmp, clsInOut.IOActionType.File) Then
 							sTmp = ""
 						End If
@@ -1700,7 +1700,7 @@ BackToPreviousState:
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub SearchDrag(ByRef AtX As Short, ByRef AtY As Short)
-		Dim Tome_Renamed As Object
+
 		Dim X, c, Y As Short
 		' No matter what, shut off dragging Item
 		InvDragItem.Selected = False
@@ -1722,7 +1722,7 @@ BackToPreviousState:
 			' Drop to Party member
 			c = Greatest(Least(Int((AtX - picMenu.Left) / 122), 4), 0)
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            If IsBetween(c, 0, Tome_Renamed.Creatures.Count - 1) Then
+            If IsBetween(c, 0, tome.Creatures.Count - 1) Then
                 TradeItem(CreatureWithTurn, MenuParty(c), bdInvEncounter, bdInvObjects, 0, 0, InvDragItem)
             End If
 		End If
@@ -1789,7 +1789,7 @@ BackToPreviousState:
 			' DoorOpen with Key
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            DoorOpen(Tome_Renamed.MapX, Tome_Renamed.MapY)
+            DoorOpen(tome.MapX, tome.MapY)
 			Found = True
 		ElseIf ItemToUse.Count > 1 Then 
 			DialogDM("You split the " & ItemToUse.Name & " into two piles.")
@@ -2250,7 +2250,7 @@ BackToPreviousState:
 	
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub MessageEncounterName(ByRef AtX As Short, ByRef AtY As Short)
-		Dim Map_Renamed As Object
+
 		'UPGRADE_NOTE: my was upgraded to my_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 		Dim Found, mx, my_Renamed, c As Short
 		Dim rc As Integer
@@ -3289,11 +3289,9 @@ BackToPreviousState:
 		CursorAtX = (Int(Col * GridWidth + GridAdjust)) * CommonScale
 	End Sub
 	
-	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+
 	Private Sub CombatWallpaper()
-        Dim tome_Renamed As Object
-		Dim Map_Renamed As Object
+  
 		Dim FileName As String
 		Dim c, Found As Short
 		Dim PictureFile As String
@@ -6109,7 +6107,7 @@ BackToPreviousState:
 		c = FreeFile
 		FileOpen(c, sPath & "\" & Tome.FileName, OpenMode.Binary)
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.SaveToFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Tome_Renamed.SaveToFile(c)
+        tome.SaveToFile(c)
 		FileClose(c)
 		' Save Area
 		c = FreeFile
@@ -6394,50 +6392,49 @@ ErrorHandler:
 		End If
 	End Sub
 	
-	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub LayerTileMicro(ByRef Layer As Short, ByRef XMap As Short, ByRef YMap As Short, ByRef AtX As Short, ByRef AtY As Short, ByRef AtWidth As Short, ByRef AtHeight As Short, ByRef AtOffX As Short, ByRef AtOffY As Short, ByRef Gray As Short)
-		Dim Map_Renamed As Object
-		Dim c, Flip As Short
-		Select Case Layer
-			Case bdMapBottom
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                c = Map_Renamed.BottomTile(XMap, YMap)
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If c > 0 And Map_Renamed.Hidden(XMap, YMap) = False Then
+    Private Sub LayerTileMicro(ByRef Layer As Short, ByRef XMap As Short, ByRef YMap As Short, ByRef AtX As Short, ByRef AtY As Short, ByRef AtWidth As Short, ByRef AtHeight As Short, ByRef AtOffX As Short, ByRef AtOffY As Short, ByRef Gray As Short)
+
+        Dim c, Flip As Short
+        Select Case Layer
+            Case bdMapBottom
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                c = MainMap.BottomTile(XMap, YMap)
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                If c > 0 And MainMap.Hidden(XMap, YMap) = False Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    c = Map_Renamed.Tiles("L" & c).Pic
+                    c = MainMap.Tiles("L" & c).Pic
                 Else
                     c = -1
                 End If
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                Flip = Map_Renamed.BottomFlip(XMap, YMap)
-				PlotTileMicro(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
-			Case bdMapMiddle
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                c = Map_Renamed.MiddleTile(XMap, YMap)
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If c > 0 And (Map_Renamed.Hidden(XMap, YMap) = False Or Map_Renamed.Hidden(Least(XMap + 1, Map_Renamed.Width), YMap) = False Or Map_Renamed.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                Flip = MainMap.BottomFlip(XMap, YMap)
+                PlotTileMicro(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
+            Case bdMapMiddle
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                c = MainMap.MiddleTile(XMap, YMap)
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                If c > 0 And (MainMap.Hidden(XMap, YMap) = False Or MainMap.Hidden(Least(XMap + 1, MainMap.Width), YMap) = False Or MainMap.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    c = Map_Renamed.Tiles("L" & c).Pic
+                    c = MainMap.Tiles("L" & c).Pic
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Flip = Map_Renamed.MiddleFlip(XMap, YMap)
+                    Flip = MainMap.MiddleFlip(XMap, YMap)
                     PlotTileMicro(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
                 End If
-			Case bdMapTop
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                c = Map_Renamed.TopTile(XMap, YMap)
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If c > 0 And (Map_Renamed.Hidden(XMap, YMap) = False Or Map_Renamed.Hidden(Least(XMap + 1, Map_Renamed.Width), YMap) = False Or Map_Renamed.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
+            Case bdMapTop
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                c = MainMap.TopTile(XMap, YMap)
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                If c > 0 And (MainMap.Hidden(XMap, YMap) = False Or MainMap.Hidden(Least(XMap + 1, MainMap.Width), YMap) = False Or MainMap.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    c = Map_Renamed.Tiles("L" & c).Pic
+                    c = MainMap.Tiles("L" & c).Pic
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Flip = Map_Renamed.TopFlip(XMap, YMap)
+                    Flip = MainMap.TopFlip(XMap, YMap)
                     PlotTileMicro(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
                 End If
-		End Select
-	End Sub
+        End Select
+    End Sub
 	
 	Public Sub DrawTileMicro(ByRef AtX As Short, ByRef AtY As Short, ByRef Side As Short)
 		' AtX is a Pixel / (bdTileWidth/ 2), AtY is Pixel / (bdTileHeight / 3)
@@ -7919,7 +7916,7 @@ ErrorHandler:
 					Me.Refresh()
 					Call PlayClickSnd(modIOFunc.ClickType.ifClickCast)
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Map_Renamed.Runes(c) = Map_Renamed.Runes(c) + 1
+                    MainMap.Runes(c) = MainMap.Runes(c) + 1
 				End If
 			Next c
 			BorderDrawSides(True, -1)
@@ -8660,13 +8657,13 @@ ErrorHandler:
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            If Map_Renamed.EncPointer(Tome_Renamed.MapX, Tome_Renamed.MapY) = 0 Then
+            If Map_Renamed.EncPointer(tome.MapX, tome.MapY) = 0 Then
                 'UPGRADE_WARNING: Couldn't resolve default property of object Map.AddEncounter. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 EncounterNow = Map_Renamed.AddEncounter
                 'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                Map_Renamed.EncPointer(Tome_Renamed.MapX, Tome_Renamed.MapY) = EncounterNow.Index
+                Map_Renamed.EncPointer(tome.MapX, tome.MapY) = EncounterNow.Index
             End If
 			ItemX = EncounterNow.AddItem
 			ItemX.Copy(ItemToDrop)
@@ -8999,13 +8996,13 @@ ErrorHandler:
 		Dim Map_Renamed As Object
 		' If TileSet is not loaded, load it now
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        If TileSetLoaded <> Map_Renamed.PictureFile Then
+        If TileSetLoaded <> MainMap.PictureFile Then
             LoadTileSet(Darker, False)
             LoadTileSetMicro()
             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            MicroMapLeft = Map_Renamed.Left
+            MicroMapLeft = MainMap.Left
             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            MicroMapTop = Map_Renamed.Top
+            MicroMapTop = MainMap.Top
         End If
 		' Draw map
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
@@ -9054,7 +9051,7 @@ ErrorHandler:
 	
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub BorderDrawSides(ByRef InGame As Short, ByRef ShowRune As Short)
-		Dim Map_Renamed As Object
+        Dim MainMap As Object
 		Dim rc As Integer
 		Dim fx, X, c, Y, fy As Short
 		' Left and Right
@@ -9068,7 +9065,7 @@ ErrorHandler:
 		Next c
 		' If InGame then Draw Rune Pool
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.IsNoRunes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        If InGame = True And Map_Renamed.IsNoRunes = False Then
+        If InGame = True And MainMap.IsNoRunes = False Then
             ' Draw number of Runes available
             For c = 0 To 19
                 If c > 9 Then
@@ -9085,14 +9082,14 @@ ErrorHandler:
                     'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                     rc = BBltForm(Me, picRuneSet, X, Y, 32, 32, fx, fy + 128, SRCCOPY)
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    ShowText(Me, X, Y + 22, 32, 10, bdFontSmallWhite, VB6.Format(Map_Renamed.Runes(c)), True, False)
+                    ShowText(Me, X, Y + 22, 32, 10, bdFontSmallWhite, VB6.Format(MainMap.Runes(c)), True, False)
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                ElseIf Map_Renamed.Runes(c) > 0 Then
+                ElseIf MainMap.Runes(c) > 0 Then
                     'UPGRADE_ISSUE: PictureBox property picRuneSet.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                     'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                     rc = BBltForm(Me, picRuneSet, X, Y, 32, 32, fx, fy, SRCCOPY)
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    ShowText(Me, X, Y + 22, 32, 10, bdFontSmallWhite, VB6.Format(Map_Renamed.Runes(c)), True, False)
+                    ShowText(Me, X, Y + 22, 32, 10, bdFontSmallWhite, VB6.Format(MainMap.Runes(c)), True, False)
                 Else
                     'UPGRADE_ISSUE: PictureBox property picRuneSet.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                     'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
@@ -10016,7 +10013,7 @@ Err_Handler:
 	
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Function SorceryQueRune(ByRef CreatureX As Creature, ByRef RuneToQue As Short) As Short
-		Dim Map_Renamed As Object
+        Dim MainMap As Object
 		Dim rc, c, Cost As Short
 		' If blank rune to que then bad
 		If RuneToQue < 0 Then
@@ -10039,7 +10036,7 @@ Err_Handler:
 		' Que the Rune
 		CreatureX.Runes(c) = RuneToQue + 1
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Runes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Map_Renamed.Runes(RuneToQue) = Map_Renamed.Runes(RuneToQue) - 1
+        MainMap.Runes(RuneToQue) = MainMap.Runes(RuneToQue) - 1
 		' Show after
 		BorderDrawSides(True, -1)
 		BorderDrawButtons(0)
@@ -10839,9 +10836,9 @@ ErrorHandler:
 		Next CreatureX
 		' Draw Borders (turn off drawing runes for a moment) [Titi 2.4.9] moved here to have the borders free of runes when tomes titles/splashscreens show
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.IsNoRunes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Found = Map_Renamed.IsNoRunes '[Titi 2.4.9]
+        Found = MainMap.IsNoRunes '[Titi 2.4.9]
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.IsNoRunes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Map_Renamed.IsNoRunes = True
+        MainMap.IsNoRunes = True
 		BorderDrawAll(True)
 		' Fire Post-EnterTome Triggers
 		If TomeX.OnAdventure = False Then
@@ -10873,7 +10870,7 @@ ErrorHandler:
 		' Draw Borders (turn off drawing runes for a moment)
 		'[Titi 2.4.9] set the runes back to the correct status
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.IsNoRunes. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Map_Renamed.IsNoRunes = Found
+        MainMap.IsNoRunes = Found
 		BorderDrawAll(True)
 		picMap.Focus()
 	End Sub
@@ -11023,7 +11020,7 @@ ErrorHandler:
 		'UPGRADE_WARNING: Couldn't resolve default property of object Area.Plot. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		For	Each MapX In Area.Plot.Maps
 			If MapX.Index = MapIndex Or MapX.Name = MapName Then
-                Map_Renamed = MapX
+                MainMap = MapX
 				Found = True
 				Exit For
 			End If
@@ -11045,10 +11042,10 @@ ErrorHandler:
 		End If
 		' ReGen Map if set
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.GenerateUponEntry. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        If Map_Renamed.GenerateUponEntry = True Then
-            modDungeonMaker.MakeMap(Map_Renamed, True)
+        If MainMap.GenerateUponEntry = True Then
+            modDungeonMaker.MakeMap(MainMap, True)
             'UPGRADE_WARNING: Couldn't resolve default property of object Map.GenerateUponEntry. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            Map_Renamed.GenerateUponEntry = False
+            MainMap.GenerateUponEntry = False
         End If
 		' Locate EntryPoint and set (if first time in)
 		Found = False
@@ -11102,12 +11099,12 @@ ErrorHandler:
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        If Map_Renamed.EncPointer(tome.MapX, tome.MapY) > 0 Then
+        If MainMap.EncPointer(tome.MapX, tome.MapY) > 0 Then
             'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            EncounterNow = Map_Renamed.Encounters("E" & Map_Renamed.EncPointer(tome.MapX, tome.MapY))
+            EncounterNow = MainMap.Encounters("E" & MainMap.EncPointer(tome.MapX, tome.MapY))
         Else
             EncounterNow = New Encounter
         End If
@@ -11123,7 +11120,7 @@ ErrorHandler:
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub LoadTileSetMicro()
-		Dim Map_Renamed As Object
+
 		Dim Tome_Renamed As Object
 		' Load and sets Tiles for Map
 		Dim FileName As String
@@ -11144,26 +11141,26 @@ ErrorHandler:
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-        FileName = Dir(tome.FullPath & "\" & Map_Renamed.PictureFile)
+        FileName = Dir(tome.FullPath & "\" & MainMap.PictureFile)
 		If FileName = "" Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-            FileName = Dir(tome.FullPath & "\tiles\" & Map_Renamed.PictureFile)
+            FileName = Dir(tome.FullPath & "\tiles\" & MainMap.PictureFile)
 			If FileName = "" Then
 				'FileName = Dir(gAppPath & "\data\graphics\tiles\" & Map.PictureFile)
 				'        FileName = gAppPath & "\data\graphics\tiles\" & Map.PictureFile
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                FileName = gDataPath & "\graphics\tiles\" & Map_Renamed.PictureFile
+                FileName = gDataPath & "\graphics\tiles\" & MainMap.PictureFile
 			Else
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                FileName = tome.FullPath & "\tiles\" & Map_Renamed.PictureFile
+                FileName = tome.FullPath & "\tiles\" & MainMap.PictureFile
 			End If
 		Else
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            FileName = tome.FullPath & "\" & Map_Renamed.PictureFile
+            FileName = tome.FullPath & "\" & MainMap.PictureFile
 		End If
 		ReadBitmapFile(FileName, bmTiles, hMemTiles, TransparentRGB)
 		' Make a copy of the current palette for the picture
@@ -11220,7 +11217,7 @@ ErrorHandler:
 	End Sub
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+    'UPGRADE_NOTE: Map was upgraded to MainMap. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub LoadTileSet(ByRef AsDark As Short, ByRef SupressMsg As Short)
 		Dim Map_Renamed As Object
 		Dim Tome_Renamed As Object
@@ -11247,25 +11244,25 @@ ErrorHandler:
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-        FileName = Dir(tome.FullPath & "\" & Map_Renamed.PictureFile)
+        FileName = Dir(tome.FullPath & "\" & MainMap.PictureFile)
 		If FileName = "" Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-            FileName = Dir(tome.FullPath & "\tiles\" & Map_Renamed.PictureFile)
+            FileName = Dir(tome.FullPath & "\tiles\" & MainMap.PictureFile)
 			If FileName = "" Then
 				'    FileName = gAppPath & "\data\graphics\tiles\" & Map.PictureFile
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                FileName = gDataPath & "\graphics\tiles\" & Map_Renamed.PictureFile
+                FileName = gDataPath & "\graphics\tiles\" & MainMap.PictureFile
 			Else
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                FileName = tome.FullPath & "\tiles\" & Map_Renamed.PictureFile
+                FileName = tome.FullPath & "\tiles\" & MainMap.PictureFile
 			End If
 		Else
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            FileName = tome.FullPath & "\" & Map_Renamed.PictureFile
+            FileName = tome.FullPath & "\" & MainMap.PictureFile
 		End If
 		ReadBitmapFile(FileName, bmTiles, hMemTiles, TransparentRGB)
 		' Make a copy of the current palette for the picture
@@ -11280,7 +11277,7 @@ ErrorHandler:
 		MakeMask(bmTiles, bmMask, TransparentRGB)
 		' Darken a bit
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.IsOutside. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        If Map_Renamed.IsOutside = True Then
+        If MainMap.IsOutside = True Then
             MakeDark(bmBlack, bmDark, AsDark)
         Else
             MakeDark(bmBlack, bmDark, 0)
@@ -11324,7 +11321,7 @@ ErrorHandler:
 		End If
 		' Set Current TileSet Name
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        TileSetLoaded = Map_Renamed.PictureFile
+        TileSetLoaded = MainMap.PictureFile
 		rc = GlobalUnlock(hMemTiles)
 		rc = GlobalFree(hMemTiles)
 		If Not SupressMsg Then
@@ -11334,7 +11331,7 @@ ErrorHandler:
 		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default ' Default
 	End Sub
 	
-	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+    'UPGRADE_NOTE: Map was upgraded to MainMap. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub PlotTile(ByRef TileToPlot As Short, ByRef X As Short, ByRef Y As Short, ByRef XWidth As Short, ByRef YWidth As Short, ByRef XSrcOff As Short, ByRef YSrcOff As Short, ByRef XFlip As Short)
 		Dim Tome_Renamed As Object
@@ -11391,7 +11388,7 @@ ErrorHandler:
 		oErr.logError("PlotTile")
 		If Err.Number = 11 Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.PictureFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            DialogDM("Sorry, you cannot enter this area without the tileset named " & Map_Renamed.PictureFile)
+            DialogDM("Sorry, you cannot enter this area without the tileset named " & MainMap.PictureFile)
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			Tome.MoveToX = FromEntryPoint.MapX
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MoveToY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -11500,10 +11497,10 @@ ErrorHandler:
 				' advance time
 				If GlobalFastMove > 0 Then
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.MovementCost. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    TotalStepsTaken = TotalStepsTaken + (Map_Renamed.MovementCost(mx, my_Renamed) + Int(sinTooHeavy)) * 3
+                    TotalStepsTaken = TotalStepsTaken + (MainMap.MovementCost(mx, my_Renamed) + Int(sinTooHeavy)) * 3
 				Else
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.MovementCost. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    TotalStepsTaken = TotalStepsTaken + Map_Renamed.MovementCost(mx, my_Renamed) + Int(sinTooHeavy)
+                    TotalStepsTaken = TotalStepsTaken + MainMap.MovementCost(mx, my_Renamed) + Int(sinTooHeavy)
 				End If
 			End If
 			' Party takes a step
@@ -11524,13 +11521,13 @@ ErrorHandler:
 			End If
 			' If moving to a new encounter, then save laststep information to FleeTo
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            If Map_Renamed.EncPointer(mx, my_Renamed) <> EncounterNow.Index Then
+            If MainMap.EncPointer(mx, my_Renamed) <> EncounterNow.Index Then
                 ' Check to see if the new Encounter is truly Active
                 'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If Map_Renamed.EncPointer(mx, my_Renamed) > 0 Then
+                If MainMap.EncPointer(mx, my_Renamed) > 0 Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    If Map_Renamed.Encounters("E" & Map_Renamed.EncPointer(mx, my_Renamed)).IsActive = True Then
+                    If MainMap.Encounters("E" & MainMap.EncPointer(mx, my_Renamed)).IsActive = True Then
                         NewEncounter = True
                     End If
                 Else
@@ -11550,10 +11547,10 @@ ErrorHandler:
 			' Add one to steps. If exceed 9, then take a turn
 			If GlobalFastMove > 0 Then
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.MovementCost. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                TotalStepsTaken = TotalStepsTaken + Map_Renamed.MovementCost(mx, my_Renamed) * 3
+                TotalStepsTaken = TotalStepsTaken + MainMap.MovementCost(mx, my_Renamed) * 3
 			Else
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.MovementCost. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                TotalStepsTaken = TotalStepsTaken + Map_Renamed.MovementCost(mx, my_Renamed)
+                TotalStepsTaken = TotalStepsTaken + MainMap.MovementCost(mx, my_Renamed)
 			End If
 			If TotalStepsTaken > 9 Then
 				Do Until TotalStepsTaken < 10
@@ -11591,7 +11588,7 @@ ErrorHandler:
 		End If
 		' Line of Site fill to show any hidden tiles
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Map_Renamed.Hidden(mx, my_Renamed) = False
+        MainMap.Hidden(mx, my_Renamed) = False
 		For k = 0 To 3
 			For c = 0 To 5 : cx = mx : cy = my_Renamed : For i = 0 To 5
 					cdir = LosDir(c, i)
@@ -11614,35 +11611,35 @@ ErrorHandler:
 							End If
 					End Select
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.See. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    If Map_Renamed.See(cx, cy, cdir) = False Then
+                    If MainMap.See(cx, cy, cdir) = False Then
                         Select Case cdir
                             Case 0 ' Up
                                 cy = Greatest(cy - 1, 0)
                             Case 1 ' Right
                                 'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                                cx = Least(cx + 1, Map_Renamed.Width)
+                                cx = Least(cx + 1, MainMap.Width)
                             Case 2 ' Left
                                 cx = Greatest(cx - 1, 0)
                             Case 3 ' Down
                                 'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                                cy = Least(cy + 1, Map_Renamed.Height)
+                                cy = Least(cy + 1, MainMap.Height)
                         End Select
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        If Map_Renamed.Hidden(cx, cy) = True Then
+                        If MainMap.Hidden(cx, cy) = True Then
                             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                            Map_Renamed.Hidden(cx, cy) = False
+                            MainMap.Hidden(cx, cy) = False
                             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                            MinX = Least(((cy - Map_Renamed.Top) + (cx - Map_Renamed.Left)) * 48, MinX)
+                            MinX = Least(((cy - MainMap.Top) + (cx - MainMap.Left)) * 48, MinX)
                             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                            MinY = Least(((cy - Map_Renamed.Top) - (cx - Map_Renamed.Left)) * 24 - 24, MinY)
+                            MinY = Least(((cy - MainMap.Top) - (cx - MainMap.Left)) * 24 - 24, MinY)
                             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                            MaxX = Greatest(((cy - Map_Renamed.Top) + (cx - Map_Renamed.Left)) * 48 + 96, MaxX)
+                            MaxX = Greatest(((cy - MainMap.Top) + (cx - MainMap.Left)) * 48 + 96, MaxX)
                             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                            MaxY = Greatest(((cy - Map_Renamed.Top) - (cx - Map_Renamed.Left)) * 24 + 48, MaxY)
+                            MaxY = Greatest(((cy - MainMap.Top) - (cx - MainMap.Left)) * 24 + 48, MaxY)
                         End If
                     Else
                         Exit For
@@ -11655,10 +11652,10 @@ ErrorHandler:
 			' Anchor at corners of picture
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            X = (CreatureX.MapY + CreatureX.MapX - Map_Renamed.Top - Map_Renamed.Left) * 48 + CreatureX.TileSpotX
+            X = (CreatureX.MapY + CreatureX.MapX - MainMap.Top - MainMap.Left) * 48 + CreatureX.TileSpotX
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            Y = (CreatureX.MapY - CreatureX.MapX - Map_Renamed.Top + Map_Renamed.Left) * 24 + CreatureX.TileSpotY - 24
+            Y = (CreatureX.MapY - CreatureX.MapX - MainMap.Top + MainMap.Left) * 24 + CreatureX.TileSpotY - 24
 			MinX = Least(X, MinX)
 			MinY = Least(Y - picCMap(CreatureX.Pic).Height / 2, MinY)
 			MaxX = Greatest(X + picCMap(CreatureX.Pic).Width / 2, MaxX)
@@ -11669,12 +11666,12 @@ ErrorHandler:
 		' If NewEncounter found, then deal with it
 		If NewEncounter = True Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            If Map_Renamed.EncPointer(mx, my_Renamed) < 1 Then
+            If MainMap.EncPointer(mx, my_Renamed) < 1 Then
                 EncounterNow = New Encounter
             Else
                 'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                EncounterNow = Map_Renamed.Encounters("E" & Map_Renamed.EncPointer(mx, my_Renamed))
+                EncounterNow = MainMap.Encounters("E" & MainMap.EncPointer(mx, my_Renamed))
                 EncounterEnter()
             End If
 		End If
@@ -11685,7 +11682,7 @@ ErrorHandler:
 		If Tome.MoveToX = Tome.MapX And Tome.MoveToY = Tome.MapY Then
 			' save coordinates in case the tileset for the next area is missing
 			'UPGRADE_WARNING: Couldn't resolve default property of object Map.EntryPoints. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            For Each EntryPointX In Map_Renamed.EntryPoints
+            For Each EntryPointX In MainMap.EntryPoints
                 'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 If EntryPointX.MapX = tome.MapX And EntryPointX.MapY = tome.MapY Then
@@ -11714,7 +11711,7 @@ ErrorHandler:
 		Dim cdir As Short
 		Dim EntryPointX As EntryPoint
 		' Determine if stopped on an EntryPoint
-        For Each EntryPointX In Map_Renamed.EntryPoints
+        For Each EntryPointX In MainMap.EntryPoints
             'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             If tome.MapX = EntryPointX.MapX And tome.MapY = EntryPointX.MapY Then
@@ -11749,7 +11746,7 @@ ErrorHandler:
                         tome.MoveToY = my_Renamed
                         MapCenter(mx, my_Renamed)
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Map_Renamed.Hidden(mx, my_Renamed) = False
+                        MainMap.Hidden(mx, my_Renamed) = False
                         For k = 0 To 3
                             For c = 0 To 5 : cx = mx : cy = my_Renamed : For i = 0 To 5
                                     cdir = LosDir(c, i)
@@ -11772,23 +11769,23 @@ ErrorHandler:
                                             End If
                                     End Select
                                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.See. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                                    If Map_Renamed.See(cx, cy, cdir) = False Then
+                                    If MainMap.See(cx, cy, cdir) = False Then
                                         Select Case cdir
                                             Case 0 ' Up
                                                 cy = Greatest(cy - 1, 0)
                                             Case 1 ' Right
                                                 'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                                                cx = Least(cx + 1, Map_Renamed.Width)
+                                                cx = Least(cx + 1, MainMap.Width)
                                             Case 2 ' Left
                                                 cx = Greatest(cx - 1, 0)
                                             Case 3 ' Down
                                                 'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                                                cy = Least(cy + 1, Map_Renamed.Height)
+                                                cy = Least(cy + 1, MainMap.Height)
                                         End Select
                                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                                        If Map_Renamed.Hidden(cx, cy) = True Then
+                                        If MainMap.Hidden(cx, cy) = True Then
                                             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                                            Map_Renamed.Hidden(cx, cy) = False
+                                            MainMap.Hidden(cx, cy) = False
                                         End If
                                     Else
                                         Exit For
@@ -12142,13 +12139,13 @@ ErrorHandler:
 		'UPGRADE_WARNING: Untranslated statement in FindPath. Please check source code.
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Dim pylist(CDbl(Map_Renamed.Height + 1) * CDbl(Map_Renamed.Width + 1)) As Short
+        Dim pylist(CDbl(MainMap.Height + 1) * CDbl(MainMap.Width + 1)) As Short
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Dim llist(CDbl(Map_Renamed.Height + 1) * CDbl(Map_Renamed.Width + 1)) As Short
+        Dim llist(CDbl(MainMap.Height + 1) * CDbl(MainMap.Width + 1)) As Short
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Dim lMap(Map_Renamed.Width, Map_Renamed.Height) As Short
+        Dim lMap(MainMap.Width, MainMap.Height) As Short
 		Dim Y, X, c As Short
 		Dim shortest, NumPoints, PathFound As Short
 		Dim dx, dy As Short
@@ -12175,9 +12172,9 @@ ErrorHandler:
 		mv = 1
 		' Set all coordinates in our traveled map to large value (we're not moving there)
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        For X = 0 To Map_Renamed.Width
+        For X = 0 To MainMap.Width
             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            For Y = 0 To Map_Renamed.Height
+            For Y = 0 To MainMap.Height
                 lMap(X, Y) = 32700
             Next Y : Next X
 		' But plop a zero where we're starting from (we are moving there)
@@ -12214,7 +12211,7 @@ ErrorHandler:
 			' For every direction, see if can move that way
 			For Dir_Renamed = 0 To 3
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Blocked. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If Not Map_Renamed.Blocked(sx, sy, Dir_Renamed) Then
+                If Not MainMap.Blocked(sx, sy, Dir_Renamed) Then
                     ' If can, look at the movement cost compare to where we are
                     mx = sx + DirX(Dir_Renamed) : my_Renamed = sy + DirY(Dir_Renamed)
                     If lMap(sx, sy) < lMap(mx, my_Renamed) Then
@@ -12243,7 +12240,7 @@ ErrorHandler:
                         End If
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        If NumPoints > CDbl(Map_Renamed.Height + 1) * CDbl(Map_Renamed.Width + 1) Then
+                        If NumPoints > CDbl(MainMap.Height + 1) * CDbl(MainMap.Width + 1) Then
                             PathFound = 0
                             Exit Do
                         End If
@@ -12267,11 +12264,11 @@ ErrorHandler:
 			c = 32700
 			For Dir_Renamed = 0 To 3
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Blocked. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If Not Map_Renamed.Blocked(ex, ey, Dir_Renamed) Then
+                If Not MainMap.Blocked(ex, ey, Dir_Renamed) Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    mx = Least(Greatest(ex + DirX(Dir_Renamed), 0), Map_Renamed.Width)
+                    mx = Least(Greatest(ex + DirX(Dir_Renamed), 0), MainMap.Width)
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    my_Renamed = Least(Greatest(ey + DirY(Dir_Renamed), 0), Map_Renamed.Height)
+                    my_Renamed = Least(Greatest(ey + DirY(Dir_Renamed), 0), MainMap.Height)
                     If lMap(mx, my_Renamed) < c Then
                         c = lMap(mx, my_Renamed)
                         nx = mx : ny = my_Renamed
@@ -12302,7 +12299,7 @@ ErrorHandler:
 	'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	'UPGRADE_NOTE: Top was upgraded to Top_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub DrawMapRegion(ByRef Top_Renamed As Short, ByRef Left_Renamed As Short, ByRef Bottom_Renamed As Short, ByRef Right_Renamed As Short)
-		Dim Map_Renamed As Object
+        Dim MainMap As Object
 		' Based on bounding coordinates in Pixels, draw the correct number
 		' of tiles the correct way. Only draw the overlaps necessary
 		' (only on the outer most region of the rectangle).
@@ -12317,10 +12314,10 @@ ErrorHandler:
 		Dim FromX, ToX As Short
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        SetMapCursor(Left_Renamed, Top_Renamed, Map_Renamed.Left, Map_Renamed.Top, FromX, FromY, XMap, YMap)
+        SetMapCursor(Left_Renamed, Top_Renamed, MainMap.Left, MainMap.Top, FromX, FromY, XMap, YMap)
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        SetMapCursor(Right_Renamed, Bottom_Renamed, Map_Renamed.Left, Map_Renamed.Top, ToX, ToY, XMap, YMap)
+        SetMapCursor(Right_Renamed, Bottom_Renamed, MainMap.Left, MainMap.Top, ToX, ToY, XMap, YMap)
 		FromX = Int(FromX / 96) : FromY = Int(FromY / 24) + (XMap + YMap) Mod 2
 		ToX = Int(ToX / 96) + 1 : ToY = Int(ToY / 24)
 		' Draw Top of Region
@@ -12394,9 +12391,9 @@ ErrorHandler:
 			ElseIf LastMove = True And picJournal.Visible = True And JournalMode = 2 Then 
 				LastMove = False
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                MicroMapLeft = Map_Renamed.Left
+                MicroMapLeft = MainMap.Left
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                MicroMapTop = Map_Renamed.Top
+                MicroMapTop = MainMap.Top
 				JournalShowMap()
 				Exit Sub
 			Else
@@ -12410,15 +12407,15 @@ ErrorHandler:
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.MapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        If System.Math.Sqrt((Map_Renamed.Top + MoveMapY + Int(System.Math.Sqrt((picMap.ClientRectangle.Width ^ 2) + (picMap.ClientRectangle.Height ^ 2)) / 108) - 1 - tome.MapY) ^ 2 + (Map_Renamed.Left - 2 + MoveMapX - tome.MapX) ^ 2) > (picMap.ClientRectangle.Height / 54) Then
+        If System.Math.Sqrt((MainMap.Top + MoveMapY + Int(System.Math.Sqrt((picMap.ClientRectangle.Width ^ 2) + (picMap.ClientRectangle.Height ^ 2)) / 108) - 1 - tome.MapY) ^ 2 + (MainMap.Left - 2 + MoveMapX - tome.MapX) ^ 2) > (picMap.ClientRectangle.Height / 54) Then
             Exit Sub
         End If
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Map_Renamed.Top = Map_Renamed.Top + MoveMapY
+        MainMap.Top = MainMap.Top + MoveMapY
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        Map_Renamed.Left = Map_Renamed.Left + MoveMapX
+        MainMap.Left = MainMap.Left + MoveMapX
 		LastMove = True
 		' Scroll Screen
 		'UPGRADE_WARNING: Couldn't resolve default property of object MoveMapY. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -13070,54 +13067,54 @@ ErrorHandler:
 		ItemX.Pic = PicToLoad
 	End Sub
 	
-	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+    'UPGRADE_NOTE: Map was upgraded to MainMap. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub LayerTile(ByRef Layer As Short, ByRef XMap As Short, ByRef YMap As Short, ByRef AtX As Short, ByRef AtY As Short, ByRef AtWidth As Short, ByRef AtHeight As Short, ByRef AtOffX As Short, ByRef AtOffY As Short, ByRef Gray As Short)
 		Dim Map_Renamed As Object
 		Dim c, Flip As Short
 		Select Case Layer
 			Case bdMapBottom
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                c = Map_Renamed.BottomTile(XMap, YMap)
+                c = MainMap.BottomTile(XMap, YMap)
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If c > 0 And Map_Renamed.Hidden(XMap, YMap) = False Then
+                If c > 0 And MainMap.Hidden(XMap, YMap) = False Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    c = Map_Renamed.Tiles("L" & c).Pic
+                    c = MainMap.Tiles("L" & c).Pic
                 Else
                     c = bdTileBlack
                 End If
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.BottomFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                Flip = Map_Renamed.BottomFlip(XMap, YMap)
+                Flip = MainMap.BottomFlip(XMap, YMap)
 				PlotTile(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
 			Case bdMapMiddle
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                c = Map_Renamed.MiddleTile(XMap, YMap)
+                c = MainMap.MiddleTile(XMap, YMap)
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If c > 0 And (Map_Renamed.Hidden(XMap, YMap) = False Or Map_Renamed.Hidden(Least(XMap + 1, Map_Renamed.Width), YMap) = False Or Map_Renamed.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
+                If c > 0 And (MainMap.Hidden(XMap, YMap) = False Or MainMap.Hidden(Least(XMap + 1, MainMap.Width), YMap) = False Or MainMap.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    c = Map_Renamed.Tiles("L" & c).Pic
+                    c = MainMap.Tiles("L" & c).Pic
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.MiddleFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Flip = Map_Renamed.MiddleFlip(XMap, YMap)
+                    Flip = MainMap.MiddleFlip(XMap, YMap)
                     PlotTile(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
                 End If
 			Case bdMapTop
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                c = Map_Renamed.TopTile(XMap, YMap)
+                c = MainMap.TopTile(XMap, YMap)
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If c > 0 And (Map_Renamed.Hidden(XMap, YMap) = False Or Map_Renamed.Hidden(Least(XMap + 1, Map_Renamed.Width), YMap) = False Or Map_Renamed.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
+                If c > 0 And (MainMap.Hidden(XMap, YMap) = False Or MainMap.Hidden(Least(XMap + 1, MainMap.Width), YMap) = False Or MainMap.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Tiles. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    c = Map_Renamed.Tiles("L" & c).Pic
+                    c = MainMap.Tiles("L" & c).Pic
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopFlip. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Flip = Map_Renamed.TopFlip(XMap, YMap)
+                    Flip = MainMap.TopFlip(XMap, YMap)
                     PlotTile(c, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
                 End If
 			Case bdMapDim
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.TopTile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                c = Map_Renamed.TopTile(XMap, YMap)
+                c = MainMap.TopTile(XMap, YMap)
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If Map_Renamed.Hidden(XMap, YMap) = True And (Map_Renamed.Hidden(Least(XMap + 1, Map_Renamed.Width), YMap) = False Or Map_Renamed.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
+                If MainMap.Hidden(XMap, YMap) = True And (MainMap.Hidden(Least(XMap + 1, MainMap.Width), YMap) = False Or MainMap.Hidden(XMap, Greatest(YMap - 1, 0)) = False) Then
                     PlotTile(bdTileDark, AtX, AtY, AtWidth, AtHeight, AtOffX, AtOffY, Flip)
                 End If
 		End Select
@@ -13138,9 +13135,9 @@ ErrorHandler:
 		Dim XMap, YMap As Short
 		' Convert AtX and AtY to Map Coordinates
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        XMap = Map_Renamed.Left + AtX - Int(AtY / 2)
+        XMap = MainMap.Left + AtX - Int(AtY / 2)
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        YMap = Map_Renamed.Top + AtX + Int((AtY + 1) / 2) - 1
+        YMap = MainMap.Top + AtX + Int((AtY + 1) / 2) - 1
 		X = (AtX * 2 - 1 + (AtY Mod 2)) * 48
 		Y = (AtY - 2) * 24
 		' The calc above is spot on. I've double checked it.
@@ -13166,7 +13163,7 @@ ErrorHandler:
 		' Plot blank tile if out of bounds
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Height. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Width. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        If XMap < 0 Or YMap < 0 Or XMap > Map_Renamed.Width Or YMap > Map_Renamed.Height Then
+        If XMap < 0 Or YMap < 0 Or XMap > MainMap.Width Or YMap > MainMap.Height Then
             PlotTile(bdTileBlack, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
         Else
             LayerTile(bdMapBottom, XMap, YMap, X + OffX, Y + OffY, Width_Renamed, Height_Renamed, OffX, OffY, 0)
@@ -13191,7 +13188,7 @@ ErrorHandler:
 		End If
 	End Sub
 	
-	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+    'UPGRADE_NOTE: Map was upgraded to MainMap. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub DrawTileObjects(ByRef XMap As Short, ByRef YMap As Short)
 		Dim Map_Renamed As Object
 		Dim EncounterX As Encounter
@@ -13202,25 +13199,25 @@ ErrorHandler:
 		' Draw Encounter
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        If Map_Renamed.EncPointer(XMap, YMap) > 0 And Map_Renamed.Hidden(XMap, YMap) = False Then
+        If MainMap.EncPointer(XMap, YMap) > 0 And MainMap.Hidden(XMap, YMap) = False Then
             'UPGRADE_WARNING: Couldn't resolve default property of object Map.EncPointer. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             'UPGRADE_WARNING: Couldn't resolve default property of object Map.Encounters. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            EncounterX = Map_Renamed.Encounters("E" & Map_Renamed.EncPointer(XMap, YMap))
+            EncounterX = MainMap.Encounters("E" & MainMap.EncPointer(XMap, YMap))
             If EncounterX.IsActive = True Then
                 ' Encounter Items
                 For Each ItemX In EncounterX.Items
                     If ItemX.MapX = 0 And ItemX.MapY = 0 Then
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        PositionItem(Map_Renamed, EncounterX, ItemX)
+                        PositionItem(MainMap, EncounterX, ItemX)
                     End If
                     If ItemX.MapX = XMap And ItemX.MapY = YMap And Len(ItemX.PictureFile) > 0 Then
                         LoadItemPic(ItemX)
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        cx = ((YMap - Map_Renamed.Top) + (XMap - Map_Renamed.Left)) * 48 + ItemX.TileSpotX
+                        cx = ((YMap - MainMap.Top) + (XMap - MainMap.Left)) * 48 + ItemX.TileSpotX
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        cy = ((YMap - Map_Renamed.Top) - (XMap - Map_Renamed.Left)) * 24 - 24 + ItemX.TileSpotY - 24
+                        cy = ((YMap - MainMap.Top) - (XMap - MainMap.Left)) * 24 - 24 + ItemX.TileSpotY - 24
                         'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                         'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                         rc = BBlt(picMap, picItem, cx, cy, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, 64 * ItemX.Pic - 32, 96 * 2, SRCAND)
@@ -13240,10 +13237,10 @@ ErrorHandler:
                         End If
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        cx = ((YMap - Map_Renamed.Top) + (XMap - Map_Renamed.Left)) * 48 + CreatureX.TileSpotX
+                        cx = ((YMap - MainMap.Top) + (XMap - MainMap.Left)) * 48 + CreatureX.TileSpotX
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        cy = ((YMap - Map_Renamed.Top) - (XMap - Map_Renamed.Left)) * 24 - 24 + CreatureX.TileSpotY - (picCMap(n).Height / 2)
+                        cy = ((YMap - MainMap.Top) - (XMap - MainMap.Left)) * 24 - 24 + CreatureX.TileSpotY - (picCMap(n).Height / 2)
                         'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                         'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                         rc = BBlt(picMap, picCMap(n), cx, cy, picCMap(n).Width, picCMap(n).Height / 2, 0, picCMap(n).Height / 2, SRCAND)
@@ -13263,10 +13260,10 @@ ErrorHandler:
 					LoadCreaturePic(CreatureX)
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    cx = ((YMap - Map_Renamed.Top) + (XMap - Map_Renamed.Left)) * 48 + CreatureX.TileSpotX
+                    cx = ((YMap - MainMap.Top) + (XMap - MainMap.Left)) * 48 + CreatureX.TileSpotX
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 					'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    cy = ((YMap - Map_Renamed.Top) - (XMap - Map_Renamed.Left)) * 24 - 24 + CreatureX.TileSpotY - (picCMap(CreatureX.Pic).Height / 2)
+                    cy = ((YMap - MainMap.Top) - (XMap - MainMap.Left)) * 24 - 24 + CreatureX.TileSpotY - (picCMap(CreatureX.Pic).Height / 2)
 					'UPGRADE_ISSUE: PictureBox property picCMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picMap.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                     rc = BBlt(picMap, picCMap(CreatureX.Pic), cx, cy, picCMap(CreatureX.Pic).Width, picCMap(CreatureX.Pic).Height / 2, 0, picCMap(CreatureX.Pic).Height / 2, SRCAND)
@@ -13278,21 +13275,21 @@ ErrorHandler:
 		Next CreatureX
 	End Sub
 	
-	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+    'UPGRADE_NOTE: Map was upgraded to MainMap. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub DrawTileExitSign(ByRef XMap As Short, ByRef YMap As Short)
 		Dim Map_Renamed As Object
 		Dim EntryPointX As EntryPoint
 		Dim cx, cy As Short
 		'UPGRADE_WARNING: Couldn't resolve default property of object Map.Hidden. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        If Map_Renamed.Hidden(XMap, YMap) = False Then
-            For Each EntryPointX In Map_Renamed.EntryPoints
+        If MainMap.Hidden(XMap, YMap) = False Then
+            For Each EntryPointX In MainMap.EntryPoints
                 If EntryPointX.MapX = XMap And EntryPointX.MapY = YMap And EntryPointX.IsNoExitSign = False Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    cx = ((YMap - Map_Renamed.Top) + (XMap - Map_Renamed.Left)) * 48
+                    cx = ((YMap - MainMap.Top) + (XMap - MainMap.Left)) * 48
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Left. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     'UPGRADE_WARNING: Couldn't resolve default property of object Map.Top. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    cy = ((YMap - Map_Renamed.Top) - (XMap - Map_Renamed.Left)) * 24
+                    cy = ((YMap - MainMap.Top) - (XMap - MainMap.Left)) * 24
                     If EntryPointX.AreaIndex = 0 Then
                         ShowText(picMap, cx + 24, cy - 12, 48, 72, bdFontSmallWhite, "Main Exit", True, False)
                     Else
