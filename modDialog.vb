@@ -1,7 +1,8 @@
 Option Strict Off
 Option Explicit On
 Module modDialog
-	
+
+    Private tome As Tome = Tome.getInstance()
 	' Variables for dialog box
 	Public ConvoAction As Short
 	Public SorceryAction As Short
@@ -52,9 +53,10 @@ Module modDialog
 		' This makes for a cleaner resize of the dialog box
 		With frmMain
 			'UPGRADE_ISSUE: PictureBox method picConvo.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			.picConvo.Cls()
+            .picConvo = Nothing
+            .picConvo.Invalidate()
 			'UPGRADE_ISSUE: PictureBox method picConvoList.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			.picConvoList.Cls() : .picConvoList.Visible = False
+            .picConvoList.Invalidate() : .picConvoList.Visible = False
 			.picConvoEnter.Visible = False
 			Select Case Style
 				Case modGameGeneral.DLGTYPE.bdDlgNoReply, modGameGeneral.DLGTYPE.bdDlgItem
@@ -122,12 +124,13 @@ Module modDialog
 	End Sub
 	
 	Public Function DialogShow(ByRef CreatureX As Object, ByRef Text As String) As Short
-		Dim c, OldPointer, PosY As Short
+        Dim c, PosY As Short
+        Dim OldPointer As Cursor
 		Dim rc As Integer
-		Dim OldFrozen As Short
+        Dim OldFrozen As Cursor
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		OldPointer = System.Windows.Forms.Cursor.Current
-		OldFrozen = Frozen
+
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
 		Frozen = True
@@ -177,7 +180,7 @@ Module modDialog
 			' Paint bottom of picConvo
 			'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(.picConvo.hdc, 0, .picConvo.Height - 6, .picConvo.Width, 6, .picConvoBottom.hdc, 0, 0, SRCCOPY)
+            rc = BBlt(.picConvo, .picConvoBottom, 0, .picConvo.Height - 6, .picConvo.Width, 6, 0, 0, SRCCOPY)
 			.picConvo.Top = Greatest((.picBox.ClientRectangle.Height - .picConvo.ClientRectangle.Height) / 2, 0)
 			.picConvo.Refresh()
 			.picConvo.Visible = True
@@ -206,7 +209,7 @@ Module modDialog
 				.picTalk.Enabled = True
 			End If
 		End With
-		Frozen = OldFrozen
+        'Frozen = OldFrozen
 		'UPGRADE_ISSUE: Screen property Screen.MousePointer does not support custom mousepointers. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="45116EAB-7060-405E-8ABE-9DBB40DC2E86"'
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		System.Windows.Forms.Cursor.Current = OldPointer
@@ -223,44 +226,44 @@ Module modDialog
 			' Paint frame
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(.picConvo.hdc, X - 4, Y - 4, 74, 84, .picMisc.hdc, 0, 36, SRCCOPY)
+            rc = BBlt(.picConvo, .picMisc, X - 4, Y - 4, 74, 84, 0, 36, SRCCOPY)
 			' Paint Creature portrait
 			'UPGRADE_WARNING: IsObject has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
 			If IsReference(CreatureX) Then
 				'UPGRADE_WARNING: Couldn't resolve default property of object CreatureX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(.picConvo.hdc, X, Y, 66, 76, .picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
+                rc = BBlt(.picConvo, .picFaces, X, Y, 66, 76, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
 			Else
 				'UPGRADE_WARNING: Couldn't resolve default property of object CreatureX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				If CreatureX = "CreatureWithTurn" Then
 					'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(.picConvo.hdc, X, Y, 66, 76, .picFaces.hdc, bdFaceMin + CreatureWithTurn.Pic * 66, 0, SRCCOPY)
+                    rc = BBlt(.picConvo, .picFaces, X, Y, 66, 76, bdFaceMin + CreatureWithTurn.Pic * 66, 0, SRCCOPY)
 					'UPGRADE_WARNING: Couldn't resolve default property of object CreatureX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				ElseIf CreatureX = "CreatureNow" Then 
 					'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(.picConvo.hdc, X, Y, 66, 76, .picFaces.hdc, bdFaceMin + CreatureWithTurn.Pic * 66, 0, SRCCOPY)
+                    rc = BBlt(.picConvo, .picFaces, X, Y, 66, 76, bdFaceMin + CreatureWithTurn.Pic * 66, 0, SRCCOPY)
 					'UPGRADE_WARNING: Couldn't resolve default property of object CreatureX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 				ElseIf CreatureX = "CreatureTarget" Then 
 					'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(.picConvo.hdc, X, Y, 66, 76, .picFaces.hdc, bdFaceMin + CreatureTarget.Pic * 66, 0, SRCCOPY)
+                    rc = BBlt(.picConvo, .picFaces, X, Y, 66, 76, bdFaceMin + CreatureTarget.Pic * 66, 0, SRCCOPY)
 				Else
 					Found = False
-					For c = 1 To Tome.Creatures.Count()
-						'UPGRADE_WARNING: Couldn't resolve default property of object CreatureX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						If InStr(Tome.Creatures(c).Name, CreatureX) > 0 Then
-							'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(.picConvo.hdc, X, Y, 66, 76, .picFaces.hdc, bdFaceMin + Tome.Creatures(c).Pic * 66, 0, SRCCOPY)
-							Found = True
-							Exit For
-						End If
-					Next c
+                    For c = 1 To tome.Creatures.Count()
+                        'UPGRADE_WARNING: Couldn't resolve default property of object CreatureX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        If InStr(tome.Creatures(c).Name, CreatureX) > 0 Then
+                            'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                            'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                            rc = BBlt(.picConvo, .picFaces, X, Y, 66, 76, bdFaceMin + tome.Creatures(c).Pic * 66, 0, SRCCOPY)
+                            Found = True
+                            Exit For
+                        End If
+                    Next c
 					If Not Found Then
 						For c = 1 To EncounterNow.Creatures.Count()
 							'UPGRADE_WARNING: Couldn't resolve default property of object CreatureX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -269,7 +272,7 @@ Module modDialog
 								'UPGRADE_WARNING: Couldn't resolve default property of object EncounterNow.Creatures().Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 								'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 								'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-								rc = BitBlt(.picConvo.hdc, X, Y, 66, 76, .picFaces.hdc, bdFaceMin + EncounterNow.Creatures.Item(c).Pic * 66, 0, SRCCOPY)
+                                rc = BBlt(.picConvo, .picFaces, X, Y, 66, 76, bdFaceMin + EncounterNow.Creatures.Item(c).Pic * 66, 0, SRCCOPY)
 								Found = True
 								Exit For
 							End If
@@ -277,7 +280,7 @@ Module modDialog
 						If Not Found Then
 							'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 							'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-							rc = BitBlt(.picConvo.hdc, X, Y, 66, 76, .picFaces.hdc, bdFaceDM, 0, SRCCOPY)
+                            rc = BBlt(.picConvo, .picFaces, X, Y, 66, 76, bdFaceDM, 0, SRCCOPY)
 							Found = True
 						End If
 					End If
@@ -295,22 +298,22 @@ Module modDialog
 		With frmMain
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picDialogBrief.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(.picDialogBrief.hdc, X - 4, Y - 4, 74, 84, .picMisc.hdc, 0, 36, SRCCOPY)
+            rc = BBlt(.picDialogBrief, .picMisc, X - 4, Y - 4, 74, 84, 0, 36, SRCCOPY)
 			If CreatureX.Name = "DM" Then
 				.ShowText(.picDialogBrief, 0, 12, .picDialogBrief.Width, 14, bdFontElixirWhite, "Game Master", True, False)
 				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picDialogBrief.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(.picDialogBrief.hdc, X, Y, 66, 76, .picFaces.hdc, bdFaceDM, 0, SRCCOPY)
+                rc = BBlt(.picDialogBrief, .picFaces, X, Y, 66, 76, bdFaceDM, 0, SRCCOPY)
 			ElseIf CreatureX.Name = "CreatureWithTurn" Then 
 				.ShowText(.picDialogBrief, 0, 12, .picDialogBrief.ClientRectangle.Width, 14, bdFontElixirWhite, (CreatureWithTurn.Name), True, False)
 				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picDialogBrief.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(.picDialogBrief.hdc, X, Y, 66, 76, .picFaces.hdc, bdFaceMin + CreatureWithTurn.Pic * 66, 0, SRCCOPY)
+                rc = BBlt(.picDialogBrief, .picFaces, X, Y, 66, 76, bdFaceMin + CreatureWithTurn.Pic * 66, 0, SRCCOPY)
 			Else
 				.ShowText(.picDialogBrief, 0, 12, .picDialogBrief.Width, 14, bdFontElixirWhite, (CreatureX.Name), True, False)
 				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picDialogBrief.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(.picDialogBrief.hdc, X, Y, 66, 76, .picFaces.hdc, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
+                rc = BBlt(.picDialogBrief, .picFaces, X, Y, 66, 76, bdFaceMin + CreatureX.Pic * 66, 0, SRCCOPY)
 			End If
 			.picDialogBrief.Refresh()
 		End With
@@ -357,7 +360,8 @@ Module modDialog
 	Public Sub DialogEnter(ByRef Text As String)
 		With frmMain
 			'UPGRADE_ISSUE: PictureBox method picConvoEnter.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			.picConvoEnter.Cls()
+            .picConvoEnter = Nothing
+            .picConvoEnter.Invalidate()
 			.ShowText(.picConvoEnter, 6, 7, .picConvoEnter.Width - 12, 14, bdFontNoxiousWhite, Text & "\", False, False)
 			DialogText = Text
 			.picConvoEnter.Focus()
@@ -365,7 +369,7 @@ Module modDialog
 	End Sub
 	
 	Public Sub DialogDM(ByRef Text As String)
-		Dim OldPointer As Short
+        Dim OldPointer As Cursor
 		Dim rc As Integer
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		OldPointer = System.Windows.Forms.Cursor.Current
@@ -405,16 +409,16 @@ Module modDialog
 				CreatureZ = CreatureTarget
 				Found = True
 			Else
-				For c = 1 To Tome.Creatures.Count()
-					'UPGRADE_WARNING: Couldn't resolve default property of object CreatureX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					If InStr(Tome.Creatures(c).Name, CreatureX) > 0 Then
-						'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						CreatureZ = Tome.Creatures(c)
-						Found = True
-						Exit For
-					End If
-				Next c
+                For c = 1 To tome.Creatures.Count()
+                    'UPGRADE_WARNING: Couldn't resolve default property of object CreatureX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    If InStr(tome.Creatures(c).Name, CreatureX) > 0 Then
+                        'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Creatures. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        CreatureZ = tome.Creatures(c)
+                        Found = True
+                        Exit For
+                    End If
+                Next c
 				If Not Found Then
 					For c = 1 To EncounterNow.Creatures.Count()
 						'UPGRADE_WARNING: Couldn't resolve default property of object CreatureX. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -701,7 +705,8 @@ Module modDialog
 		Dim Text As String
 		With frmMain
 			'UPGRADE_ISSUE: PictureBox method picBuySell.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			.picBuySell.Cls()
+            .picBuySell = Nothing
+            .picBuySell.Invalidate()
 			' Show Names
 			.ShowText(.picBuySell, 47, 12, 284, 14, bdFontElixirWhite, (CreatureSelling.Name), 0, False)
 			'    .ShowText .picBuySell, 351, 12, 284, 14, bdFontElixirWhite, CreatureWithTurn.Name, 0, False
@@ -724,10 +729,10 @@ Module modDialog
 					Height = ItemPicHeight(ItemX.Pic)
 					'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picBuySell.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(.picBuySell.hdc, 43 + (64 - Width) / 2, 48 + 102 * n + (96 - Height) / 2, Width, Height, frmMain.picItem.hdc, 64 * ItemX.Pic - 64, 96, SRCAND)
+                    rc = BBlt(.picBuySell, frmMain.picItem, 43 + (64 - Width) / 2, 48 + 102 * n + (96 - Height) / 2, Width, Height, 64 * ItemX.Pic - 64, 96, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picBuySell.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(.picBuySell.hdc, 43 + (64 - Width) / 2, 48 + 102 * n + (96 - Height) / 2, Width, Height, frmMain.picItem.hdc, 64 * ItemX.Pic - 64, 0, SRCPAINT)
+                    rc = BBlt(.picBuySell, frmMain.picItem, 43 + (64 - Width) / 2, 48 + 102 * n + (96 - Height) / 2, Width, Height, 64 * ItemX.Pic - 64, 0, SRCPAINT)
 					If ItemX.Capacity > 0 Then
 						.ShowText(.picBuySell, 43 + (64 - Width) / 2, 48 + 102 * n + (96 - Height) / 2, Width, 10, bdFontSmallWhite, "(" & ItemX.Items.Count() & ")", 1, False)
 					End If
@@ -772,10 +777,10 @@ Module modDialog
 					Height = ItemPicHeight(ItemX.Pic)
 					'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picBuySell.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(.picBuySell.hdc, 578 + (64 - Width) / 2, 48 + 102 * n + (96 - Height) / 2, Width, Height, frmMain.picItem.hdc, 64 * ItemX.Pic - 64, 96, SRCAND)
+                    rc = BBlt(.picBuySell, frmMain.picItem, 578 + (64 - Width) / 2, 48 + 102 * n + (96 - Height) / 2, Width, Height, 64 * ItemX.Pic - 64, 96, SRCAND)
 					'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picBuySell.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(.picBuySell.hdc, 578 + (64 - Width) / 2, 48 + 102 * n + (96 - Height) / 2, Width, Height, frmMain.picItem.hdc, 64 * ItemX.Pic - 64, 0, SRCPAINT)
+                    rc = BBlt(.picBuySell, frmMain.picItem, 578 + (64 - Width) / 2, 48 + 102 * n + (96 - Height) / 2, Width, Height, 64 * ItemX.Pic - 64, 0, SRCPAINT)
 					If ItemX.Capacity > 0 Then
 						.ShowText(.picBuySell, 578 + (64 - Width) / 2, 48 + 102 * n + (96 - Height) / 2, Width, 10, bdFontSmallWhite, "(" & ItemX.Items.Count() & ")", 1, False)
 					End If
@@ -836,7 +841,8 @@ Module modDialog
 	End Sub
 	
 	Public Sub DialogDice(ByRef CreatureX As Object, ByRef Text As String, ByRef AsDice As Short, ByRef TotalDie As Short)
-		Dim OldPointer, PosY As Short
+        Dim PosY As Short
+        Dim OldPointer As Cursor
 		Dim rc As Integer
 		With frmMain
 			'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
@@ -846,7 +852,8 @@ Module modDialog
 			.picConvoList.Visible = False
 			' Display Character portrait
 			'UPGRADE_ISSUE: PictureBox method picConvo.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			.picConvo.Cls()
+            .picConvo = Nothing
+            .picConvo.Invalidate()
 			DialogShowFace(CreatureX)
 			.ShowText(.picConvo, 0, 12, .picConvo.Width, 14, bdFontElixirWhite, "Roll Dice", True, False)
 			PosY = .ShowText(.picConvo, 88, 34, 354, 430, bdFontNoxiousWhite, Text, False, True)
@@ -857,7 +864,7 @@ Module modDialog
 			' Paint bottom of picConvo
 			'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(.picConvo.hdc, 0, .picConvo.Height - 6, .picConvo.Width, 6, .picConvoBottom.hdc, 0, 0, SRCCOPY)
+            rc = BBlt(.picConvo, .picConvoBottom, 0, .picConvo.Height - 6, .picConvo.Width, 6, 0, 0, SRCCOPY)
 			.picConvo.Refresh()
 			' Center picConvo
 			.picConvo.Top = (.picBox.ClientRectangle.Height - .picConvo.ClientRectangle.Height) / 2
@@ -895,7 +902,7 @@ Module modDialog
 	End Sub
 	
 	Public Function DialogItem(ByRef ItemX As Item, ByRef Text As String) As Short
-		Dim OldPointer As Short
+        Dim OldPointer As Cursor
 		Dim rc As Integer
 		With frmMain
 			' Show Item and description
@@ -913,10 +920,10 @@ Module modDialog
 			.LoadItemPic(ItemX)
 			'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(.picConvo.hdc, 20, 34, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, .picItem.hdc, 64 * ItemX.Pic - 32, 96 * 2, SRCAND)
+            rc = BBlt(.picConvo, .picItem, 20, 34, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, 64 * ItemX.Pic - 32, 96 * 2, SRCAND)
 			'UPGRADE_ISSUE: PictureBox property picItem.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(.picConvo.hdc, 20, 34, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, .picItem.hdc, 64 * ItemX.Pic - 64, 96 * 2, SRCPAINT)
+            rc = BBlt(.picConvo, .picItem, 20, 34, ItemPicWidth(ItemX.Pic) / 3, ItemPicHeight(ItemX.Pic) / 3, 64 * ItemX.Pic - 64, 96 * 2, SRCPAINT)
 			' Paint Buttons
 			DialogSetButton(1, "Done")
 			.ShowButton(.picConvo, .picConvo.Width - 6 - 96, .picConvo.Height - 30, "Done", False)
@@ -932,7 +939,7 @@ Module modDialog
 			' Paint bottom of picConvo
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(.picConvo.hdc, 0, .picConvo.Height - 6, .picConvo.Width, 6, .picTomeNew.hdc, 0, .picTomeNew.Height - 6, SRCCOPY)
+            rc = BBlt(.picConvo, .picTomeNew, 0, .picConvo.Height - 6, .picConvo.Width, 6, 0, .picTomeNew.Height - 6, SRCCOPY)
 			.picConvo.Refresh()
 			.picConvo.Visible = True
 			.picConvo.BringToFront()

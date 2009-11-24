@@ -1,7 +1,7 @@
 Option Strict Off
 Option Explicit On
 Module modCreateCharacter
-	
+    Private tome As Tome = tome.getInstance()
 	Public Sub CreatePCLoadWorlds(Optional ByRef WorldTemp As World = Nothing)
 		'Dim c As Integer, i As Integer, k As Integer, n As Integer, rc As Integer, FileName As String
 		Dim k, c, i, n As Short
@@ -332,10 +332,11 @@ Err_Handler:
 		KingdomIndex = Index
 		' Show the Map
 		'UPGRADE_ISSUE: PictureBox method picTomeNew.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		frmMain.picTomeNew.Cls()
+        frmMain.picTomeNew = Nothing
+        frmMain.picTomeNew.Invalidate()
 		'UPGRADE_ISSUE: PictureBox property picTmp.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = BitBlt(frmMain.picTomeNew.hdc, 20, 63, 254, 265, frmMain.picTmp.hdc, Least((KingdomNow.Left_Renamed), frmMain.picTmp.ClientRectangle.Width - 254), Least((KingdomNow.Top), frmMain.picTmp.ClientRectangle.Height - 265), SRCCOPY)
+        rc = BBlt(frmMain.picTomeNew, frmMain.picTmp, 20, 63, 254, 265, Least((KingdomNow.Left_Renamed), frmMain.picTmp.ClientRectangle.Width - 254), Least((KingdomNow.Top), frmMain.picTmp.ClientRectangle.Height - 265), SRCCOPY)
 		' Show the Name
 		frmMain.ShowText((frmMain.picTomeNew), 30, 12, 519, 14, bdFontElixirWhite, "Where do you come from?", True, False)
 		frmMain.ShowText((frmMain.picTomeNew), 19, 45, 273, 14, bdFontElixirWhite, (WorldNow.Name), True, False)
@@ -383,7 +384,8 @@ Err_Handler:
 		TomeAction = bdCreatePCPicture
 		CreatePictureIndex = Index
 		'UPGRADE_ISSUE: PictureBox method picTomeNew.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		frmMain.picTomeNew.Cls()
+        frmMain.picTomeNew = Nothing
+        frmMain.picTomeNew.Invalidate()
 		frmMain.ShowText((frmMain.picTomeNew), 30, 12, 519, 14, bdFontElixirWhite, "What do you look like?", True, False)
 		frmMain.ShowText((frmMain.picTomeNew), 19, 45, 273, 14, bdFontElixirWhite, "Available Portraits", True, False)
 		' Show Kingdom Name
@@ -398,17 +400,17 @@ Err_Handler:
 		If CreatureNow.Male = True Then
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(frmMain.picTomeNew.hdc, 52, 331, 18, 18, frmMain.picMisc.hdc, 18, 18, SRCCOPY)
+            rc = BBlt(frmMain.picTomeNew, frmMain.picMisc, 52, 331, 18, 18, 18, 18, SRCCOPY)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(frmMain.picTomeNew.hdc, 166, 331, 18, 18, frmMain.picMisc.hdc, 0, 18, SRCCOPY)
+            rc = BBlt(frmMain.picTomeNew, frmMain.picMisc, 166, 331, 18, 18, 0, 18, SRCCOPY)
 		Else
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(frmMain.picTomeNew.hdc, 52, 331, 18, 18, frmMain.picMisc.hdc, 0, 18, SRCCOPY)
+            rc = BBlt(frmMain.picTomeNew, frmMain.picMisc, 52, 331, 18, 18, 0, 18, SRCCOPY)
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(frmMain.picTomeNew.hdc, 166, 331, 18, 18, frmMain.picMisc.hdc, 18, 18, SRCCOPY)
+            rc = BBlt(frmMain.picTomeNew, frmMain.picMisc, 166, 331, 18, 18, 18, 18, SRCCOPY)
 		End If
 		frmMain.ShowText((frmMain.picTomeNew), 70, 331, 64, 14, bdFontElixirWhite, "Male", True, False)
 		frmMain.ShowText((frmMain.picTomeNew), 186, 331, 80, 14, bdFontElixirWhite, "Female", True, False)
@@ -430,18 +432,18 @@ Err_Handler:
 			' Load and show picture
 			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(frmMain.picTomeNew.hdc, 25 + (n Mod 3) * 84, Int(n / 3) * 86 + 70, 71, 80, frmMain.picMisc.hdc, 0, 36, SRCCOPY)
+            rc = BBlt(frmMain.picTomeNew, frmMain.picMisc, 25 + (n Mod 3) * 84, Int(n / 3) * 86 + 70, 71, 80, 0, 36, SRCCOPY)
 			'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 			'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			rc = BitBlt(frmMain.picTomeNew.hdc, 28 + (n Mod 3) * 84, Int(n / 3) * 86 + 73, 66, 76, frmMain.picFaces.hdc, bdFaceMin + CreatureNow.Pic * 66, 0, SRCCOPY)
+            rc = BBlt(frmMain.picTomeNew, frmMain.picFaces, 28 + (n Mod 3) * 84, Int(n / 3) * 86 + 73, 66, 76, bdFaceMin + CreatureNow.Pic * 66, 0, SRCCOPY)
 			' Show selector
 			If c = CreatePictureIndex Then
 				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(frmMain.picTomeNew.hdc, 28 + (n Mod 3) * 84, Int(n / 3) * 86 + 73, 66, 76, frmMain.picFaces.hdc, bdFaceSelect + 66, 0, SRCAND)
+                rc = BBlt(frmMain.picTomeNew, frmMain.picFaces, 28 + (n Mod 3) * 84, Int(n / 3) * 86 + 73, 66, 76, bdFaceSelect + 66, 0, SRCAND)
 				'UPGRADE_ISSUE: PictureBox property picFaces.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(frmMain.picTomeNew.hdc, 28 + (n Mod 3) * 84, Int(n / 3) * 86 + 73, 66, 76, frmMain.picFaces.hdc, bdFaceSelect, 0, SRCPAINT)
+                rc = BBlt(frmMain.picTomeNew, frmMain.picFaces, 28 + (n Mod 3) * 84, Int(n / 3) * 86 + 73, 66, 76, bdFaceSelect, 0, SRCPAINT)
 			End If
 			n = n + 1
 		Next c
@@ -461,21 +463,21 @@ Err_Handler:
 		Dim Filename As String
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		Filename = Dir(Tome.FullPath & "\" & CreatureNow.PictureFile)
+        Filename = Dir(tome.FullPath & "\" & CreatureNow.PictureFile)
 		If Filename = "" Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-			Filename = Dir(Tome.FullPath & "\creatures\" & CreatureNow.PictureFile)
+            Filename = Dir(tome.FullPath & "\creatures\" & CreatureNow.PictureFile)
 			If Filename = "" Then
 				'            FileName = gAppPath & "\data\graphics\creatures\" & CreatureNow.PictureFile
 				Filename = gDataPath & "\graphics\creatures\" & CreatureNow.PictureFile
 			Else
 				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Filename = Tome.FullPath & "\creatures\" & CreatureNow.PictureFile
+                Filename = tome.FullPath & "\creatures\" & CreatureNow.PictureFile
 			End If
 		Else
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Filename = Tome.FullPath & "\" & CreatureNow.PictureFile
+            Filename = tome.FullPath & "\" & CreatureNow.PictureFile
 		End If
 		ReadBitmapFile(Filename, bmMons, hMemMons, TransparentRGB)
 		'ReadBitmapFile gAppPath & "\data\graphics\creatures\" & CreatureNow.PictureFile, bmMons, hMemMons, TransparentRGB
@@ -498,11 +500,11 @@ Err_Handler:
 		End If
 		X = 336 + (200 - Width * Size) / 2 : Y = 104 + (188 - Height * Size) / 2
 		'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(frmMain.picTomeNew.hdc, 3)
+        rc = SetSBMode(frmMain.picTomeNew, 3)
 		'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(frmMain.picTomeNew.hdc, X, Y, Width * Size, Height * Size, 0, 0, Width, Height, lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
+        rc = SDIBits(frmMain.picTomeNew, X, Y, Width * Size, Height * Size, 0, 0, Width, Height, lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
 		'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(frmMain.picTomeNew.hdc, X, Y, Width * Size, Height * Size, 0, 0, Width, Height, lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
+        rc = SDIBits(frmMain.picTomeNew, X, Y, Width * Size, Height * Size, 0, 0, Width, Height, lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
 		' Release memory
 		rc = GlobalUnlock(hMemMons)
 		rc = GlobalFree(hMemMons)
@@ -525,7 +527,8 @@ Err_Handler:
 		TomeAction = bdCreatePCSkills
 		CreateSkillsIndex = Index
 		'UPGRADE_ISSUE: PictureBox method picTomeNew.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		frmMain.picTomeNew.Cls()
+        frmMain.picTomeNew = Nothing
+        frmMain.picTomeNew.Invalidate()
 		frmMain.ShowText((frmMain.picTomeNew), 30, 12, 519, 14, bdFontElixirWhite, "What skills do you have?", True, False)
 		frmMain.ShowText((frmMain.picTomeNew), 32, 45, 156, 14, bdFontElixirWhite, KingdomNow.Name & " Skills", False, False)
 		frmMain.ShowText((frmMain.picTomeNew), 217, 45, 50, 14, bdFontElixirWhite, "Cost", True, False)
@@ -546,11 +549,11 @@ Err_Handler:
 			If KingdomNow.Skills.Item(c).TempSkill > 0 Then
 				'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(frmMain.picTomeNew.hdc, 26, 73 + n * 25, 18, 18, frmMain.picMisc.hdc, 18, 18, SRCCOPY)
+                rc = BBlt(frmMain.picTomeNew, frmMain.picMisc, 26, 73 + n * 25, 18, 18, 18, 18, SRCCOPY)
 			Else
 				'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 				'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-				rc = BitBlt(frmMain.picTomeNew.hdc, 26, 73 + n * 25, 18, 18, frmMain.picMisc.hdc, 0, 18, SRCCOPY)
+                rc = BBlt(frmMain.picTomeNew, frmMain.picMisc, 26, 73 + n * 25, 18, 18, 0, 18, SRCCOPY)
 			End If
 			' Show Skill text
 			If c = Index Then
@@ -602,7 +605,8 @@ Err_Handler:
 				End If
 		End Select
 		'UPGRADE_ISSUE: PictureBox method picCreateName.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		frmMain.picCreateName.Cls()
+        frmMain.picCreateName = Nothing
+        frmMain.picCreateName.Invalidate()
 		frmMain.ShowText((frmMain.picCreateName), 6, 7, frmMain.picCreateName.Width - 12, 14, bdFontElixirWhite, CreateNameNew & "\", False, False)
 		frmMain.picCreateName.Focus()
 	End Sub
@@ -626,7 +630,8 @@ Err_Handler:
 		TomeAction = bdCreatePCName
 		CreateNameIndex = Index
 		'UPGRADE_ISSUE: PictureBox method picTomeNew.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		frmMain.picTomeNew.Cls()
+        frmMain.picTomeNew = Nothing
+        frmMain.picTomeNew.Invalidate()
 		frmMain.ShowText((frmMain.picTomeNew), 30, 12, 519, 14, bdFontElixirWhite, "Name and Save your character", True, False)
 		frmMain.ShowText((frmMain.picTomeNew), 19, 45, 273, 14, bdFontElixirWhite, "Suggested Names", True, False)
 		frmMain.ShowText((frmMain.picTomeNew), 332, 48, 217, 15, bdFontElixirBlack, (CreatureNow.Name), True, False)
@@ -648,21 +653,21 @@ Err_Handler:
 		Dim Filename As String
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		Filename = Dir(Tome.FullPath & "\" & CreatureNow.PictureFile)
+        Filename = Dir(tome.FullPath & "\" & CreatureNow.PictureFile)
 		If Filename = "" Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-			Filename = Dir(Tome.FullPath & "\creatures\" & CreatureNow.PictureFile)
+            Filename = Dir(tome.FullPath & "\creatures\" & CreatureNow.PictureFile)
 			If Filename = "" Then
 				'            FileName = gAppPath & "\data\graphics\creatures\" & CreatureNow.PictureFile
 				Filename = gDataPath & "\graphics\creatures\" & CreatureNow.PictureFile
 			Else
 				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Filename = Tome.FullPath & "\creatures\" & CreatureNow.PictureFile
+                Filename = tome.FullPath & "\creatures\" & CreatureNow.PictureFile
 			End If
 		Else
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Filename = Tome.FullPath & "\" & CreatureNow.PictureFile
+            Filename = tome.FullPath & "\" & CreatureNow.PictureFile
 		End If
 		'ReadBitmapFile gAppPath & "\data\graphics\creatures\" & CreatureNow.PictureFile, bmMons, hMemMons, TransparentRGB
 		ReadBitmapFile(Filename, bmMons, hMemMons, TransparentRGB)
@@ -685,11 +690,11 @@ Err_Handler:
 		End If
 		X = 336 + (200 - Width * Size) / 2 : Y = 104 + (188 - Height * Size) / 2
 		'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(frmMain.picTomeNew.hdc, 3)
+        rc = SetSBMode(frmMain.picTomeNew, 3)
 		'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(frmMain.picTomeNew.hdc, X, Y, Width * Size, Height * Size, 0, 0, Width, Height, lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
+        rc = SDIBits(frmMain.picTomeNew, X, Y, Width * Size, Height * Size, 0, 0, Width, Height, lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
 		'UPGRADE_ISSUE: PictureBox property picTomeNew.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(frmMain.picTomeNew.hdc, X, Y, Width * Size, Height * Size, 0, 0, Width, Height, lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
+        rc = SDIBits(frmMain.picTomeNew, X, Y, Width * Size, Height * Size, 0, 0, Width, Height, lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
 		' Release memory
 		rc = GlobalUnlock(hMemMons)
 		rc = GlobalFree(hMemMons)

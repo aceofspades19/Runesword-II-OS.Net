@@ -376,583 +376,583 @@ Module modBD
 		End Select
 	End Function
 	
-	Public Sub StatementToList(ByRef TomeX As Tome, ByRef AreaX As Area, ByRef TrigX As Trigger, ByRef StmtX As Statement, ByRef ListIndex() As Short, ByRef List() As String)
-		Dim c As Short
-		Dim Text As String
-		Dim AreaZ As Area
-		Dim MapX As Map
-		Dim CreatureX As Creature
-		Dim ItemX As Item
-		Dim TriggerX As Trigger
-		Select Case StmtX.Statement
-			Case 0 'None
-			Case 1 'Label [Context.Var]
-			Case 2 'If [Context.Var] [Op] [Context.Var]
-			Case 3 'Else
-			Case 4 'ElseIf [Context.Var] [Op] [Context.Var]
-			Case 5 'And [Context.Var] [Op] [Context.Var]
-			Case 6 'Or [Context.Var] [Op] [Context.Var]
-			Case 7 'EndIf
-			Case 8 'While [Context.Var] [Op] [Context.Var]
-			Case 9, 26, 70 'ForEach [List] In [List], Destroy [List] In [List], Find [List] Named 'Text' In [List]
-				List(0, 0) = "CreatureA"
-				List(0, 1) = "CreatureB"
-				List(0, 2) = "CreatureC"
-				List(0, 3) = "ItemA"
-				List(0, 4) = "ItemB"
-				List(0, 5) = "ItemC"
-				List(0, 6) = "TriggerA"
-				List(0, 7) = "TriggerB"
-				List(0, 8) = "TriggerC"
-				ListIndex(0) = 8
-				If StmtX.Statement = 26 Then
-					List(0, 9) = "CreatureNow"
-					List(0, 10) = "CreatureTarget"
-					List(0, 11) = "ItemNow"
-					List(0, 12) = "ItemTarget"
-					List(0, 13) = "TriggerNow"
-					List(0, 14) = "TriggerTarget"
-					ListIndex(0) = 14
-				End If
-				List(1, 0) = "EncounterNow"
-				List(1, 1) = "EncounterA"
-				List(1, 2) = "EncounterB"
-				List(1, 3) = "EncounterC"
-				List(1, 4) = "EncounterTarget"
-				List(1, 5) = ""
-				List(1, 6) = ""
-				List(1, 7) = ""
-				List(1, 8) = ""
-				List(1, 9) = ""
-				List(1, 10) = ""
-				List(1, 11) = "TriggerNow"
-				List(1, 12) = "TriggerA"
-				List(1, 13) = "TriggerB"
-				List(1, 14) = "TriggerC"
-				List(1, 15) = "TriggerTarget"
-				ListIndex(1) = 15
-				If StmtX.B(0) > 2 Then
-					List(1, 5) = "ItemNow"
-					List(1, 6) = "ItemA"
-					List(1, 7) = "ItemB"
-					List(1, 8) = "ItemC"
-					List(1, 9) = "ItemTarget"
-					List(1, 16) = "CreatureNow"
-					List(1, 17) = "CreatureA"
-					List(1, 18) = "CreatureB"
-					List(1, 19) = "CreatureC"
-					List(1, 20) = "CreatureTarget"
-					ListIndex(1) = 20
-				End If
-				If StmtX.B(0) < 3 Or StmtX.B(0) > 5 Then
-					List(1, 10) = "Party"
-				End If
-			Case 10 'Next
-			Case 11 'Branch [Context.Var]
-			Case 12 'Put [Context.Var] [Op] [Context.Var] Into [Context.Var]
-			Case 13 'Set [List] = [List]
-				List(0, 0) = "CreatureNow"
-				List(0, 1) = "CreatureA"
-				List(0, 2) = "CreatureB"
-				List(0, 3) = "CreatureC"
-				List(0, 4) = "CreatureTarget"
-				List(0, 5) = "EncounterNow"
-				List(0, 6) = "EncounterA"
-				List(0, 7) = "EncounterB"
-				List(0, 8) = "EncounterC"
-				List(0, 9) = "EncounterTarget"
-				List(0, 10) = "ItemNow"
-				List(0, 11) = "ItemA"
-				List(0, 12) = "ItemB"
-				List(0, 13) = "ItemC"
-				List(0, 14) = "ItemTarget"
-				List(0, 15) = "TileNow"
-				List(0, 16) = "TileA"
-				List(0, 17) = "TileB"
-				List(0, 18) = "TileC"
-				List(0, 19) = "TileTarget"
-				List(0, 20) = "TriggerNow"
-				List(0, 21) = "TriggerA"
-				List(0, 22) = "TriggerB"
-				List(0, 23) = "TriggerC"
-				List(0, 24) = "TriggerTarget"
-				ListIndex(0) = 24
-				Select Case StmtX.B(0)
-					Case 0 To 4 ' Creatures
-						List(1, 0) = "CreatureNow"
-						List(1, 1) = "CreatureA"
-						List(1, 2) = "CreatureB"
-						List(1, 3) = "CreatureC"
-						List(1, 4) = "CreatureTarget"
-					Case 5 To 9 ' Encounters
-						List(1, 0) = "EncounterNow"
-						List(1, 1) = "EncounterA"
-						List(1, 2) = "EncounterB"
-						List(1, 3) = "EncounterC"
-						List(1, 4) = "EncounterTarget"
-					Case 10 To 14 ' Items
-						List(1, 0) = "ItemNow"
-						List(1, 1) = "ItemA"
-						List(1, 2) = "ItemB"
-						List(1, 3) = "ItemC"
-						List(1, 4) = "ItemTarget"
-					Case 15 To 19 ' Tiles
-						List(1, 0) = "TileNow"
-						List(1, 1) = "TileA"
-						List(1, 2) = "TileB"
-						List(1, 3) = "TileC"
-						List(1, 4) = "TileTarget"
-					Case 20 To 24 ' Triggers
-						List(1, 0) = "TriggerNow"
-						List(1, 1) = "TriggerA"
-						List(1, 2) = "TriggerB"
-						List(1, 3) = "TriggerC"
-						List(1, 4) = "TriggerTarget"
-				End Select
-				ListIndex(1) = 4
-			Case 14 'Select [Context.Var]
-			Case 15 'Case [Context.Var]
-			Case 16 'EndSelect
-			Case 17 'Exit [List]
-				List(0, 0) = "Trigger"
-				List(0, 1) = "Loop"
-				List(0, 2) = "Abort"
-				ListIndex(0) = 2
-			Case 18 'CopyCreature [List] Into [List]
-				For c = 0 To 255
-					List(0, c) = ""
-				Next c
-				ListIndex(0) = 0
-				List(0, 0) = Chr(34) & "None" & Chr(34)
-				For	Each CreatureX In TrigX.Creatures
-					If CreatureX.Index < 256 Then
-						List(0, CreatureX.Index) = Chr(34) & CreatureX.Name & Chr(34)
-						If CreatureX.Index > ListIndex(0) Then
-							ListIndex(0) = CreatureX.Index
-						End If
-					End If
-				Next CreatureX
-				List(1, 0) = "EncounterNow"
-				List(1, 1) = "EncounterA"
-				List(1, 2) = "EncounterB"
-				List(1, 3) = "EncounterC"
-				List(1, 4) = "EncounterTarget"
-				List(1, 5) = "Party"
-				List(1, 6) = "TriggerNow"
-				List(1, 7) = "TriggerA"
-				List(1, 8) = "TriggerB"
-				List(1, 9) = "TriggerC"
-				List(1, 10) = "TriggerTarget"
-				ListIndex(1) = 10
-			Case 19 'CopyItem [List] Into [List]
-				For c = 0 To 255
-					List(0, c) = ""
-				Next c
-				ListIndex(0) = 0
-				List(0, 0) = Chr(34) & "None" & Chr(34)
-				For	Each ItemX In TrigX.Items
-					If ItemX.Index < 256 Then
-						List(0, ItemX.Index) = Chr(34) & ItemX.Name & Chr(34)
-						If ItemX.Index > ListIndex(0) Then
-							ListIndex(0) = ItemX.Index
-						End If
-					End If
-				Next ItemX
-				List(1, 0) = "CreatureNow"
-				List(1, 1) = "CreatureA"
-				List(1, 2) = "CreatureB"
-				List(1, 3) = "CreatureC"
-				List(1, 4) = "CreatureTarget"
-				List(1, 5) = "EncounterNow"
-				List(1, 6) = "EncounterA"
-				List(1, 7) = "EncounterB"
-				List(1, 8) = "EncounterC"
-				List(1, 9) = "EncounterTarget"
-				List(1, 10) = "ItemNow"
-				List(1, 11) = "ItemA"
-				List(1, 12) = "ItemB"
-				List(1, 13) = "ItemC"
-				List(1, 14) = "ItemTarget"
-				List(1, 15) = "TriggerNow"
-				List(1, 16) = "TriggerA"
-				List(1, 17) = "TriggerB"
-				List(1, 18) = "TriggerC"
-				List(1, 19) = "TriggerTarget"
-				ListIndex(1) = 19
-			Case 20 'CopyTrigger [List] Into [List]
-				For c = 0 To 255
-					List(0, c) = ""
-				Next c
-				ListIndex(0) = 0
-				List(0, 0) = Chr(34) & "None" & Chr(34)
-				For	Each TriggerX In TrigX.Triggers
-					If TriggerX.Index < 256 Then
-						List(0, TriggerX.Index) = Chr(34) & TriggerX.Name & Chr(34)
-						If TriggerX.Index > ListIndex(0) Then
-							ListIndex(0) = TriggerX.Index
-						End If
-					End If
-				Next TriggerX
-				List(1, 0) = "CreatureNow"
-				List(1, 1) = "CreatureA"
-				List(1, 2) = "CreatureB"
-				List(1, 3) = "CreatureC"
-				List(1, 4) = "CreatureTarget"
-				List(1, 5) = "EncounterNow"
-				List(1, 6) = "EncounterA"
-				List(1, 7) = "EncounterB"
-				List(1, 8) = "EncounterC"
-				List(1, 9) = "EncounterTarget"
-				List(1, 10) = "ItemNow"
-				List(1, 11) = "ItemA"
-				List(1, 12) = "ItemB"
-				List(1, 13) = "ItemC"
-				List(1, 14) = "ItemTarget"
-				List(1, 15) = "Party"
-				List(1, 16) = "TriggerNow"
-				List(1, 17) = "TriggerA"
-				List(1, 18) = "TriggerB"
-				List(1, 19) = "TriggerC"
-				List(1, 20) = "TriggerTarget"
-				ListIndex(1) = 20
-			Case 21 'CopyTile 'Text' To ([Context.Var],[Context.Var],[List])
-				List(0, 0) = "Bottom"
-				List(0, 1) = "BottomFlip"
-				List(0, 2) = "Middle"
-				List(0, 3) = "MiddleFlip"
-				List(0, 4) = "Top"
-				List(0, 5) = "TopFlip"
-				ListIndex(0) = 5
-			Case 22 'CopyText 'Text' Into [Context.Var]
-			Case 23, 42 'Runes ([List],[List],[List],[List],[List],[List]) Fail Save, SorceryQueRune ([List],[List],[List],[List],[List],[List]) Check
-				List(0, 0) = ""
-				' [Titi 2.4.8] get the runes names
-				Text = Right(strRunesList, Len(strRunesList) - 5) ' get rid of "List="
-				For c = 1 To intNbRunes - 1
-					List(0, c) = Left(Text, InStr(Text, ",") - 1)
-					Text = Right(Text, Len(Text) - Len(List(0, c)) - 1)
-				Next 
-				List(0, c) = Text
-				ListIndex(0) = intNbRunes
-				'            List(0, 1) = "Blood"
-				'            List(0, 2) = "Bile"
-				'            List(0, 3) = "Oil"
-				'            List(0, 4) = "Nectar"
-				'            List(0, 5) = "Fire"
-				'            List(0, 6) = "Earth"
-				'            List(0, 7) = "Water"
-				'            List(0, 8) = "Air"
-				'            List(0, 9) = "Time"
-				'            List(0, 10) = "Moons"
-				'            List(0, 11) = "Suns"
-				'            List(0, 12) = "Space"
-				'            List(0, 13) = "Insect"
-				'            List(0, 14) = "Man"
-				'            List(0, 15) = "Fish"
-				'            List(0, 16) = "Animal"
-				'            List(0, 17) = "Twilight"
-				'            List(0, 18) = "Abyss"
-				'            List(0, 19) = "Dreams"
-				'            List(0, 20) = "Eternium"
-				'            ListIndex(0) = 20
-				If StmtX.Statement = 23 Then
-					List(1, 0) = ""
-					List(1, 1) = "Fail"
-					List(1, 2) = "Save"
-					List(1, 3) = "FailSave"
-					ListIndex(1) = 3
-				End If
-			Case 24 'AddFactoid 'Text'
-			Case 25 'AddJournalEntry 'Text'
-			Case 27 'CombatApplyDamage [Context.Var] To [List]
-				List(0, 0) = "CreatureNow"
-				List(0, 1) = "CreatureA"
-				List(0, 2) = "CreatureB"
-				List(0, 3) = "CreatureC"
-				List(0, 4) = "CreatureTarget"
-				ListIndex(0) = 4
-			Case 28, 29 'CombatRollAttack [List] Bonus [Context.Var], CombatRollDamage [Context.Var] As [List] Check
-				List(0, 0) = "Normal"
-				List(0, 1) = "Sharp"
-				List(0, 2) = "Blunt"
-				List(0, 3) = "Cold"
-				List(0, 4) = "Fire"
-				List(0, 5) = "Evil"
-				List(0, 6) = "Holy"
-				List(0, 7) = "Magic"
-				List(0, 8) = "Mind"
-				ListIndex(0) = 8
-			Case 30 'DestroyFactoid 'Text'
-			Case 31 'TargetCreature [List] As [List] Within [Context.Var] Dead
-				List(0, 0) = "CreatureA"
-				List(0, 1) = "CreatureB"
-				List(0, 2) = "CreatureC"
-				List(0, 3) = "CreatureTarget"
-				ListIndex(0) = 3
-				List(1, 0) = "Any"
-				List(1, 1) = "Party"
-				List(1, 2) = "EncounterNow"
-				ListIndex(1) = 2
-			Case 32 'TargetItem [List]
-				List(0, 0) = "ItemA"
-				List(0, 1) = "ItemB"
-				List(0, 2) = "ItemC"
-				ListIndex(0) = 2
-			Case 33 'PlaySound 'Text' Pause
-			Case 34 'PlayMusic 'Text' Pause
-			Case 35 'MoveParty To [List] At ([Context.Var],[Context.Var])
-				For c = 0 To 255
-					List(0, c) = ""
-				Next c
-				ListIndex(0) = 0
-				List(0, 0) = Chr(34) & "None" & Chr(34)
-				For	Each MapX In AreaX.Plot.Maps
-					If MapX.Index < 256 Then
-						List(0, MapX.Index) = Chr(34) & MapX.Name & Chr(34)
-						If MapX.Index > ListIndex(0) Then
-							ListIndex(0) = MapX.Index
-						End If
-					End If
-				Next MapX
-			Case 36 'DialogShow 'Text' Says 'Text' As [List]
-				List(0, 0) = "Normal"
-				List(0, 1) = "BriefBox"
-				List(0, 2) = "ReplyPick"
-				List(0, 3) = "ReplyText"
-				List(0, 4) = "BriefLine" ' Deprecated, but still supported
-				'           List(0, 5) = "BriefLine"
-				ListIndex(0) = 4 '5
-			Case 37 'DialogReply 'Text'
-			Case 38 'DialogAccept [Context.Var]
-			Case 39 'DialogDice 'Text' Says 'Text' Rolls [List] Into [Context.Var]
-				For c = 0 To 24
-					List(0, c) = Trim(Str(c Mod 5 + 1)) & "d" & Trim(Str(Int((c Mod 25) / 5) * 2 + 4))
-				Next c
-				List(0, 25) = "1d20"
-				ListIndex(0) = 25
-			Case 40 'DialogHide
-			Case 41 'CutScene [List] Display 'Text' Picture 'Text'
-				List(0, 0) = "PicLeftTextRight"
-				List(0, 1) = "PicRightTextLeft"
-				List(0, 2) = "PicTopTextBottom"
-				List(0, 3) = "PicBottomTextTop"
-				List(0, 4) = "PicCenter"
-				List(0, 5) = "TextCenter"
-				ListIndex(0) = 5
-			Case 43 'CombatMove [List] [List]
-				List(0, 0) = "Toward"
-				List(0, 1) = "AwayFrom"
-				ListIndex(0) = 1
-				List(1, 0) = "Closest"
-				List(1, 1) = "Farthest"
-				List(1, 2) = "Strongest"
-				List(1, 3) = "Weakest"
-				List(1, 4) = "Random"
-				List(1, 5) = "CreatureTarget"
-				ListIndex(1) = 5
-			Case 44 'Reserved
-			Case 45 'CombatTarget [List]
-				List(0, 0) = "Closest"
-				List(0, 1) = "Farthest"
-				List(0, 2) = "Strongest"
-				List(0, 3) = "Weakest"
-				List(0, 4) = "Random"
-				ListIndex(0) = 4
-			Case 46 'PlaySFX 'Text' As ([List],[List],[List],Number)
-				List(0, 0) = "Head"
-				List(0, 1) = "Center"
-				ListIndex(0) = 1
-				List(1, 0) = "Fling"
-				List(1, 1) = "Stream"
-				List(1, 2) = "BurstHere"
-				List(1, 3) = "BurstThere"
-				List(1, 4) = "Down"
-				ListIndex(1) = 4
-				List(2, 0) = "Fast"
-				List(2, 1) = "Medium"
-				List(2, 2) = "Slow"
-				ListIndex(2) = 2
-				For c = 0 To 64
-					List(3, c) = VB6.Format(c, "00")
-				Next c
-				ListIndex(3) = 64
-			Case 47 'Sorcery [Context.Var]
-			Case 48 'DialogBuySell [List] At [Context.Var]
-				List(0, 0) = "CreatureNow"
-				List(0, 1) = "EncounterNow"
-				List(0, 2) = "TriggerNow"
-				ListIndex(0) = 2
-			Case 49 'Reserved
-			Case 50 'ExecTrigger [List]
-				For c = 0 To 255
-					List(0, c) = ""
-				Next c
-				ListIndex(0) = 0
-				List(0, 0) = Chr(34) & "None" & Chr(34)
-				For	Each TriggerX In TrigX.Triggers
-					If TriggerX.Index < 256 Then
-						List(0, TriggerX.Index) = Chr(34) & TriggerX.Name & Chr(34)
-						If TriggerX.Index > ListIndex(0) Then
-							ListIndex(0) = TriggerX.Index
-						End If
-					End If
-				Next TriggerX
-			Case 51 'DialogAcceptText [Context.Var]
-			Case 52 'CombatStart
-			Case 53 'Let [Context.Var] = [Context.Var]
-			Case 54 '' Text
-			Case 55 'RandomizeEncounter 'Text'
-			Case 56 'RandomTheme 'Text'
-			Case 57 'AwardExperience [Context.Var] To [List]
-				List(0, 0) = "Party"
-				List(0, 1) = "CreatureNow"
-				List(0, 2) = "CreatureA"
-				List(0, 3) = "CreatureB"
-				List(0, 4) = "CreatureC"
-				List(0, 5) = "CreatureTarget"
-				ListIndex(0) = 5
-			Case 58 'MoveItem [List] From [List] To [List] Copy
-				List(0, 0) = "ItemNow"
-				List(0, 1) = "ItemA"
-				List(0, 2) = "ItemB"
-				List(0, 3) = "ItemC"
-				List(0, 4) = "ItemTarget"
-				ListIndex(0) = 4
-				For c = 1 To 2
-					List(c, 0) = "CreatureNow"
-					List(c, 1) = "CreatureA"
-					List(c, 2) = "CreatureB"
-					List(c, 3) = "CreatureC"
-					List(c, 4) = "CreatureTarget"
-					List(c, 5) = "EncounterNow"
-					List(c, 6) = "EncounterA"
-					List(c, 7) = "EncounterB"
-					List(c, 8) = "EncounterC"
-					List(c, 9) = "EncounterTarget"
-					List(c, 10) = "ItemNow"
-					List(c, 11) = "ItemA"
-					List(c, 12) = "ItemB"
-					List(c, 13) = "ItemC"
-					List(c, 14) = "ItemTarget"
-					List(c, 15) = "TriggerNow"
-					List(c, 16) = "TriggerA"
-					List(c, 17) = "TriggerB"
-					List(c, 18) = "TriggerC"
-					List(c, 19) = "TriggerTarget"
-					ListIndex(c) = 19
-				Next c
-			Case 59 'AddQuest 'Text' As 'Text'
-			Case 60 'RemoveQuest 'Text'
-			Case 61 'RemoveTopic 'Text'
-			Case 62 'CombatAttackWithWeapon
-			Case 63 'CombatAttackWithSpecial 'Text' As [Context.Var]
-			Case 64 'MovePartyMapName ([Context.Var],[Context.Var],[List],'Text')
-				For c = 0 To 255
-					List(0, c) = ""
-				Next c
-				ListIndex(0) = 0
-				List(0, 0) = Chr(34) & "None" & Chr(34)
-				For	Each AreaZ In TomeX.Areas
-					If AreaZ.Index < 256 Then
-						List(0, AreaZ.Index) = Chr(34) & AreaZ.Name & Chr(34)
-						If AreaZ.Index > ListIndex(0) Then
-							ListIndex(0) = AreaZ.Index
-						End If
-					End If
-				Next AreaZ
-			Case 65 'MoveCreature [List] From [List] To [List] Copy
-				List(0, 0) = "CreatureNow"
-				List(0, 1) = "CreatureA"
-				List(0, 2) = "CreatureB"
-				List(0, 3) = "CreatureC"
-				List(0, 4) = "CreatureTarget"
-				ListIndex(0) = 4
-				For c = 1 To 2
-					List(c, 0) = "CreatureNow"
-					List(c, 1) = "CreatureA"
-					List(c, 2) = "CreatureB"
-					List(c, 3) = "CreatureC"
-					List(c, 4) = "CreatureTarget"
-					List(c, 5) = "EncounterNow"
-					List(c, 6) = "EncounterA"
-					List(c, 7) = "EncounterB"
-					List(c, 8) = "EncounterC"
-					List(c, 9) = "EncounterTarget"
-					List(c, 10) = "ItemNow"
-					List(c, 11) = "ItemA"
-					List(c, 12) = "ItemB"
-					List(c, 13) = "ItemC"
-					List(c, 14) = "ItemTarget"
-					List(c, 15) = "TriggerNow"
-					List(c, 16) = "TriggerA"
-					List(c, 17) = "TriggerB"
-					List(c, 18) = "TriggerC"
-					List(c, 19) = "TriggerTarget"
-					List(c, 20) = "Party"
-					ListIndex(c) = 20
-				Next c
-			Case 66 'IfText [Context.Var] [Op] 'Text'
-			Case 67 'TargetEncounter 'Text'
-			Case 68 'TargetTile 'Text' At ([Context.Var],[Context.Var],[List])
-				List(0, 0) = "Bottom"
-				List(0, 1) = "Middle"
-				List(0, 2) = "Top"
-				ListIndex(0) = 2
-			Case 69 'PlayVideo 'Text' Pause
-			Case 71 'CallTrigger [List] In [List]
-				List(0, 0) = "TriggerNow"
-				List(0, 1) = "TriggerA"
-				List(0, 2) = "TriggerB"
-				List(0, 3) = "TriggerC"
-				List(0, 4) = "TriggerTarget"
-				ListIndex(0) = 4
-				List(1, 0) = "CreatureNow"
-				List(1, 1) = "CreatureA"
-				List(1, 2) = "CreatureB"
-				List(1, 3) = "CreatureC"
-				List(1, 4) = "CreatureTarget"
-				List(1, 5) = "EncounterNow"
-				List(1, 6) = "EncounterA"
-				List(1, 7) = "EncounterB"
-				List(1, 8) = "EncounterC"
-				List(1, 9) = "EncounterTarget"
-				List(1, 10) = "ItemNow"
-				List(1, 11) = "ItemA"
-				List(1, 12) = "ItemB"
-				List(1, 13) = "ItemC"
-				List(1, 14) = "ItemTarget"
-				List(1, 15) = "Party"
-				List(1, 16) = "TriggerNow"
-				List(1, 17) = "TriggerA"
-				List(1, 18) = "TriggerB"
-				List(1, 19) = "TriggerC"
-				List(1, 20) = "TriggerTarget"
-				ListIndex(1) = 20
-			Case 72 'CombatAnimation 'Text' For [List] Frames [List]
-				List(0, 0) = "CreatureNow"
-				List(0, 1) = "CreatureA"
-				List(0, 2) = "CreatureB"
-				List(0, 3) = "CreatureC"
-				List(0, 4) = "CreatureTarget"
-				ListIndex(0) = 4
-				For c = 2 To 32
-					List(1, c - 2) = VB6.Format(c, "00")
-				Next c
-				ListIndex(1) = 30
-			Case 73 'MapAnimation 'Text' Frames [List] Level [List] At (Context.Var, Context.Var)
-				For c = 2 To 32
-					List(0, c - 2) = VB6.Format(c, "00")
-				Next c
-				ListIndex(0) = 30
-				List(1, 0) = "Bottom"
-				List(1, 1) = "BottomFlip"
-				List(1, 2) = "Middle"
-				List(1, 3) = "MiddleFlip"
-				List(1, 4) = "Top"
-				List(1, 5) = "TopFlip"
-				ListIndex(1) = 5
-		End Select
-	End Sub
+    Public Sub StatementToList(ByRef TomeX As Tome, ByRef AreaX As Area, ByRef TrigX As Trigger, ByRef StmtX As Statement, ByRef ListIndex() As Short, ByRef List(,) As String)
+        Dim c As Short
+        Dim Text As String
+        Dim AreaZ As Area
+        Dim MapX As Map
+        Dim CreatureX As Creature
+        Dim ItemX As Item
+        Dim TriggerX As Trigger
+        Select Case StmtX.Statement
+            Case 0 'None
+            Case 1 'Label [Context.Var]
+            Case 2 'If [Context.Var] [Op] [Context.Var]
+            Case 3 'Else
+            Case 4 'ElseIf [Context.Var] [Op] [Context.Var]
+            Case 5 'And [Context.Var] [Op] [Context.Var]
+            Case 6 'Or [Context.Var] [Op] [Context.Var]
+            Case 7 'EndIf
+            Case 8 'While [Context.Var] [Op] [Context.Var]
+            Case 9, 26, 70 'ForEach [List] In [List], Destroy [List] In [List], Find [List] Named 'Text' In [List]
+                List(0, 0) = "CreatureA"
+                List(0, 1) = "CreatureB"
+                List(0, 2) = "CreatureC"
+                List(0, 3) = "ItemA"
+                List(0, 4) = "ItemB"
+                List(0, 5) = "ItemC"
+                List(0, 6) = "TriggerA"
+                List(0, 7) = "TriggerB"
+                List(0, 8) = "TriggerC"
+                ListIndex(0) = 8
+                If StmtX.Statement = 26 Then
+                    List(0, 9) = "CreatureNow"
+                    List(0, 10) = "CreatureTarget"
+                    List(0, 11) = "ItemNow"
+                    List(0, 12) = "ItemTarget"
+                    List(0, 13) = "TriggerNow"
+                    List(0, 14) = "TriggerTarget"
+                    ListIndex(0) = 14
+                End If
+                List(1, 0) = "EncounterNow"
+                List(1, 1) = "EncounterA"
+                List(1, 2) = "EncounterB"
+                List(1, 3) = "EncounterC"
+                List(1, 4) = "EncounterTarget"
+                List(1, 5) = ""
+                List(1, 6) = ""
+                List(1, 7) = ""
+                List(1, 8) = ""
+                List(1, 9) = ""
+                List(1, 10) = ""
+                List(1, 11) = "TriggerNow"
+                List(1, 12) = "TriggerA"
+                List(1, 13) = "TriggerB"
+                List(1, 14) = "TriggerC"
+                List(1, 15) = "TriggerTarget"
+                ListIndex(1) = 15
+                If StmtX.B(0) > 2 Then
+                    List(1, 5) = "ItemNow"
+                    List(1, 6) = "ItemA"
+                    List(1, 7) = "ItemB"
+                    List(1, 8) = "ItemC"
+                    List(1, 9) = "ItemTarget"
+                    List(1, 16) = "CreatureNow"
+                    List(1, 17) = "CreatureA"
+                    List(1, 18) = "CreatureB"
+                    List(1, 19) = "CreatureC"
+                    List(1, 20) = "CreatureTarget"
+                    ListIndex(1) = 20
+                End If
+                If StmtX.B(0) < 3 Or StmtX.B(0) > 5 Then
+                    List(1, 10) = "Party"
+                End If
+            Case 10 'Next
+            Case 11 'Branch [Context.Var]
+            Case 12 'Put [Context.Var] [Op] [Context.Var] Into [Context.Var]
+            Case 13 'Set [List] = [List]
+                List(0, 0) = "CreatureNow"
+                List(0, 1) = "CreatureA"
+                List(0, 2) = "CreatureB"
+                List(0, 3) = "CreatureC"
+                List(0, 4) = "CreatureTarget"
+                List(0, 5) = "EncounterNow"
+                List(0, 6) = "EncounterA"
+                List(0, 7) = "EncounterB"
+                List(0, 8) = "EncounterC"
+                List(0, 9) = "EncounterTarget"
+                List(0, 10) = "ItemNow"
+                List(0, 11) = "ItemA"
+                List(0, 12) = "ItemB"
+                List(0, 13) = "ItemC"
+                List(0, 14) = "ItemTarget"
+                List(0, 15) = "TileNow"
+                List(0, 16) = "TileA"
+                List(0, 17) = "TileB"
+                List(0, 18) = "TileC"
+                List(0, 19) = "TileTarget"
+                List(0, 20) = "TriggerNow"
+                List(0, 21) = "TriggerA"
+                List(0, 22) = "TriggerB"
+                List(0, 23) = "TriggerC"
+                List(0, 24) = "TriggerTarget"
+                ListIndex(0) = 24
+                Select Case StmtX.B(0)
+                    Case 0 To 4 ' Creatures
+                        List(1, 0) = "CreatureNow"
+                        List(1, 1) = "CreatureA"
+                        List(1, 2) = "CreatureB"
+                        List(1, 3) = "CreatureC"
+                        List(1, 4) = "CreatureTarget"
+                    Case 5 To 9 ' Encounters
+                        List(1, 0) = "EncounterNow"
+                        List(1, 1) = "EncounterA"
+                        List(1, 2) = "EncounterB"
+                        List(1, 3) = "EncounterC"
+                        List(1, 4) = "EncounterTarget"
+                    Case 10 To 14 ' Items
+                        List(1, 0) = "ItemNow"
+                        List(1, 1) = "ItemA"
+                        List(1, 2) = "ItemB"
+                        List(1, 3) = "ItemC"
+                        List(1, 4) = "ItemTarget"
+                    Case 15 To 19 ' Tiles
+                        List(1, 0) = "TileNow"
+                        List(1, 1) = "TileA"
+                        List(1, 2) = "TileB"
+                        List(1, 3) = "TileC"
+                        List(1, 4) = "TileTarget"
+                    Case 20 To 24 ' Triggers
+                        List(1, 0) = "TriggerNow"
+                        List(1, 1) = "TriggerA"
+                        List(1, 2) = "TriggerB"
+                        List(1, 3) = "TriggerC"
+                        List(1, 4) = "TriggerTarget"
+                End Select
+                ListIndex(1) = 4
+            Case 14 'Select [Context.Var]
+            Case 15 'Case [Context.Var]
+            Case 16 'EndSelect
+            Case 17 'Exit [List]
+                List(0, 0) = "Trigger"
+                List(0, 1) = "Loop"
+                List(0, 2) = "Abort"
+                ListIndex(0) = 2
+            Case 18 'CopyCreature [List] Into [List]
+                For c = 0 To 255
+                    List(0, c) = ""
+                Next c
+                ListIndex(0) = 0
+                List(0, 0) = Chr(34) & "None" & Chr(34)
+                For Each CreatureX In TrigX.Creatures
+                    If CreatureX.Index < 256 Then
+                        List(0, CreatureX.Index) = Chr(34) & CreatureX.Name & Chr(34)
+                        If CreatureX.Index > ListIndex(0) Then
+                            ListIndex(0) = CreatureX.Index
+                        End If
+                    End If
+                Next CreatureX
+                List(1, 0) = "EncounterNow"
+                List(1, 1) = "EncounterA"
+                List(1, 2) = "EncounterB"
+                List(1, 3) = "EncounterC"
+                List(1, 4) = "EncounterTarget"
+                List(1, 5) = "Party"
+                List(1, 6) = "TriggerNow"
+                List(1, 7) = "TriggerA"
+                List(1, 8) = "TriggerB"
+                List(1, 9) = "TriggerC"
+                List(1, 10) = "TriggerTarget"
+                ListIndex(1) = 10
+            Case 19 'CopyItem [List] Into [List]
+                For c = 0 To 255
+                    List(0, c) = ""
+                Next c
+                ListIndex(0) = 0
+                List(0, 0) = Chr(34) & "None" & Chr(34)
+                For Each ItemX In TrigX.Items
+                    If ItemX.Index < 256 Then
+                        List(0, ItemX.Index) = Chr(34) & ItemX.Name & Chr(34)
+                        If ItemX.Index > ListIndex(0) Then
+                            ListIndex(0) = ItemX.Index
+                        End If
+                    End If
+                Next ItemX
+                List(1, 0) = "CreatureNow"
+                List(1, 1) = "CreatureA"
+                List(1, 2) = "CreatureB"
+                List(1, 3) = "CreatureC"
+                List(1, 4) = "CreatureTarget"
+                List(1, 5) = "EncounterNow"
+                List(1, 6) = "EncounterA"
+                List(1, 7) = "EncounterB"
+                List(1, 8) = "EncounterC"
+                List(1, 9) = "EncounterTarget"
+                List(1, 10) = "ItemNow"
+                List(1, 11) = "ItemA"
+                List(1, 12) = "ItemB"
+                List(1, 13) = "ItemC"
+                List(1, 14) = "ItemTarget"
+                List(1, 15) = "TriggerNow"
+                List(1, 16) = "TriggerA"
+                List(1, 17) = "TriggerB"
+                List(1, 18) = "TriggerC"
+                List(1, 19) = "TriggerTarget"
+                ListIndex(1) = 19
+            Case 20 'CopyTrigger [List] Into [List]
+                For c = 0 To 255
+                    List(0, c) = ""
+                Next c
+                ListIndex(0) = 0
+                List(0, 0) = Chr(34) & "None" & Chr(34)
+                For Each TriggerX In TrigX.Triggers
+                    If TriggerX.Index < 256 Then
+                        List(0, TriggerX.Index) = Chr(34) & TriggerX.Name & Chr(34)
+                        If TriggerX.Index > ListIndex(0) Then
+                            ListIndex(0) = TriggerX.Index
+                        End If
+                    End If
+                Next TriggerX
+                List(1, 0) = "CreatureNow"
+                List(1, 1) = "CreatureA"
+                List(1, 2) = "CreatureB"
+                List(1, 3) = "CreatureC"
+                List(1, 4) = "CreatureTarget"
+                List(1, 5) = "EncounterNow"
+                List(1, 6) = "EncounterA"
+                List(1, 7) = "EncounterB"
+                List(1, 8) = "EncounterC"
+                List(1, 9) = "EncounterTarget"
+                List(1, 10) = "ItemNow"
+                List(1, 11) = "ItemA"
+                List(1, 12) = "ItemB"
+                List(1, 13) = "ItemC"
+                List(1, 14) = "ItemTarget"
+                List(1, 15) = "Party"
+                List(1, 16) = "TriggerNow"
+                List(1, 17) = "TriggerA"
+                List(1, 18) = "TriggerB"
+                List(1, 19) = "TriggerC"
+                List(1, 20) = "TriggerTarget"
+                ListIndex(1) = 20
+            Case 21 'CopyTile 'Text' To ([Context.Var],[Context.Var],[List])
+                List(0, 0) = "Bottom"
+                List(0, 1) = "BottomFlip"
+                List(0, 2) = "Middle"
+                List(0, 3) = "MiddleFlip"
+                List(0, 4) = "Top"
+                List(0, 5) = "TopFlip"
+                ListIndex(0) = 5
+            Case 22 'CopyText 'Text' Into [Context.Var]
+            Case 23, 42 'Runes ([List],[List],[List],[List],[List],[List]) Fail Save, SorceryQueRune ([List],[List],[List],[List],[List],[List]) Check
+                List(0, 0) = ""
+                ' [Titi 2.4.8] get the runes names
+                Text = Right(strRunesList, Len(strRunesList) - 5) ' get rid of "List="
+                For c = 1 To intNbRunes - 1
+                    List(0, c) = Left(Text, InStr(Text, ",") - 1)
+                    Text = Right(Text, Len(Text) - Len(List(0, c)) - 1)
+                Next
+                List(0, c) = Text
+                ListIndex(0) = intNbRunes
+                '            List(0, 1) = "Blood"
+                '            List(0, 2) = "Bile"
+                '            List(0, 3) = "Oil"
+                '            List(0, 4) = "Nectar"
+                '            List(0, 5) = "Fire"
+                '            List(0, 6) = "Earth"
+                '            List(0, 7) = "Water"
+                '            List(0, 8) = "Air"
+                '            List(0, 9) = "Time"
+                '            List(0, 10) = "Moons"
+                '            List(0, 11) = "Suns"
+                '            List(0, 12) = "Space"
+                '            List(0, 13) = "Insect"
+                '            List(0, 14) = "Man"
+                '            List(0, 15) = "Fish"
+                '            List(0, 16) = "Animal"
+                '            List(0, 17) = "Twilight"
+                '            List(0, 18) = "Abyss"
+                '            List(0, 19) = "Dreams"
+                '            List(0, 20) = "Eternium"
+                '            ListIndex(0) = 20
+                If StmtX.Statement = 23 Then
+                    List(1, 0) = ""
+                    List(1, 1) = "Fail"
+                    List(1, 2) = "Save"
+                    List(1, 3) = "FailSave"
+                    ListIndex(1) = 3
+                End If
+            Case 24 'AddFactoid 'Text'
+            Case 25 'AddJournalEntry 'Text'
+            Case 27 'CombatApplyDamage [Context.Var] To [List]
+                List(0, 0) = "CreatureNow"
+                List(0, 1) = "CreatureA"
+                List(0, 2) = "CreatureB"
+                List(0, 3) = "CreatureC"
+                List(0, 4) = "CreatureTarget"
+                ListIndex(0) = 4
+            Case 28, 29 'CombatRollAttack [List] Bonus [Context.Var], CombatRollDamage [Context.Var] As [List] Check
+                List(0, 0) = "Normal"
+                List(0, 1) = "Sharp"
+                List(0, 2) = "Blunt"
+                List(0, 3) = "Cold"
+                List(0, 4) = "Fire"
+                List(0, 5) = "Evil"
+                List(0, 6) = "Holy"
+                List(0, 7) = "Magic"
+                List(0, 8) = "Mind"
+                ListIndex(0) = 8
+            Case 30 'DestroyFactoid 'Text'
+            Case 31 'TargetCreature [List] As [List] Within [Context.Var] Dead
+                List(0, 0) = "CreatureA"
+                List(0, 1) = "CreatureB"
+                List(0, 2) = "CreatureC"
+                List(0, 3) = "CreatureTarget"
+                ListIndex(0) = 3
+                List(1, 0) = "Any"
+                List(1, 1) = "Party"
+                List(1, 2) = "EncounterNow"
+                ListIndex(1) = 2
+            Case 32 'TargetItem [List]
+                List(0, 0) = "ItemA"
+                List(0, 1) = "ItemB"
+                List(0, 2) = "ItemC"
+                ListIndex(0) = 2
+            Case 33 'PlaySound 'Text' Pause
+            Case 34 'PlayMusic 'Text' Pause
+            Case 35 'MoveParty To [List] At ([Context.Var],[Context.Var])
+                For c = 0 To 255
+                    List(0, c) = ""
+                Next c
+                ListIndex(0) = 0
+                List(0, 0) = Chr(34) & "None" & Chr(34)
+                For Each MapX In AreaX.Plot.Maps
+                    If MapX.Index < 256 Then
+                        List(0, MapX.Index) = Chr(34) & MapX.Name & Chr(34)
+                        If MapX.Index > ListIndex(0) Then
+                            ListIndex(0) = MapX.Index
+                        End If
+                    End If
+                Next MapX
+            Case 36 'DialogShow 'Text' Says 'Text' As [List]
+                List(0, 0) = "Normal"
+                List(0, 1) = "BriefBox"
+                List(0, 2) = "ReplyPick"
+                List(0, 3) = "ReplyText"
+                List(0, 4) = "BriefLine" ' Deprecated, but still supported
+                '           List(0, 5) = "BriefLine"
+                ListIndex(0) = 4 '5
+            Case 37 'DialogReply 'Text'
+            Case 38 'DialogAccept [Context.Var]
+            Case 39 'DialogDice 'Text' Says 'Text' Rolls [List] Into [Context.Var]
+                For c = 0 To 24
+                    List(0, c) = Trim(Str(c Mod 5 + 1)) & "d" & Trim(Str(Int((c Mod 25) / 5) * 2 + 4))
+                Next c
+                List(0, 25) = "1d20"
+                ListIndex(0) = 25
+            Case 40 'DialogHide
+            Case 41 'CutScene [List] Display 'Text' Picture 'Text'
+                List(0, 0) = "PicLeftTextRight"
+                List(0, 1) = "PicRightTextLeft"
+                List(0, 2) = "PicTopTextBottom"
+                List(0, 3) = "PicBottomTextTop"
+                List(0, 4) = "PicCenter"
+                List(0, 5) = "TextCenter"
+                ListIndex(0) = 5
+            Case 43 'CombatMove [List] [List]
+                List(0, 0) = "Toward"
+                List(0, 1) = "AwayFrom"
+                ListIndex(0) = 1
+                List(1, 0) = "Closest"
+                List(1, 1) = "Farthest"
+                List(1, 2) = "Strongest"
+                List(1, 3) = "Weakest"
+                List(1, 4) = "Random"
+                List(1, 5) = "CreatureTarget"
+                ListIndex(1) = 5
+            Case 44 'Reserved
+            Case 45 'CombatTarget [List]
+                List(0, 0) = "Closest"
+                List(0, 1) = "Farthest"
+                List(0, 2) = "Strongest"
+                List(0, 3) = "Weakest"
+                List(0, 4) = "Random"
+                ListIndex(0) = 4
+            Case 46 'PlaySFX 'Text' As ([List],[List],[List],Number)
+                List(0, 0) = "Head"
+                List(0, 1) = "Center"
+                ListIndex(0) = 1
+                List(1, 0) = "Fling"
+                List(1, 1) = "Stream"
+                List(1, 2) = "BurstHere"
+                List(1, 3) = "BurstThere"
+                List(1, 4) = "Down"
+                ListIndex(1) = 4
+                List(2, 0) = "Fast"
+                List(2, 1) = "Medium"
+                List(2, 2) = "Slow"
+                ListIndex(2) = 2
+                For c = 0 To 64
+                    List(3, c) = VB6.Format(c, "00")
+                Next c
+                ListIndex(3) = 64
+            Case 47 'Sorcery [Context.Var]
+            Case 48 'DialogBuySell [List] At [Context.Var]
+                List(0, 0) = "CreatureNow"
+                List(0, 1) = "EncounterNow"
+                List(0, 2) = "TriggerNow"
+                ListIndex(0) = 2
+            Case 49 'Reserved
+            Case 50 'ExecTrigger [List]
+                For c = 0 To 255
+                    List(0, c) = ""
+                Next c
+                ListIndex(0) = 0
+                List(0, 0) = Chr(34) & "None" & Chr(34)
+                For Each TriggerX In TrigX.Triggers
+                    If TriggerX.Index < 256 Then
+                        List(0, TriggerX.Index) = Chr(34) & TriggerX.Name & Chr(34)
+                        If TriggerX.Index > ListIndex(0) Then
+                            ListIndex(0) = TriggerX.Index
+                        End If
+                    End If
+                Next TriggerX
+            Case 51 'DialogAcceptText [Context.Var]
+            Case 52 'CombatStart
+            Case 53 'Let [Context.Var] = [Context.Var]
+            Case 54 '' Text
+            Case 55 'RandomizeEncounter 'Text'
+            Case 56 'RandomTheme 'Text'
+            Case 57 'AwardExperience [Context.Var] To [List]
+                List(0, 0) = "Party"
+                List(0, 1) = "CreatureNow"
+                List(0, 2) = "CreatureA"
+                List(0, 3) = "CreatureB"
+                List(0, 4) = "CreatureC"
+                List(0, 5) = "CreatureTarget"
+                ListIndex(0) = 5
+            Case 58 'MoveItem [List] From [List] To [List] Copy
+                List(0, 0) = "ItemNow"
+                List(0, 1) = "ItemA"
+                List(0, 2) = "ItemB"
+                List(0, 3) = "ItemC"
+                List(0, 4) = "ItemTarget"
+                ListIndex(0) = 4
+                For c = 1 To 2
+                    List(c, 0) = "CreatureNow"
+                    List(c, 1) = "CreatureA"
+                    List(c, 2) = "CreatureB"
+                    List(c, 3) = "CreatureC"
+                    List(c, 4) = "CreatureTarget"
+                    List(c, 5) = "EncounterNow"
+                    List(c, 6) = "EncounterA"
+                    List(c, 7) = "EncounterB"
+                    List(c, 8) = "EncounterC"
+                    List(c, 9) = "EncounterTarget"
+                    List(c, 10) = "ItemNow"
+                    List(c, 11) = "ItemA"
+                    List(c, 12) = "ItemB"
+                    List(c, 13) = "ItemC"
+                    List(c, 14) = "ItemTarget"
+                    List(c, 15) = "TriggerNow"
+                    List(c, 16) = "TriggerA"
+                    List(c, 17) = "TriggerB"
+                    List(c, 18) = "TriggerC"
+                    List(c, 19) = "TriggerTarget"
+                    ListIndex(c) = 19
+                Next c
+            Case 59 'AddQuest 'Text' As 'Text'
+            Case 60 'RemoveQuest 'Text'
+            Case 61 'RemoveTopic 'Text'
+            Case 62 'CombatAttackWithWeapon
+            Case 63 'CombatAttackWithSpecial 'Text' As [Context.Var]
+            Case 64 'MovePartyMapName ([Context.Var],[Context.Var],[List],'Text')
+                For c = 0 To 255
+                    List(0, c) = ""
+                Next c
+                ListIndex(0) = 0
+                List(0, 0) = Chr(34) & "None" & Chr(34)
+                For Each AreaZ In TomeX.Areas
+                    If AreaZ.Index < 256 Then
+                        List(0, AreaZ.Index) = Chr(34) & AreaZ.Name & Chr(34)
+                        If AreaZ.Index > ListIndex(0) Then
+                            ListIndex(0) = AreaZ.Index
+                        End If
+                    End If
+                Next AreaZ
+            Case 65 'MoveCreature [List] From [List] To [List] Copy
+                List(0, 0) = "CreatureNow"
+                List(0, 1) = "CreatureA"
+                List(0, 2) = "CreatureB"
+                List(0, 3) = "CreatureC"
+                List(0, 4) = "CreatureTarget"
+                ListIndex(0) = 4
+                For c = 1 To 2
+                    List(c, 0) = "CreatureNow"
+                    List(c, 1) = "CreatureA"
+                    List(c, 2) = "CreatureB"
+                    List(c, 3) = "CreatureC"
+                    List(c, 4) = "CreatureTarget"
+                    List(c, 5) = "EncounterNow"
+                    List(c, 6) = "EncounterA"
+                    List(c, 7) = "EncounterB"
+                    List(c, 8) = "EncounterC"
+                    List(c, 9) = "EncounterTarget"
+                    List(c, 10) = "ItemNow"
+                    List(c, 11) = "ItemA"
+                    List(c, 12) = "ItemB"
+                    List(c, 13) = "ItemC"
+                    List(c, 14) = "ItemTarget"
+                    List(c, 15) = "TriggerNow"
+                    List(c, 16) = "TriggerA"
+                    List(c, 17) = "TriggerB"
+                    List(c, 18) = "TriggerC"
+                    List(c, 19) = "TriggerTarget"
+                    List(c, 20) = "Party"
+                    ListIndex(c) = 20
+                Next c
+            Case 66 'IfText [Context.Var] [Op] 'Text'
+            Case 67 'TargetEncounter 'Text'
+            Case 68 'TargetTile 'Text' At ([Context.Var],[Context.Var],[List])
+                List(0, 0) = "Bottom"
+                List(0, 1) = "Middle"
+                List(0, 2) = "Top"
+                ListIndex(0) = 2
+            Case 69 'PlayVideo 'Text' Pause
+            Case 71 'CallTrigger [List] In [List]
+                List(0, 0) = "TriggerNow"
+                List(0, 1) = "TriggerA"
+                List(0, 2) = "TriggerB"
+                List(0, 3) = "TriggerC"
+                List(0, 4) = "TriggerTarget"
+                ListIndex(0) = 4
+                List(1, 0) = "CreatureNow"
+                List(1, 1) = "CreatureA"
+                List(1, 2) = "CreatureB"
+                List(1, 3) = "CreatureC"
+                List(1, 4) = "CreatureTarget"
+                List(1, 5) = "EncounterNow"
+                List(1, 6) = "EncounterA"
+                List(1, 7) = "EncounterB"
+                List(1, 8) = "EncounterC"
+                List(1, 9) = "EncounterTarget"
+                List(1, 10) = "ItemNow"
+                List(1, 11) = "ItemA"
+                List(1, 12) = "ItemB"
+                List(1, 13) = "ItemC"
+                List(1, 14) = "ItemTarget"
+                List(1, 15) = "Party"
+                List(1, 16) = "TriggerNow"
+                List(1, 17) = "TriggerA"
+                List(1, 18) = "TriggerB"
+                List(1, 19) = "TriggerC"
+                List(1, 20) = "TriggerTarget"
+                ListIndex(1) = 20
+            Case 72 'CombatAnimation 'Text' For [List] Frames [List]
+                List(0, 0) = "CreatureNow"
+                List(0, 1) = "CreatureA"
+                List(0, 2) = "CreatureB"
+                List(0, 3) = "CreatureC"
+                List(0, 4) = "CreatureTarget"
+                ListIndex(0) = 4
+                For c = 2 To 32
+                    List(1, c - 2) = VB6.Format(c, "00")
+                Next c
+                ListIndex(1) = 30
+            Case 73 'MapAnimation 'Text' Frames [List] Level [List] At (Context.Var, Context.Var)
+                For c = 2 To 32
+                    List(0, c - 2) = VB6.Format(c, "00")
+                Next c
+                ListIndex(0) = 30
+                List(1, 0) = "Bottom"
+                List(1, 1) = "BottomFlip"
+                List(1, 2) = "Middle"
+                List(1, 3) = "MiddleFlip"
+                List(1, 4) = "Top"
+                List(1, 5) = "TopFlip"
+                ListIndex(1) = 5
+        End Select
+    End Sub
 	
 	Public Function TextQuote(ByVal Text As String) As String
 		' [Titi] 2.4.6 - made the function public
@@ -1656,54 +1656,54 @@ Module modBD
 		End Select
 	End Function
 	
-	Public Function Limit(ByRef ChkText As System.Windows.Forms.Control, ByRef KeyAscii As Short, ByRef Mode As Short) As Short
-		Dim NewText As String
-		' Limit to numbers and backspace
-		If KeyAscii > 0 Then
-			Select Case KeyAscii
-				Case System.Windows.Forms.Keys.Back, System.Windows.Forms.Keys.Delete, 45, 48 To 57
-					' Replace ChkText.Text with text instead of validating
-					'UPGRADE_WARNING: Couldn't resolve default property of object ChkText.SelLength. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					If ChkText.SelLength > 0 Then
-						Select Case KeyAscii
-							Case System.Windows.Forms.Keys.Back, System.Windows.Forms.Keys.Delete
-								'UPGRADE_WARNING: Couldn't resolve default property of object ChkText.SelLength. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								'UPGRADE_WARNING: Couldn't resolve default property of object ChkText.SelStart. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								NewText = Mid(ChkText.Text, 1, ChkText.SelStart) & Mid(ChkText.Text, ChkText.SelStart + ChkText.SelLength + 1)
-							Case 45, 48 To 57
-								'UPGRADE_WARNING: Couldn't resolve default property of object ChkText.SelLength. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								'UPGRADE_WARNING: Couldn't resolve default property of object ChkText.SelStart. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								NewText = Mid(ChkText.Text, 1, ChkText.SelStart) & Chr(KeyAscii) & Mid(ChkText.Text, ChkText.SelStart + ChkText.SelLength + 1)
-						End Select
-					Else
-						NewText = ChkText.Text & Chr(KeyAscii)
-					End If
-					' Check for valid limit of Integer or Byte
-					Select Case Mode
-						Case bdInt
-							If Val(NewText) > 32000 Then
-								Limit = 0
-							Else
-								Limit = KeyAscii
-							End If
-						Case bdByte
-							If Val(NewText) < 0 Or Val(NewText) > 255 Then
-								Limit = 0
-							Else
-								Limit = KeyAscii
-							End If
-						Case bdLong
-							If Val(NewText) < -2000000000 Or Val(NewText) > 2000000000 Then
-								Limit = 0
-							Else
-								Limit = KeyAscii
-							End If
-					End Select
-				Case Else
-					Limit = 0
-			End Select
-		End If
-	End Function
+    Public Function Limit(ByRef ChkText As System.Windows.Forms.TextBox, ByRef KeyAscii As Short, ByRef Mode As Short) As Short
+        Dim NewText As String
+        ' Limit to numbers and backspace
+        If KeyAscii > 0 Then
+            Select Case KeyAscii
+                Case System.Windows.Forms.Keys.Back, System.Windows.Forms.Keys.Delete, 45, 48 To 57
+                    ' Replace ChkText.Text with text instead of validating
+                    'UPGRADE_WARNING: Couldn't resolve default property of object ChkText.SelLength. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    If Not ChkText.Size.Equals(0) Then
+                        Select Case KeyAscii
+                            Case System.Windows.Forms.Keys.Back, System.Windows.Forms.Keys.Delete
+                                'UPGRADE_WARNING: Couldn't resolve default property of object ChkText.SelLength. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                'UPGRADE_WARNING: Couldn't resolve default property of object ChkText.SelStart. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                NewText = Mid(ChkText.Text, 1, ChkText.SelectionStart & Mid(ChkText.Text, ChkText.SelectionStart + ChkText.SelectionLength + 1))
+                            Case 45, 48 To 57
+                                'UPGRADE_WARNING: Couldn't resolve default property of object ChkText.SelLength. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                'UPGRADE_WARNING: Couldn't resolve default property of object ChkText.SelStart. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                NewText = Mid(ChkText.Text, 1, ChkText.SelectionStart) & Chr(KeyAscii) & Mid(ChkText.Text, ChkText.SelectionStart + ChkText.SelectionLength + 1)
+                        End Select
+                    Else
+                        NewText = ChkText.Text & Chr(KeyAscii)
+                    End If
+                    ' Check for valid limit of Integer or Byte
+                    Select Case Mode
+                        Case bdInt
+                            If Val(NewText) > 32000 Then
+                                Limit = 0
+                            Else
+                                Limit = KeyAscii
+                            End If
+                        Case bdByte
+                            If Val(NewText) < 0 Or Val(NewText) > 255 Then
+                                Limit = 0
+                            Else
+                                Limit = KeyAscii
+                            End If
+                        Case bdLong
+                            If Val(NewText) < -2000000000 Or Val(NewText) > 2000000000 Then
+                                Limit = 0
+                            Else
+                                Limit = KeyAscii
+                            End If
+                    End Select
+                Case Else
+                    Limit = 0
+            End Select
+        End If
+    End Function
 	
 	Sub FlickText(ByRef InLabel As System.Windows.Forms.Label)
 		Dim c As Short

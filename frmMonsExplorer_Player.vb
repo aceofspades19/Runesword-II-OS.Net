@@ -4,7 +4,7 @@ Imports VB = Microsoft.VisualBasic
 Imports Microsoft.VisualBasic.PowerPacks
 Friend Class frmMonsExplorerPlayer
 	Inherits System.Windows.Forms.Form
-	
+    Dim tome As Tome = Tome.getInstance()
 	Dim CreatureX As Creature
 	Dim PictureStyle As Short
 	Dim TmpPictureFile As String
@@ -129,15 +129,15 @@ Friend Class frmMonsExplorerPlayer
 		If txtSoundFile(Index).Text = "[Default]" Or txtSoundFile(Index).Text = "" Then
 			Select Case Index
 				Case 0 ' Move
-					Call PlaySoundFile("step1.wav", Tome)
+                    Call PlaySoundFile("step1.wav", tome)
 				Case 1 ' Attack does not have a default sound
 				Case 2 ' Hit
-					Call PlaySoundFile("hit.wav", Tome)
+                    Call PlaySoundFile("hit.wav", tome)
 				Case 3 ' Die
-					Call PlaySoundFile("monsdie.wav", Tome)
+                    Call PlaySoundFile("monsdie.wav", tome)
 			End Select
 		Else
-			Call PlaySoundFile(txtSoundFile(Index).Text, Tome)
+            Call PlaySoundFile(txtSoundFile(Index).Text, tome)
 		End If
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
@@ -393,14 +393,14 @@ Friend Class frmMonsExplorerPlayer
 		' Load Bitmap
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.LoadPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		PortraitFile = Dir(Tome.LoadPath & "\" & FileName)
+        PortraitFile = Dir(tome.LoadPath & "\" & FileName)
 		If PortraitFile = "" Then
 			'        PortraitFile = gAppPath & "\data\graphics\portraits\" & Filename
 			' [Titi 2.4.9]
 			PortraitFile = gDataPath & "\graphics\portraits\" & FileName
 		Else
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.LoadPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			PortraitFile = Tome.LoadPath & "\" & FileName
+            PortraitFile = tome.LoadPath & "\" & FileName
 		End If
 		PortraitDir = ClipPath(PortraitFile)
 		' Load Creature bitmap
@@ -415,14 +415,14 @@ Friend Class frmMonsExplorerPlayer
 		picMons.Width = bmMons.bmiHeader.biWidth
 		picMons.Height = bmMons.bmiHeader.biHeight
 		'UPGRADE_ISSUE: PictureBox property picMons.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picMons.hdc, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picMons, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		picMons.Refresh()
 		' Convert to Mask and copy to picMask (pure Blue is the mask color)
 		MakeMask(bmMons, bmMask, TransparentRGB)
 		picMask.Width = bmMons.bmiHeader.biWidth
 		picMask.Height = bmMons.bmiHeader.biHeight
 		'UPGRADE_ISSUE: PictureBox property picMask.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picMask.hdc, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picMask, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		picMask.Refresh()
 		' Release memory
 		rc = GlobalUnlock(hMemMons)
@@ -442,15 +442,17 @@ Friend Class frmMonsExplorerPlayer
 		NewWidth = CShort(picMons.Width * Size_Renamed)
 		' Paint Creature
 		'UPGRADE_ISSUE: PictureBox method picCreature.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		picCreature.Cls()
+        picCreature = Nothing
+        picCreature.Invalidate()
+
 		'UPGRADE_ISSUE: PictureBox property picCreature.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(picCreature.hdc, 3)
+        rc = SetSBMode(picCreature, 3)
 		'UPGRADE_ISSUE: PictureBox property picMask.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: PictureBox property picCreature.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picCreature.hdc, X, Y, NewWidth, NewHeight, picMask.hdc, 0, 0, picMask.Width, picMask.Height, SRCAND)
+        rc = SBlt(picCreature, picMask, X, Y, NewWidth, NewHeight, 0, 0, picMask.Width, picMask.Height, SRCAND)
 		'UPGRADE_ISSUE: PictureBox property picMons.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: PictureBox property picCreature.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(picCreature.hdc, X, Y, NewWidth, NewHeight, picMons.hdc, 0, 0, picMons.Width, picMons.Height, SRCPAINT)
+        rc = SBlt(picCreature, picMons, X, Y, NewWidth, NewHeight, 0, 0, picMons.Width, picMons.Height, SRCPAINT)
 		picCreature.Refresh()
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default ' Default
@@ -480,14 +482,14 @@ Friend Class frmMonsExplorerPlayer
 		' Load Bitmap
 		'UPGRADE_WARNING: Couldn't resolve default property of object Tome.LoadPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		PictureFile = Dir(Tome.LoadPath & "\" & FileName)
+        PictureFile = Dir(tome.LoadPath & "\" & FileName)
 		If PictureFile = "" Then
 			'        PictureFile = gAppPath & "\data\graphics\creatures\" & Filename
 			' [Titi 2.4.9]
 			PictureFile = gDataPath & "\graphics\creatures\" & FileName
 		Else
 			'UPGRADE_WARNING: Couldn't resolve default property of object Tome.LoadPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			PictureFile = Tome.LoadPath & "\" & FileName
+            PictureFile = tome.LoadPath & "\" & FileName
 		End If
 		PictureDir = ClipPath(PictureFile)
 		' Load Creature bitmap
@@ -502,14 +504,14 @@ Friend Class frmMonsExplorerPlayer
 		picMons.Width = bmMons.bmiHeader.biWidth
 		picMons.Height = bmMons.bmiHeader.biHeight
 		'UPGRADE_ISSUE: PictureBox property picMons.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picMons.hdc, X, Y, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picMons, X, Y, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		picMons.Refresh()
 		' Convert to Mask and copy to picMask (pure Blue is the mask color)
 		MakeMask(bmMons, bmMask, TransparentRGB)
 		picMask.Width = bmMons.bmiHeader.biWidth
 		picMask.Height = bmMons.bmiHeader.biHeight
 		'UPGRADE_ISSUE: PictureBox property picMask.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchDIBits(picMask.hdc, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        rc = SDIBits(picMask, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, 0, 0, bmMons.bmiHeader.biWidth, bmMons.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		picMask.Refresh()
 		' Release memory
 		rc = GlobalUnlock(hMemMons)
@@ -529,15 +531,16 @@ Friend Class frmMonsExplorerPlayer
 		NewWidth = CShort(picMons.Width * Size_Renamed)
 		' Paint Creature
 		'UPGRADE_ISSUE: PictureBox method oActivePic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		oActivePic.Cls()
+        oActivePic = Nothing
+        oActivePic.Invalidate()
 		'UPGRADE_ISSUE: PictureBox property oActivePic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = SetStretchBltMode(oActivePic.hdc, 3)
+        rc = SetSBMode(oActivePic, 3)
 		'UPGRADE_ISSUE: PictureBox property picMask.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: PictureBox property oActivePic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(oActivePic.hdc, X, Y, NewWidth, NewHeight, picMask.hdc, 0, 0, picMask.Width, picMask.Height, SRCAND)
+        rc = SBlt(picMask, oActivePic, X, Y, NewWidth, NewHeight, 0, 0, picMask.Width, picMask.Height, SRCAND)
 		'UPGRADE_ISSUE: PictureBox property picMons.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 		'UPGRADE_ISSUE: PictureBox property oActivePic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		rc = StretchBlt(oActivePic.hdc, X, Y, NewWidth, NewHeight, picMons.hdc, 0, 0, picMons.Width, picMons.Height, SRCPAINT)
+        rc = SBlt(oActivePic, picMons, X, Y, NewWidth, NewHeight, 0, 0, picMons.Width, picMons.Height, SRCPAINT)
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default ' Default
 	End Sub

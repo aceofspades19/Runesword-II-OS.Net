@@ -3,7 +3,7 @@ Option Explicit On
 Module modGameGeneral
 	
 	' Nasty Nasty variable be vawie vawie carefull with this one
-	Public Frozen As Short
+    Public Frozen As Short
 	
 	' Reference to current Tome
 	'Public Tome As New Tome

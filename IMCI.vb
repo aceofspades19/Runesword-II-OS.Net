@@ -81,7 +81,7 @@ Friend Class IMCI
 	Private Const MCIERR_VIDEO_NOCODEX As Integer = (MCIERR_BASE + 257)
 	
 	'UPGRADE_ISSUE: Declaring a parameter 'As Any' is not supported. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"'
-	Private Declare Function mciSendString Lib "winmm.dll"  Alias "mciSendStringA"(ByVal lpstrCommand As String, ByVal lpstrReturnString As Any, ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
+    Private Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringA" (ByVal lpstrCommand As String, ByVal lpstrReturnString As Object, ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
 	
 	Public Enum VIDEOSTATE
 		vsNOT_READY = 0
@@ -110,247 +110,255 @@ Friend Class IMCI
 	Dim m_Height As Integer
 	Dim m_IsOpen As Boolean
 	Dim m_Alias As String
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		m_IsOpen = False
-		m_Error = 0
-		m_hWnd = 0
-		m_Filename = ""
-		m_Wait = False
-		m_DeviceType = DEVICETYPE.vsUnknown
-		m_Alias = ""
-		
-		m_Left = 0
-		m_Top = 0
-		m_Width = 0
-		m_Height = 0
-	End Sub
-	Public Sub New()
-		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
-	
-	Public Function Status() As VIDEOSTATE
-		'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim Left_Renamed As String
-		'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim sParse As New VB6.FixedLengthString(128)
-		Dim lPos As Integer
-		Dim lStart As Integer
-		Dim sTmp As String
-		
-		m_Error = mciSendString("status " & m_Alias & " mode", sParse.Value, Len(sParse.Value) - 1, 0)
-		If m_Error Then GoTo Err_Handler
-		If Left_Renamed(sParse.Value, 9) = "not ready" Then
-			Status = VIDEOSTATE.vsNOT_READY
-		ElseIf Left_Renamed(sParse.Value, 6) = "paused" Then 
-			Status = VIDEOSTATE.vsPAUSED
-		ElseIf Left_Renamed(sParse.Value, 7) = "playing" Then 
-			Status = VIDEOSTATE.vsPLAYING
-		ElseIf Left_Renamed(sParse.Value, 7) = "stopped" Then 
-			Status = VIDEOSTATE.vsSTOPPED
-		Else
-			Status = VIDEOSTATE.vsERROR
-		End If
-		'Debug.Print sParse
-		Exit Function
-Err_Handler: 
-		Status = VIDEOSTATE.vsERROR
-	End Function
-	
-	Public Function InitAudio(ByRef Filename As String, ByRef Name As String) As Boolean
-		Dim sCmd As String
-		If m_IsOpen Then
-			Call mciClose()
-			m_IsOpen = False
-			m_Error = 0
-			m_Filename = ""
-			m_Wait = False
-			m_DeviceType = DEVICETYPE.vsUnknown
-			m_Alias = ""
-		End If
-		
-		m_Alias = Name
-		m_Filename = Filename
-		
-		InitAudio = True
-		sCmd = "Open " & Chr(34) & m_Filename & Chr(34) & " Alias " & m_Alias
-		'Debug.Print sCmd
-		m_Error = mciSendString(sCmd, 0, 0, 0)
-		If m_Error Then GoTo Err_Handler
-		m_DeviceType = DEVICETYPE.vsAudtio
-		m_IsOpen = True
-		
-		Exit Function
-Err_Handler: 
-		Call mciClose()
-		InitAudio = False
-	End Function
-	
-	Public Function InitAVI(ByRef Filename As String, ByRef hWnd As Integer, ByRef Name As String, Optional ByRef Align As System.Windows.Forms.DockStyle = 0) As Boolean
-		'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim Left_Renamed As String
-		Dim sParse As New VB6.FixedLengthString(128)
-		Dim lPos As Integer
-		Dim lStart As Integer
-		Dim sCmd As String
-		
-		InitAVI = True
-		
-		m_Alias = Name
-		m_Filename = Filename
-		m_hWnd = hWnd
-		
-		'sCmd = "Open " & Chr$(34) & m_Filename & Chr$(34) & " Type avivideo Alias " & m_Alias & " Parent " & m_hWnd & " Style " & &H40000000
-		sCmd = "Open " & Chr(34) & m_Filename & Chr(34) & " Alias " & m_Alias & " Parent " & m_hWnd & " Style " & &H40000000
-		'Debug.Print sCmd
-		m_Error = mciSendString(sCmd, 0, 0, 0)
-		If m_Error Then GoTo Err_Handler
-		m_IsOpen = True
-		m_DeviceType = DEVICETYPE.vsVideo
-		' [borf] check to see if the video was decodeable
-		m_Error = mciSendString("Status " & m_Alias & " video", sParse.Value, Len(sParse.Value) - 1, 0)
-		If m_Error Then GoTo Err_Handler
-		If Left_Renamed(sParse.Value, 3) = "off" Then
-			m_Error = MCIERR_VIDEO_NOCODEX
-			GoTo Err_Handler
-		End If
-		' Get Width & Height of the Video
-		sParse.Value = Space(128)
-		m_Error = mciSendString("Where " & m_Alias & " Destination", sParse.Value, Len(sParse.Value) - 1, 0)
-		If m_Error Then GoTo Err_Handler
-		
-		lStart = InStr(1, sParse.Value, " ") 'pos of top
-		lPos = InStr(lStart + 1, sParse.Value, " ") 'pos of left
-		lStart = InStr(lPos + 1, sParse.Value, " ") 'pos width
-		m_Width = CInt(Mid(sParse.Value, lPos, lStart - lPos))
-		m_Height = CInt(Mid(sParse.Value, lStart + 1))
-		If m_Error Then GoTo Err_Handler
-		
-		Exit Function
-Err_Handler: 
-		Call mciClose()
-		InitAVI = False
-	End Function
-	
-	Public Sub Play()
-		If Not m_IsOpen Then GoTo Err_Handler
-		
-		If m_DeviceType = DEVICETYPE.vsVideo Then
-			m_Error = mciSendString("put " & m_Alias & " window at " & m_Left & " " & m_Top & " " & m_Width & " " & m_Height, 0, 0, 0)
-			If m_Error Then GoTo Err_Handler
-			
-			m_Error = mciSendString("play " & m_Alias & " from 0" & IIf(m_Wait, " WAIT", ""), 0, 0, 0)
-			If m_Error Then GoTo Err_Handler
-		Else
-			m_Error = mciSendString("play " & m_Alias & " from 0", 0, 0, 0)
-		End If
-		
-		Exit Sub
-Err_Handler: 
-		
-	End Sub
-	
-	Public Sub PausePlay()
-		If Not m_IsOpen Then GoTo Err_Handler
-		m_Error = mciSendString("pause " & m_Alias, 0, 0, 0)
-		Exit Sub
-Err_Handler: 
-	End Sub
-	
-	Public Sub StopPlay()
-		If Not m_IsOpen Then GoTo Err_Handler
-		m_Error = mciSendString("stop " & m_Alias, 0, 0, 0)
-		Exit Sub
-Err_Handler: 
-	End Sub
-	
-	Public Sub ResumePlay()
-		If Not m_IsOpen Then GoTo Err_Handler
-		m_Error = mciSendString("resume " & m_Alias, 0, 0, 0)
-		Exit Sub
-Err_Handler: 
-	End Sub
-	
-	Public Sub mciClose(Optional ByRef CloseAll As Boolean = False)
-		If Not m_IsOpen Then GoTo Err_Handler
-		If CloseAll Then
-			m_Error = mciSendString("close all", 0, 0, 0)
-		Else
-			m_Error = mciSendString("close " & m_Alias, 0, 0, 0)
-		End If
-		m_IsOpen = False
-		Exit Sub
-Err_Handler: 
-	End Sub
-	
-	Public ReadOnly Property GetError() As Integer
-		Get
-			GetError = m_Error
-		End Get
-	End Property
-	
-	
-	Public Property Height() As Integer
-		Get
-			Height = m_Height
-		End Get
-		Set(ByVal Value As Integer)
-			m_Height = Value
-		End Set
-	End Property
-	
-	
-	Public Property Top() As Integer
-		Get
-			Top = m_Top
-		End Get
-		Set(ByVal Value As Integer)
-			m_Top = Value
-		End Set
-	End Property
-	
-	
-	'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Public Property Left_Renamed() As Integer
-		Get
-			Left_Renamed = m_Left
-		End Get
-		Set(ByVal Value As Integer)
-			m_Left = Value
-		End Set
-	End Property
-	
-	
-	Public Property Width() As Integer
-		Get
-			Width = m_Width
-		End Get
-		Set(ByVal Value As Integer)
-			m_Width = Value
-		End Set
-	End Property
-	
-	
-	Public Property Wnd() As Integer
-		Get
-			Wnd = m_hWnd
-		End Get
-		Set(ByVal Value As Integer)
-			m_hWnd = Value
-		End Set
-	End Property
-	
-	
-	Public Property Wait() As Boolean
-		Get
-			Wait = m_Wait
-		End Get
-		Set(ByVal Value As Boolean)
-			m_Wait = Value
-		End Set
-	End Property
+
+    Public Shared Function Spaces(ByVal numSpace As Integer)
+        Dim i As Integer
+        Dim s As String
+        For i = 0 To numSpace
+            s += " "
+        Next
+        Return s
+    End Function
+    'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+    Private Sub Class_Initialize_Renamed()
+        m_IsOpen = False
+        m_Error = 0
+        m_hWnd = 0
+        m_Filename = ""
+        m_Wait = False
+        m_DeviceType = DEVICETYPE.vsUnknown
+        m_Alias = ""
+
+        m_Left = 0
+        m_Top = 0
+        m_Width = 0
+        m_Height = 0
+    End Sub
+    Public Sub New()
+        MyBase.New()
+        Class_Initialize_Renamed()
+    End Sub
+
+    Public Function Status() As VIDEOSTATE
+        'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+        Dim Left_Renamed As String
+        'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+        'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+        'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+        Dim sParse As String
+        Dim lPos As Integer
+        Dim lStart As Integer
+        Dim sTmp As String
+
+        m_Error = mciSendString("status " & m_Alias & " mode", sParse, Len(sParse) - 1, 0)
+        If m_Error Then GoTo Err_Handler
+        If sParse = "not ready" Then
+            Status = VIDEOSTATE.vsNOT_READY
+        ElseIf sParse = "paused" Then
+            Status = VIDEOSTATE.vsPAUSED
+        ElseIf sParse = "playing" Then
+            Status = VIDEOSTATE.vsPLAYING
+        ElseIf sParse = "stopped" Then
+            Status = VIDEOSTATE.vsSTOPPED
+        Else
+            Status = VIDEOSTATE.vsERROR
+        End If
+        'Debug.Print sParse
+        Exit Function
+Err_Handler:
+        Status = VIDEOSTATE.vsERROR
+    End Function
+
+    Public Function InitAudio(ByRef Filename As String, ByRef Name As String) As Boolean
+        Dim sCmd As String
+        If m_IsOpen Then
+            Call mciClose()
+            m_IsOpen = False
+            m_Error = 0
+            m_Filename = ""
+            m_Wait = False
+            m_DeviceType = DEVICETYPE.vsUnknown
+            m_Alias = ""
+        End If
+
+        m_Alias = Name
+        m_Filename = Filename
+
+        InitAudio = True
+        sCmd = "Open " & Chr(34) & m_Filename & Chr(34) & " Alias " & m_Alias
+        'Debug.Print sCmd
+        m_Error = mciSendString(sCmd, 0, 0, 0)
+        If m_Error Then GoTo Err_Handler
+        m_DeviceType = DEVICETYPE.vsAudtio
+        m_IsOpen = True
+
+        Exit Function
+Err_Handler:
+        Call mciClose()
+        InitAudio = False
+    End Function
+
+    Public Function InitAVI(ByRef Filename As String, ByRef hWnd As Integer, ByRef Name As String, Optional ByRef Align As System.Windows.Forms.DockStyle = 0) As Boolean
+        'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+        Dim Left_Renamed As String
+        Dim sParse As New VB6.FixedLengthString(128)
+        Dim lPos As Integer
+        Dim lStart As Integer
+        Dim sCmd As String
+
+        InitAVI = True
+
+        m_Alias = Name
+        m_Filename = Filename
+        m_hWnd = hWnd
+
+        'sCmd = "Open " & Chr$(34) & m_Filename & Chr$(34) & " Type avivideo Alias " & m_Alias & " Parent " & m_hWnd & " Style " & &H40000000
+        sCmd = "Open " & Chr(34) & m_Filename & Chr(34) & " Alias " & m_Alias & " Parent " & m_hWnd & " Style " & &H40000000
+        'Debug.Print sCmd
+        m_Error = mciSendString(sCmd, 0, 0, 0)
+        If m_Error Then GoTo Err_Handler
+        m_IsOpen = True
+        m_DeviceType = DEVICETYPE.vsVideo
+        ' [borf] check to see if the video was decodeable
+        m_Error = mciSendString("Status " & m_Alias & " video", sParse.Value, Len(sParse.Value) - 1, 0)
+        If m_Error Then GoTo Err_Handler
+        If sParse Is "off" Then
+            m_Error = MCIERR_VIDEO_NOCODEX
+            GoTo Err_Handler
+        End If
+        ' Get Width & Height of the Video
+        sParse = Spaces(128)
+        m_Error = mciSendString("Where " & m_Alias & " Destination", sParse.Value, Len(sParse.Value) - 1, 0)
+        If m_Error Then GoTo Err_Handler
+
+        lStart = InStr(1, sParse.Value, " ") 'pos of top
+        lPos = InStr(lStart + 1, sParse.Value, " ") 'pos of left
+        lStart = InStr(lPos + 1, sParse.Value, " ") 'pos width
+        m_Width = CInt(Mid(sParse.Value, lPos, lStart - lPos))
+        m_Height = CInt(Mid(sParse.Value, lStart + 1))
+        If m_Error Then GoTo Err_Handler
+
+        Exit Function
+Err_Handler:
+        Call mciClose()
+        InitAVI = False
+    End Function
+
+    Public Sub Play()
+        If Not m_IsOpen Then GoTo Err_Handler
+
+        If m_DeviceType = DEVICETYPE.vsVideo Then
+            m_Error = mciSendString("put " & m_Alias & " window at " & m_Left & " " & m_Top & " " & m_Width & " " & m_Height, 0, 0, 0)
+            If m_Error Then GoTo Err_Handler
+
+            m_Error = mciSendString("play " & m_Alias & " from 0" & IIf(m_Wait, " WAIT", ""), 0, 0, 0)
+            If m_Error Then GoTo Err_Handler
+        Else
+            m_Error = mciSendString("play " & m_Alias & " from 0", 0, 0, 0)
+        End If
+
+        Exit Sub
+Err_Handler:
+
+    End Sub
+
+    Public Sub PausePlay()
+        If Not m_IsOpen Then GoTo Err_Handler
+        m_Error = mciSendString("pause " & m_Alias, 0, 0, 0)
+        Exit Sub
+Err_Handler:
+    End Sub
+
+    Public Sub StopPlay()
+        If Not m_IsOpen Then GoTo Err_Handler
+        m_Error = mciSendString("stop " & m_Alias, 0, 0, 0)
+        Exit Sub
+Err_Handler:
+    End Sub
+
+    Public Sub ResumePlay()
+        If Not m_IsOpen Then GoTo Err_Handler
+        m_Error = mciSendString("resume " & m_Alias, 0, 0, 0)
+        Exit Sub
+Err_Handler:
+    End Sub
+
+    Public Sub mciClose(Optional ByRef CloseAll As Boolean = False)
+        If Not m_IsOpen Then GoTo Err_Handler
+        If CloseAll Then
+            m_Error = mciSendString("close all", 0, 0, 0)
+        Else
+            m_Error = mciSendString("close " & m_Alias, 0, 0, 0)
+        End If
+        m_IsOpen = False
+        Exit Sub
+Err_Handler:
+    End Sub
+
+    Public ReadOnly Property GetError() As Integer
+        Get
+            GetError = m_Error
+        End Get
+    End Property
+
+
+    Public Property Height() As Integer
+        Get
+            Height = m_Height
+        End Get
+        Set(ByVal Value As Integer)
+            m_Height = Value
+        End Set
+    End Property
+
+
+    Public Property Top() As Integer
+        Get
+            Top = m_Top
+        End Get
+        Set(ByVal Value As Integer)
+            m_Top = Value
+        End Set
+    End Property
+
+
+    'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+    Public Property Left_Renamed() As Integer
+        Get
+            Left_Renamed = m_Left
+        End Get
+        Set(ByVal Value As Integer)
+            m_Left = Value
+        End Set
+    End Property
+
+
+    Public Property Width() As Integer
+        Get
+            Width = m_Width
+        End Get
+        Set(ByVal Value As Integer)
+            m_Width = Value
+        End Set
+    End Property
+
+
+    Public Property Wnd() As Integer
+        Get
+            Wnd = m_hWnd
+        End Get
+        Set(ByVal Value As Integer)
+            m_hWnd = Value
+        End Set
+    End Property
+
+
+    Public Property Wait() As Boolean
+        Get
+            Wait = m_Wait
+        End Get
+        Set(ByVal Value As Boolean)
+            m_Wait = Value
+        End Set
+    End Property
 End Class

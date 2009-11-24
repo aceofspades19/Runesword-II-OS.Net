@@ -23,10 +23,10 @@
 	Public WithEvents picSteps As System.Windows.Forms.PictureBox
 	Public WithEvents picDice As System.Windows.Forms.PictureBox
 	Public WithEvents tmrDialogBrief As System.Windows.Forms.Timer
-	Public WithEvents picDialogBrief As System.Windows.Forms.Panel
+    Public WithEvents picDialogBrief As System.Windows.Forms.PictureBox
 	Public WithEvents picMicroMap As System.Windows.Forms.PictureBox
 	Public WithEvents picMicroBox As System.Windows.Forms.Panel
-	Public WithEvents picJournal As System.Windows.Forms.Panel
+    Public WithEvents picJournal As System.Windows.Forms.PictureBox
 	Public WithEvents picContainer As System.Windows.Forms.PictureBox
 	Public WithEvents picTalk As System.Windows.Forms.PictureBox
 	Public WithEvents picSearch As System.Windows.Forms.PictureBox
@@ -79,9 +79,9 @@
 		Me.picFaces = New System.Windows.Forms.PictureBox
 		Me.picSteps = New System.Windows.Forms.PictureBox
 		Me.picDice = New System.Windows.Forms.PictureBox
-		Me.picDialogBrief = New System.Windows.Forms.Panel
+        Me.picDialogBrief = New System.Windows.Forms.PictureBox
 		Me.tmrDialogBrief = New System.Windows.Forms.Timer(components)
-		Me.picJournal = New System.Windows.Forms.Panel
+        Me.picJournal = New System.Windows.Forms.PictureBox
 		Me.picMicroBox = New System.Windows.Forms.Panel
 		Me.picMicroMap = New System.Windows.Forms.PictureBox
 		Me.picContainer = New System.Windows.Forms.PictureBox

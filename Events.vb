@@ -1206,38 +1206,38 @@ Module modEvents
 									'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = BitBlt(frmMain.picCPic(ObjectX.Pic).hdc, 0, 0, Width, Height, frmMain.picSFXPic(c).hdc, X * Width, 0, SRCCOPY)
+                                    rc = BBlt(frmMain.picCPic(ObjectX.Pic), frmMain.picSFXPic(c), 0, 0, Width, Height, X * Width, 0, SRCCOPY)
 									'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = BitBlt(frmMain.picCPic(ObjectX.Pic).hdc, Width, 0, Width, Height, frmMain.picSFXPic(c).hdc, (VB6.PixelsToTwipsX(frmMain.picSFXPic(c).Width) / 2) + (Cells - X - 1) * Width, 0, SRCCOPY)
+                                    rc = BBlt(frmMain.picCPic(ObjectX.Pic), frmMain.picSFXPic(c), Width, 0, Width, Height, (VB6.PixelsToTwipsX(frmMain.picSFXPic(c).Width) / 2) + (Cells - X - 1) * Width, 0, SRCCOPY)
 									' Paint Mask Normal and Flip
 									'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = BitBlt(frmMain.picCPic(ObjectX.Pic).hdc, 0, Height, Width, Height, frmMain.picSFXPic(c).hdc, X * Width, Height, SRCCOPY)
+                                    rc = BBlt(frmMain.picCPic(ObjectX.Pic), frmMain.picSFXPic(c), 0, Height, Width, Height, X * Width, Height, SRCCOPY)
 									'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = BitBlt(frmMain.picCPic(ObjectX.Pic).hdc, Width, Height, Width, Height, frmMain.picSFXPic(c).hdc, (VB6.PixelsToTwipsX(frmMain.picSFXPic(c).Width)) / 2 + (Cells - X - 1) * Width, Height, SRCCOPY)
+                                    rc = BBlt(frmMain.picCPic(ObjectX.Pic), frmMain.picSFXPic(c), Width, Height, Width, Height, (VB6.PixelsToTwipsX(frmMain.picSFXPic(c).Width)) / 2 + (Cells - X - 1) * Width, Height, SRCCOPY)
 									' Draw Normal and Flip (Yellow)
 									'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = BitBlt(frmMain.picCPic(ObjectX.Pic).hdc, 0, Height * 2, Width, Height, frmMain.picSFXPic(c).hdc, X * Width, 0, SRCCOPY)
+                                    rc = BBlt(frmMain.picCPic(ObjectX.Pic), frmMain.picSFXPic(c), 0, Height * 2, Width, Height, X * Width, 0, SRCCOPY)
 									'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = BitBlt(frmMain.picCPic(ObjectX.Pic).hdc, Width, Height * 2, Width, Height, frmMain.picSFXPic(c).hdc, (VB6.PixelsToTwipsX(frmMain.picSFXPic(c).Width) / 2) + (Cells - X - 1) * Width, 0, SRCCOPY)
+                                    rc = BBlt(frmMain.picCPic(ObjectX.Pic), frmMain.picSFXPic(c), Width, Height * 2, Width, Height, (VB6.PixelsToTwipsX(frmMain.picSFXPic(c).Width) / 2) + (Cells - X - 1) * Width, 0, SRCCOPY)
 									' Draw Normal and Flip (Red)
 									'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = BitBlt(frmMain.picCPic(ObjectX.Pic).hdc, 0, Height * 3, Width, Height, frmMain.picSFXPic(c).hdc, X * Width, 0, SRCCOPY)
+                                    rc = BBlt(frmMain.picCPic(ObjectX.Pic), frmMain.picSFXPic(c), 0, Height * 3, Width, Height, X * Width, 0, SRCCOPY)
 									'UPGRADE_ISSUE: PictureBox property picSFXPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									'UPGRADE_ISSUE: PictureBox property picCPic.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-									rc = BitBlt(frmMain.picCPic(ObjectX.Pic).hdc, Width, Height * 3, Width, Height, frmMain.picSFXPic(c).hdc, (VB6.PixelsToTwipsX(frmMain.picSFXPic(c).Width) / 2) + (Cells - X - 1) * Width, 0, SRCCOPY)
+                                    rc = BBlt(frmMain.picCPic(ObjectX.Pic), frmMain.picSFXPic(c), Width, Height * 3, Width, Height, (VB6.PixelsToTwipsX(frmMain.picSFXPic(c).Width) / 2) + (Cells - X - 1) * Width, 0, SRCCOPY)
 									'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Pic. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 									frmMain.picCPic(ObjectX.Pic).Refresh()
 									frmMain.CombatDraw()
@@ -2806,7 +2806,7 @@ Module modEvents
 		Dim Y, X, Found As Short
 		'UPGRADE_NOTE: sByte was upgraded to sByte_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 		Dim sByte_Renamed As Byte
-		Dim sInteger As Short
+        Dim sInteger As Integer
 		Dim sText As String
 		Dim ThemeX As Theme
 		' Smudge the AsValue into Byte, Integer and Text
@@ -3499,10 +3499,11 @@ Module modEvents
 					Case 160 ' Initiative
 						'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Initiative. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 						ObjectX.Initiative = sInteger
-					Case 161 ' Facing
-						'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Facing. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						ObjectX.Facing = System.Math.Abs(System.Math.Sign(sInteger > 0))
-				End Select
+                    Case 161 ' Facing
+                        Dim i As Integer
+                        'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Facing. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        ObjectX.Facing = System.Math.Abs(System.Math.Sign(sInteger))
+                End Select
 			Case 17, 18, 19, 20, 21 'ItemNow, ItemA, ItemB, ItemC, ItemTarget
 				ObjectX = FrameNow.ItemX(IntoContext - 17)
 				Select Case IntoVar

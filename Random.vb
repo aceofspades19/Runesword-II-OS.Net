@@ -23,7 +23,9 @@ Module modDungeonMaker
 	Public Const bdEntryDungeon As Short = 3
 	Public Const bdEntryExit As Short = 0
 	Public Const bdEntryExitUp As Short = 1
-	Public Const bdEntryExitDown As Short = 2
+    Public Const bdEntryExitDown As Short = 2
+    Private MapStack As ArrayList
+    Private ThemeQue As ArrayList
 	
 	Private Sub SearchFolders(ByRef Extension As String, ByRef DirName As String, ByRef CollectionX As Collection)
 		Dim Filename, LastFile As String
@@ -352,7 +354,7 @@ Module modDungeonMaker
 				End If
 			Next MapSketchX
 			If c > -1 Then
-				ReDim MapStack(c)
+
 				' Populate the stack
 				i = 0
 				For	Each MapSketchX In UberWizX.MapSketchs
@@ -438,7 +440,7 @@ Module modDungeonMaker
 		End If
 		If UberIndex < 7 Then ' Choose Major and Quest Themes
 			If UberWizX.ThemeSketchs.Count() > 0 Then
-				ReDim ThemeQue(UberWizX.ThemeSketchs.Count())
+
 				' Count Themes matching our difficulty
 				x = 0
 				For	Each ThemeSketchX In UberWizX.ThemeSketchs
@@ -610,7 +612,8 @@ Module modDungeonMaker
 		Dim i, c, n As Short
 		Dim CreatureX As Creature
 		Dim TriggerX As Trigger
-		Dim JournalX, FactoidX As Factoid
+        Dim JournalX As Journal
+        Dim FactoidX As Factoid
 		Dim TomeX As Tome
 		Dim AreaX As Area
 		Dim MapX As Map

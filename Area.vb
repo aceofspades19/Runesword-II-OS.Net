@@ -18,7 +18,7 @@ Friend Class Area
 	
     Public Shared Function getInstance()
         If instance Is Nothing Then
-            instace = New Area
+            instance = New Area
         End If
         Return instance
     End Function

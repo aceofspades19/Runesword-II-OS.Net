@@ -75,7 +75,7 @@ Friend Class Map
     '   &H20 Bit 5  - On = Flip TopTile, Off = Don't flip
     '   &H40 Bit 6  - Not Used
     '   &H80 Bit 7  - Not Used
-    Private myVisible() As Byte
+    Private myVisible(,) As Byte
 
     ' List of EntryPoints (x,y) coordinates, Plot, Map and EntryPoint Ref)
     Private myEntryPoints As New Collection
@@ -993,7 +993,7 @@ ErrorHandler:
         ' Copy Map Layers
         Me.Width = FromMap.Width
         Me.Height = FromMap.Height
-        myLeft = FromMap.Left_Renamed
+        myLeft = FromMap.Left
         myTop = FromMap.Top
         For X = 0 To myWidth : For Y = 0 To myHeight
                 myBottomTile(X, Y) = FromMap.BottomTile(X, Y)

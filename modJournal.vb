@@ -25,7 +25,8 @@ Module modJournal
 	Public Const bdSideSecondBottom As Short = 16
 	
 	Private bAddMode As Boolean
-	Private blnDeleteButton As Boolean
+    Private blnDeleteButton As Boolean
+    Private tome As Tome = Tome.getInstance()
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub JournalClick(ByRef AtX As Short, ByRef AtY As Short, ByRef ButtonDown As Short)
@@ -45,7 +46,7 @@ Module modJournal
 					If JournalList.Item(JournalTop).Text <> vbNullString Then
 						'UPGRADE_WARNING: Couldn't resolve default property of object Tome.AddJournal. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 						'UPGRADE_WARNING: Couldn't resolve default property of object JournalList().Text. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						Tome.AddJournal.Text = JournalList.Item(JournalTop).Text
+                        tome.AddJournal.Text = JournalList.Item(JournalTop).Text
 					Else
 						If JournalList.Count() = 1 Then
 							'UPGRADE_WARNING: Couldn't resolve default property of object JournalList().Text. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -82,7 +83,7 @@ Module modJournal
 				frmMain.picJournal.Refresh()
 				If ButtonDown = False Then
 					Call PlayClickSnd(modIOFunc.ClickType.ifClick)
-					frmMain.TomeSaveArea(TomeSavePathName)
+                    frmMain.TomeSaveArea(TomeSavePathName)
 					frmMain.picJournal.Visible = False
 					frmMain.picMap.Focus()
 				End If
@@ -116,23 +117,23 @@ Module modJournal
 						' [Titi] 2.4.6
 						'            intJournal = 0
 						' with the new add/delete functionalities, JournalX.Index may not be the current index
-						For	Each JournalX In Tome.Journals
-							'                intJournal = intJournal + 1
-							'UPGRADE_WARNING: Couldn't resolve default property of object JournalList(JournalTop).Text. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							If JournalX.Text = JournalList.Item(JournalTop).Text Then Exit For
-						Next JournalX
+                        For Each JournalX In tome.Journals
+                            '                intJournal = intJournal + 1
+                            'UPGRADE_WARNING: Couldn't resolve default property of object JournalList(JournalTop).Text. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            If JournalX.Text = JournalList.Item(JournalTop).Text Then Exit For
+                        Next JournalX
 						'UPGRADE_WARNING: Couldn't resolve default property of object Tome.RemoveJournal. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						Tome.RemoveJournal("J" & JournalX.Index) ' intJournal
+                        tome.RemoveJournal("J" & JournalX.Index) ' intJournal
 						' [Titi 2.4.8] reverted to the "J" & index tagging for compatibility with creator
 						'UPGRADE_WARNING: Couldn't resolve default property of object Tome.Journals. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						If Tome.Journals.Count = CountQuests Then ' all entries are quests
-							'UPGRADE_WARNING: Couldn't resolve default property of object JournalList().Text. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							JournalList.Item(JournalTop).Text = "No Journal Entries."
-						Else
-							JournalList.Remove(JournalTop)
-							JournalTop = JournalTop - 1
-							If JournalTop = 0 Then JournalTop = 1
-						End If
+                        If tome.Journals.Count = CountQuests() Then ' all entries are quests
+                            'UPGRADE_WARNING: Couldn't resolve default property of object JournalList().Text. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            JournalList.Item(JournalTop).Text = "No Journal Entries."
+                        Else
+                            JournalList.Remove(JournalTop)
+                            JournalTop = JournalTop - 1
+                            If JournalTop = 0 Then JournalTop = 1
+                        End If
 						JournalShow()
 					End If
 				End If ' Delete Button
@@ -169,7 +170,8 @@ Module modJournal
 		Dim JournalX As Journal
 		blnDeleteButton = False
 		'UPGRADE_ISSUE: PictureBox method picJournal.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		frmMain.picJournal.Cls()
+        frmMain.picJournal = Nothing
+        frmMain.picJournal.Invalidate()
 		frmMain.ShowText((frmMain.picJournal), 0, 12, frmMain.picJournal.Width, 14, bdFontElixirWhite, "Journal Entries", True, False)
 		If bAddMode Then
 			frmMain.ShowText((frmMain.picJournal), 0, 45, frmMain.picJournal.Width, 14, bdFontNoxiousBlack, "New Journal Entry", -1, False)
@@ -184,11 +186,11 @@ Module modJournal
 				If c = JournalMode Then
 					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picJournal.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(frmMain.picJournal.hdc, 48 + c * 102, 42, 18, 18, frmMain.picMisc.hdc, 18, 18, SRCCOPY)
+                    rc = BBlt(frmMain.picJournal, frmMain.picMisc, 48 + c * 102, 42, 18, 18, 18, 18, SRCCOPY)
 				Else
 					'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 					'UPGRADE_ISSUE: PictureBox property picJournal.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-					rc = BitBlt(frmMain.picJournal.hdc, 48 + c * 102, 42, 18, 18, frmMain.picMisc.hdc, 0, 18, SRCCOPY)
+                    rc = BBlt(frmMain.picJournal, frmMain.picMisc, 48 + c * 102, 42, 18, 18, 0, 18, SRCCOPY)
 				End If
 			Next c
 			
@@ -255,9 +257,9 @@ Module modJournal
 		Dim intQuests As Short
 		Dim JournalX As Journal
 		intQuests = 0
-		For	Each JournalX In Tome.Journals
-			If Left(BreakText(JournalX.Text, 1), 5) = "Quest" Then intQuests = intQuests + 1
-		Next JournalX
+        For Each JournalX In tome.Journals
+            If Left(BreakText(JournalX.Text, 1), 5) = "Quest" Then intQuests = intQuests + 1
+        Next JournalX
 		CountQuests = intQuests
 	End Function
 	
@@ -288,7 +290,8 @@ Module modJournal
 				'End If
 		End Select
 		'UPGRADE_ISSUE: PictureBox method picJournal.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		frmMain.picJournal.Cls()
+        frmMain.picJournal = Nothing
+        frmMain.picJournal.Invalidate()
 		'UPGRADE_WARNING: Couldn't resolve default property of object JournalList().Text. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		frmMain.ShowText((frmMain.picJournal), 36, 81, 276, 220, bdFontNoxiousBlack, JournalList.Item(JournalTop).Text & "\", False, False)
 		frmMain.picJournal.Focus()
@@ -310,7 +313,8 @@ Module modJournal
 		ToX = Int(ToX / bdTileWidth) + 1 : ToY = Int(ToY / (bdTileHeight / 3))
 		' Draw Top of Region
 		'UPGRADE_ISSUE: PictureBox method picMicroMap.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		frmMain.picMicroMap.Cls()
+        frmMain.picMicroMap = Nothing
+        frmMain.picMicroMap.Invalidate()
 		Y = FromY
 		For X = FromX To ToX - 1
 			Side = bdSideTop
@@ -372,12 +376,12 @@ Module modJournal
 		Dim JournalX As Journal
 		JournalList = New Collection
 		Found = False
-		For	Each JournalX In Tome.Journals
-			If Left(BreakText(JournalX.Text, 1), 5) = "Quest" Then
-				JournalList.Add(JournalX)
-				Found = True
-			End If
-		Next JournalX
+        For Each JournalX In tome.Journals
+            If Left(BreakText(JournalX.Text, 1), 5) = "Quest" Then
+                JournalList.Add(JournalX)
+                Found = True
+            End If
+        Next JournalX
 		If Found = False Then
 			JournalX = New Journal
 			JournalX.Text = "Quest|No Quests.|"
@@ -391,12 +395,12 @@ Module modJournal
 		Dim JournalX As Journal
 		JournalList = New Collection
 		Found = False
-		For	Each JournalX In Tome.Journals
-			If Left(BreakText(JournalX.Text, 1), 5) <> "Quest" And Left(BreakText(JournalX.Text, 1), 3) <> "Map" Then
-				JournalList.Add(JournalX)
-				Found = True
-			End If
-		Next JournalX
+        For Each JournalX In tome.Journals
+            If Left(BreakText(JournalX.Text, 1), 5) <> "Quest" And Left(BreakText(JournalX.Text, 1), 3) <> "Map" Then
+                JournalList.Add(JournalX)
+                Found = True
+            End If
+        Next JournalX
 		If Found = False Then
 			JournalX = New Journal
 			JournalX.Text = "No Journal Entries."
