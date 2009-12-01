@@ -47,6 +47,7 @@
     <Reference Include="Microsoft.VisualBasic.Compatibility">
       <Name>Microsoft.VisualBasic.Compatibility</Name>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -236,9 +237,11 @@
     </Compile>
     <EmbeddedResource Include="Dt_Main.resX">
       <DependentUpon>Dt_Main.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMonsExplorer_Player.resX">
       <DependentUpon>frmMonsExplorer_Player.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="rsGameEng.ico" />
     <None Include="ClassDiagram1.cd" />

@@ -1,0 +1,191 @@
+List of changes by Monty
+added in let local fail = global trueline when finding axe to cut trees down with
+added skeletons into cupboard
+worked on map for tower second floor
+
+Things to do:
+On Island of Phoenix rest map, in trailmaker encounter, if you search for an axe, find one and get trail made, the other trigger keeps telling you that you do not have an axe to cut the trees down with. Need someway to turn that trigger off.
+
+
+July 4th
+List of changes by Titi
+
+Trigger-related bugs
+--------------------
+1. Aleysia never finds anyone to dance with her.
+Reason: I don't know... Anyway, I replaced the code:
+"ForEach CreatureA In Party
+If CreatureA.IsMale = Global.True
+And CreatureA.Money > Pos.1"
+by:
+"ForEach CreatureA In Party
+If CreatureA.IsMale = Global.False
+Or CreatureA.Money < Pos.50
+DialogShow "Aleysia" BriefBox Says "Sorry, [CreatureA.Name], you're not my type!"
+Else"
+
+2. If you're candidate for suicide, you fall from the tower... and find you're 
+finally in front of the entrance, without having being hurt at all. In addition, 
+if you jump out, everyone in the party dies. Pretty harsh, huh?
+Reason: I think the EndIf and Next statements are inverted.
+Previous code:
+"If Local.IntegerA <= CreatureA.Intelligence
+DialogShow "DM" Normal Says "Successful Roll. You over come the urge to jump out the open door."
+Else                               <------ Condition
+DialogShow "DM" Normal Says "Failed Roll. You can't stand the urge any more and jump out the open door. As you jump you change your mind but are to late. Flailing wildly you grab at the rest of the party but pull them with you."
+MoveParty To "The Island of Phoenix Rest" At (Pos.33, Pos.1)
+ForEach CreatureA In EncounterNow  <------ Loop
+Put CreatureA.Health = Neg.5 Into CreatureA.Health       <--- Too bad. Everybody dies
+EndIf                              <------- Condition
+Next                               <------- Loop "
+Now:
+"If Local.IntegerA <= CreatureA.Intelligence
+DialogShow "DM" Normal Says "Successful Roll. You over come the urge to jump out the open door."
+Else                               <------ Condition
+DialogShow "DM" Normal Says "Failed Roll. You can't stand the urge any more and jump out the open door. As you jump you change your mind but are to late. Flailing wildly you grab at the rest of the party but pull them with you."
+MoveParty To "The Island of Phoenix Rest" At (Pos.33, Pos.1)
+ForEach CreatureA In Party         <------- Loop
+Put CreatureA.Health - Dice.5d12+5 Into CreatureA.Health   <--- You still have a chance that someone survives. Has he any "First Aid" skill? That's another story.
+Next                               <------- Loop
+Exit Loop           <--- No need to continue checking if someone's already jumped!
+EndIf                              <------ Condition
+Next"
+
+3. In the schools (Lore And Magic as well as Weapons And Armour), you could get
+as many free skills as you wanted (no gold spent!). And provided that one
+character could pay, all the party would benefit! In addition if you already had 
+the selected skill, well, then you would get it one more time...
+Reason:
+- to make sure gold is spent, I replaced the code:
+"CopyText "1000" Into Local.TextA
+ForEach CreatureA In Party
+If CreatureA.Money >= Local.TextA
+CopyText "-1000" Into Local.TextA
+Let CreatureA.Money = Local.TextA"
+by (with Local.IntegerC set at 250):
+"Put Local.IntegerC * Pos.4 Into Local.IntegerB
+ForEach CreatureA In Party
+If CreatureA.Money >= Local.IntegerB
+Put CreatureA.Money - Local.IntegerB Into CreatureA.Money"
+
+- to make sure that only those with funds would gain new skills:
+"If CreatureA.Money >= Local.TextA
+CopyText "-1000" Into Local.TextA
+Let CreatureA.Money = Local.TextA
+Exit Loop  <----See? If one pays, everybody gets the skill
+EndIf"
+was changed to
+"If CreatureA.Money >= Local.IntegerB
+Put CreatureA.Money - Local.IntegerB Into CreatureA.Money
+Else
+DialogShow "Master Armourer says" Normal Says "[CreatureA.Name] does not have enough gold"
+EndIf"
+
+- to prevent characters from having the skill twice (and therefore pay for
+nothing), I rewrote the trigger and its sub-triggers. First, the subtrigger is 
+called each time a character has paid for the skill:
+"Case Pos.1
+DialogShow "Master Armourer" Normal Says "This course will cost you 1000 gold pieces and will take 5 days to learn."
+CopyText "1000" Into Local.TextA
+ForEach CreatureA In Party
+If CreatureA.Money >= Local.TextA
+CopyText "-1000" Into Local.TextA
+Let CreatureA.Money = Local.TextA
+Exit Loop
+EndIf
+Next
+Put Tome.TimeDay + Pos.5 Into Tome.TimeDay
+ExecTrigger "Battle Armor" "
+is now:
+"Case Pos.1
+DialogShow "Master Armourer" Normal Says "This course will cost you 1250 gold pieces and will take 5 days to learn."
+Put Local.IntegerC * Pos.5 Into Local.IntegerB
+ForEach CreatureA In Party
+If CreatureA.Money >= Local.IntegerB
+Put CreatureA.Money - Local.IntegerB Into CreatureA.Money
+Set CreatureNow = CreatureA
+ExecTrigger "Battle Armor"
+Else
+DialogShow "Master Armourer says" Normal Says "[CreatureA.Name] does not have enough gold"
+EndIf
+Next
+Put Tome.TimeDay + Pos.5 Into Tome.TimeDay"
+
+And the subtrigger is totally new, as follows. The code:
+"ForEach CreatureA In Party
+CopyTrigger  Into CreatureA    <--- By the way, this couldn't work: copy what?
+Next"
+has been rewritten to become:
+"CopyText "Battle Armor" Into TriggerB.Name
+ForEach TriggerA In CreatureNow
+If TriggerA.Name = TriggerB.Name
+Put TriggerA.SkillPoints + Pos.11 Into TriggerA.SkillPoints
+DialogShow "Master Armourer says" Normal Says "[CreatureNow.Name] has improved his battle armour skill."
+Exit Trigger
+Else
+Next
+EndIf
+CopyTrigger "Battle Armor" Into CreatureNow
+DialogShow "Master Armourer" Normal Says "[CreatureNow.Name] is now able to wear an armour."  "
+With this updated trigger:
+a) you only get level 1 of the new skill (and not the max as before)
+b) if you already have the skill, you gain one level (possible bug there: I didn'
+t check if the max. level was already reached. When I explained improvements 
+were possible, here is one!)
+c) the same was done for "Lore Master", "Wizard Master" and "Weapons Master"
+
+
+Map-related bugs
+----------------
+1. Hermit's hut leads nowhere (well, yes: exit of the game!)
+Reason: the entry point links to "Area: Main menu"!
+Fix: create an encounter "Hermit's hut". What I did for the time being is copy 
+and paste the Huntsman Cottage from Area2. What happens inside? At the moment, 
+nothing. Another improvement here!
+
+2. The left ladder (21,27) down in the lava tubes behaves similarly
+Reason: the entry point links to "Area: Random", "Map in Area" and "EntryPoint
+on Map" are empty.
+Fix: Area = Area1, Map in Area = Pit, EntryPoint on Map = climb up
+
+3. Even though you haven't been given the quest to heal Veld, someone with the
+Picklock skill can open the doors in Arun's house and get the Exp. for 
+completing the quest. I therefore modified the EndQuest trigger (and also to 
+take into account the additional quest from the Potion Merchant, see below).
+
+4. In Area2, "The Deep Regions", most (if not all) encounters had invisible 
+dwarves. Also the Shadow Dragon - I missed it completely when I played the tome! 
+I probably left some others as well. The encounters should all be visible now.
+
+5. Well, not really a bug, but I think apart from the Doppelganger and the 
+Huntsman the other encounters should be wandering monsters. It's very easy to 
+avoid them when you see where they are! And another possible improvement...
+
+
+Additions and possible developments to the tome
+-----------------------------------------------
+1. Aleysia : even if she robbed you, you wouldn't want to kill her. Anyway, in a 
+crowded inn, that's not something to do (but you still can, and nobody will send 
+you to jail for that. Unless another trigger fires - you could be freed on the 
+condition that you find out what happened to Hermit. Great! Another possible 
+improvement...
+So, suppose you spared her life. Of course you won't dance again with her, so
+another Aleysia appears in that case. If you were so kind as to let her live,
+you will gain (from the Bartender, a new encounter I created for that purpose) a 
+special ring. Why not link this ring to Hermit's disparition? Let's see it that 
+way: you kill Aleysia, you must find where Hermit's gone. You let her live, you 
+are asked by the Bartender to find his friend Hermit, and he gives you a ring to 
+help you with your quest.
+2. Just for the story, I updated the Potion Merchant encounter: added a quest (
+find if his brothers are really dead), developed the conversation with regard to 
+that, modified Aruns' quest results accordingly.
+Basically, here's the background:
+- Arun would like to heal his friend and needs the Lifegiver
+- the Potion Merchant would like to be given the Lifegiver back
+Solution (unknown to the player): fulfill Arun's quest first!
+3. Veld explains (when he's finally healed) that he now seeks revenge and wants 
+to kill the monster that hex him. Where is this monster? What is it? Cool, we 
+can add other additions there!
+4. What are these famous Bones of power? We could either relate them to Hermit's 
+disappearance (his bones?) or create a totally new quest.
+5. What happens to Veld if it takes longer than five days to heal him?

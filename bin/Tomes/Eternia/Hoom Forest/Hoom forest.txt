@@ -1,0 +1,35 @@
+Hoom Forest by Monty
+
+credits:  Thanks to Shodan for runescript help & graphics, BitKeeper and DarkStar for bug reports, VD & sarchimus for support and aid.
+
+*Things to do in Hoom Forest:
+get ogre to throw up on you
+Meet charity and take her with you
+find both rest spots
+complete quests
+get to the faery realms
+fix the El Camino Real (incomplete quest as yet)
+visit the Pit
+seek out and explore
+Find the Master of the Deep
+
+version 1.6.0
+worked on dwarven cave, added in the name of the Dwarven Clan (Danig), and modified some of the golems.
+Party healed
+
+version 1.5.9
+added in other things to shrine search
+tweaked healing tower comments and wordings
+tweaked felina charity exchanges
+added in encounters to healing tower
+
+
+Need to do:
+Look at THINGS TO DO mapfile in Area 1 and WIP sections
+work in dwarf cave
+Elves, Council of Elves & Endgame
+Darkness, Chaos and Law
+check out charity combat brain
+added in hovel, need to add in way to have elves destroy it.
+Work on council of elves and animals
+complete Twilit realms

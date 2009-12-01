@@ -1,0 +1,41 @@
+Missing .bmp
+------------
+Samantha:                       FemwMace
+Marial:                         TavernGirl2
+Javelin of Seeking:             Tridentspear
+Second Dragon with Klythan:     Dragon, Purple
+Tental:                         TavernCook
+Selhiss:                        DemonScout
+
+Modifications to triggers
+-------------------------
+- added a missing Next statement in "Johan awards party"
+- updated the ExecTrigger statement in "return home" (added "Johan awards party")
+- rewrote the trigger completely (replaced the ForEach/Next loop by a Find CreatureA condition)
+- changed the timing for "return home" from Post-StepEncounter to Post-EnterEncounter
+- changed the duration for "Johan's wife" from Infinite to One Time
+- moved "Find Marial" from Encounter to Topic "Who is Klythan"
+- added a topic when the party brings her back home
+
+
+
+Convos
+------
+- Added a few Post-Topic triggers here and there.
+- prevented some topics from being displayed if previous information was not known to the party.
+
+
+
+Quests
+------
+Johan's wife:
+- Probable cause for the quest not being completed was the Post-StepEncounter 
+timing. The above modifications now give expected results.
+
+
+Destroy Klythan:
+- The original tome had no trigger to check if this quest was fulfilled. This is 
+now updated (a new convo has been added, and a post-topic trigger checks if 
+Klythan is dead).
+- Extra experience points awarded if the party finds who is responsible for the turmoil.
+- Added a "congratulations" party when quest is completed.

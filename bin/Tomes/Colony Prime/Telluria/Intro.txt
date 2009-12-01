@@ -1,0 +1,52 @@
+Telluria, vol. 1 - The Heir of the Dead.
+
+This was supposed to be just a first part of something apparently 
+simple (in my mind).  Due to cutting it short, there are definitely
+a couple of loose ends.  For those I apologize.  But thre is a huge 
+amount of room to expand this.  
+
+I purposely did not try to end this by attaching triggers to make 
+it a continuing story.
+
+My goal is to have several more tomes - now that my creator skills are 
+improving.
+
+Not in any specific order these are ideas I have outlines already 
+done for - all based on the large Telluria map in the Tome.
+
+The Women of fire
+City in the Clouds
+Fog in the North
+Lost city of the Olani
+Intrique in the Twin Cities
+Beyond the Dike
+
+For this tome, the bmp's that start with t_ need to be in the data
+folder.  t_sarcaphagus is just cut from one of the existing tile sets.
+t_MageFemStaff2.bmp is not mine, but I lost the name of the original
+file in my library so I needed to include the file with this name.
+
+The others are new I think.  
+
+The ship, Rave, Marcel, and Serena bmp's all need to be in the Tome folder.
+
+Credits -
+
+Way to many inclusions of help/maps/triggers/creatures to get everyone 
+but there are some blatant uses that I must acknowledge.
+
+The guildmasters are obviously directly modified from Shodan's Skytos Guild 
+Hall.  
+
+The Magic shop and Mercantile store are modified from Jack's Lantern.
+
+The Temple in The city is modified from The Land Beyond.
+
+The Portmasters Building is modified, I think, from the BlackDeath Tome.  Can't 
+remember for sure though???
+
+I think those are the direct uses of others work.  Thanks also to Shodan, Monty, 
+VD, and a couple of others on the boards who continually humor my questions about
+graphics and runescript.
+
+T

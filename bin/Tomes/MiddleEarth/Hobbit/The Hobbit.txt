@@ -1,0 +1,100 @@
+I decided to create a Runesword Tome of 'The Hobbit'
+because it's just possible that Runesword was based
+on 'The Hobbit' or a book in that genre. So here it is,
+'The Hobbit' tome in all its glory, ready for you to play!
+
+BTW, I don't know exactly how to make the tomes available to
+play,so you might have to edit it slightly. Apart from that, I
+don't think there are any bugs in it. If you find one
+e-mail me at BAReay@compuserve.com.
+I hope you like the tome!
+
+fixes & expansions by monty.
+
+version 1.3.0
+worked on dwarf triggers
+worked on long lake map
+worked on speak raven skill
+lowered action point requirement for the axes
+gave some dwarves the axe skill
+
+version 1.3.1
+worked on encounters in cave
+added cellar encounter in bilbo's house
+worked on smaug bmp
+worked on rivendell convos
+worked on map exits
+worked on withered heath
+worked on green dragon encounters and convos
+
+WIP's:
+battle of five armies
+need to put in dwarves leaving right after the code below...
+Still not sure about the Green Dragon map or the horses. 
+
+
+
+1. Shire - Gandalf/Thorin hire Bilbo- other dwarves join (more or less done) 
+
+2. Troll encounter in the wilderness - get magic weapons (more or less done) 
+
+4. Rivendel - Elrond (more or less done) 
+
+5. Misty Mountains - Goblin Caves (in process -more caves here) 
+
+6. (This is tough for RS) Separated - Dwarves escape, Bilbo meets Gollum and escapes a different way - finds ring (more or less done) 
+
+7. East side of mountains - Fight with Wargs and Goblins - rescued by Eagles (more or less there) 
+
+8. Eagles take them to the Carrock - find Beorn (more or less done) 
+
+9. Mirkwood - Spiders (more or less done) 
+
+10. The campfire and singing was actually the Elves of Mirkwood 
+
+11. Imprisoned by the Elves - King Thranduil? (Legolas' father I believe) (I saw part of this, but the idea is in place) 
+
+*after this I have not looked at in the tome 
+
+12. Escape in Barrels to the Lakemen (more or less done)
+
+13. Go to the mountain - piss the dragon off (needs work)
+
+14. Bard kills the dragon - Dwarves get greedy (this is where the Arkenstone comes in) 
+
+15. Big battle - (five armies, etc.) not started yet
+Bilbo goes home
+
+
+The spiders in Mirkwood - they give multiple doses of poison - pretty much wipe out the party in just a couple of rounds - maybe limit them from adding more poison if the character already is poisoned. 
+
+
+Suggestions: 
+
+The story has the Dwarves get cornered by goblins ans wargs and rescued by the Eagles and carried to the Carrock and Beorn, from there they go into the forest. 
+
+part of code to use at end of dwarves...
+
+' Haven't found any alive yet 
+Let Local.IntegerA = Pos.0 
+' search through party 
+ForEach CreatureA in Party 
+' alive? 
+If CreatureA.Health > Pos.0 
+' Live! 
+' dwarf? 
+IfText CreatureA.Race Like "Dwarf" 
+' Live Dwarf!  Count it. 
+Put Pos.1 + Local.IntegerA Into Local.IntegerA 
+EndIf 
+EndIf 
+Next 
+' now Local.IntegerA contains a count 
+' of the live dwarves in the party. 
+' You will want to remove the dwarves 
+' from the party before rewarding experience. 
+' Otherwise, the dwarves will soak up some 
+' of the reward, and it may end up being 
+' less rewarding for them all to survive! 
+
+

@@ -1,0 +1,79 @@
+Black Death
+by ColdBrains
+
+version 1.0
+fixing some spelling errors
+started conversion to RSII
+bordered slondon village
+added stripper to the beginning
+
+version 1.0.1
+changed and bear cave, bears and treasure inside slightly
+moved encounters in K's house.
+added encounters here and there.
+
+
+version 1.0.2
+merged two version of the tome, incorporated numerous changes
+mutant dog and mutant mother work now
+changes to maps
+added to tower
+
+
+version 1.0.3
+added to selwyn
+started wine cellar
+added to malaine
+fixed storeroom kicker-outer.
+worked on mutant mother
+fixed treasurer
+added in rest spot for barracks
+fixed knifeman encounter
+started father mutant
+worked on ruined house.
+
+version 1.0.4
+fixed two entrypoints that were unset
+worked in undercouncil 2, finishing up some incomplete triggers
+
+version 1.0.5
+fixed mutant wolf collar
+changed forest around bear cave
+worked on cultists lair added in several encounters. got doors and walls to work right.  
+still no ending but getting closer.
+
+
+
+Testing walkthrough (NO CHEATING!)
+
+HOUSE:  wake up, get a weapon, go upstairs & defeat person in house, get bronze key, go down to cellar
+& open door, get house key, leave
+
+got to get letter located at (from reaper) under council 
+
+go to ruined area outside of town, talk to reaper statue
+
+find way to cultists lair
+
+use obsidian key to get sword.
+
+return with sword
+
+
+
+TOWER SIDEQUEST:  go to the wizard's tower and defeat the golem.  not much else there.
+
+BEARS SIDEQUEST:  defeat bears in lair
+
+SIDEQUEST: talk to old greeg about reaper, go to library talk to Nevis
+
+SIDEQUEST:  evidence letter from bad guys located under council building in chest.
+
+factoids:
+reaperletter
+
+KEYS:
+bronze key 10000
+house key 01000
+armory key 00001
+obsidian key 11100

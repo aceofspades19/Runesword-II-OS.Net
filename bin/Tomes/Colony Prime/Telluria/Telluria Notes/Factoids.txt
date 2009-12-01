@@ -1,0 +1,43 @@
+AtSea 		- on a boat on the Telluria map
+Loading 	- temporary factoid while loading the boats
+Fugitives 	- in essence means you have completed the free Juchen quest 
+		* contact with legion soldiers will result in combat
+ThroughSewer 	- came through the backdoor of the portmaster building
+Inn Room	- have gotten permission to sleep at the Brannon Inn
+ExplainBoats	- have had the boat system explained to you
+TwinCityAmbassador - met the ambassador in Derth
+
+MetUlinta 	- means you have met Ulinta and accepted quest
+BaronDerthQuest - You have met the Baron of Derth and accpeted the quest
+CentaurMage 	- You talked with the Centaur Mage - saw men with Eishen? went to the coast
+WaveWomen	- Met Woman of the Waves - Saw Eishen with men going to sea
+MetHermit 	- Hermit on Pirate Island - told you about the Lonely House
+KnowEdgar	- Know that Edgar is Evil 
+DerthPrison	- Know that the Baron of Derth is imprisoned somewhere
+EdgarDead	- have killed the Advisor 
+DerthTavern	- Miners have spoken poorly about the Advisor.
+EishenRescued	- You have rescued Eischen, know about Edgar, Baron imprisoned
+DerthRest 	- Baron of Derth has offered a room to rest in
+BaronRescued 	- Have resued the Baron of Derth
+FogDone		- Fog in the North completed
+WaveElders	- Met Wave Women Elders, Wave Woman will speak to you
+PirateInn	- Paid for room in Pirate inn
+WaveWoman	- Met Woman, must go to cave for test - or leave
+WaveTest 	- Beat Dragon in Cave, Wave Woman will help you -
+CaveSecretDoor 	- Found secret door in Wave Cave
+EdgarDead	- You have killed Edgar and the Baron's Advisor
+
+HaveRave	- Finshed Fog in the North, took Rave from the Baron
+MetMarcel	- met Marcel for the first time got explanation of Juchen
+HaveJuchen	- You have freed Juchen from Brannon
+
+JunctionClear 	- You cleared the Sand Dunes for the Mayor of Junction
+JuchenFree	- Juchen has separated from the group
+HaveTercill	- Rescued Tercill from Brannon
+
+SpineQuest	- You have agreed to accompany Tercill to the Southern Spine
+TiffanyQuest	- You have agreed to look for Tiffany's daughter
+OtterInn	- Paid for room in Otter cove Inn
+south tower	-you have met the widow and accepted quest
+
+domopass	-you have been allowed to see the regent (regent's palace Domo -not coded for passing yet)

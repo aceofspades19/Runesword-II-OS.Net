@@ -1,0 +1,8 @@
+Portmasters Key - 10001 - doors in the portmaster's building
+Pirate Key 	- 11000	- Pirate treasure box under volcano, Get it from pirate leader with Edgar.
+Derth Mine Key	- 00110 - open's the mine shaft in Derth
+Lava Key 	- 11001	- Pirates treasure room under volcano - hidden in big lava room
+Dune Key	- 10111	- Treasure Room in Junction Sand Dunes
+Skull Key	- 10000`- Goblin Leader or Leggionaire/goblin encounter
+Key of the Dead	- 10101	- Opens the Mauseleum level of the North Tower
+Goblin Slave key- 00101 - Opens the slave pen in the Hidden Valley

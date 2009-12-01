@@ -1,0 +1,49 @@
+The Land Beyond by Dan and Adam, rev. 2.2
+
+Changes by Titi, Feb 2006
+
+Fixed the pit trap trigger (in the tower), which was not executed entirely (problem with too many If/EndIf pairs).
+
+
+Changes by Titi, Jan 2005
+
+Thanks to Phule for correcting Dune Hound, Fencing, Ambidex and Backstab, to José, monty and PaleoT for listing the bugs.
+
+
+Fixes:
+------
++ Items:
+  - Potions self-destroy mechanism not working if use in combat: added test in trigger to check if InCombat or not, and modified code accordingly.
+  - Orb of Slavery having no effect on the Eternal: code corrected (now looking for "The Eternal")
+  - Arrows now all cause the same damages (3d4 for long arrows, 2d4 for short ones)
+
++ Creatures:
+  - Dune Hound attacking endlessly: code corrected (CreatureNow.ActionPoints decrease after each attack).
+  - Wizards not fighting: corrected code to allow them to attack with weapons 25% of the time ; also updated sub-triggers to be in line with their school.
+  - Gold Dragon giving more Health to the Eternal than it has: added test to limit healing to the dragon current health
+  - Lich (Master and Servant): see 'wizards'
+  - Sea Mage and Strange Assistant: see 'wizards'
+  - scientists: see 'wizards'
+  - Yokel could die even if you didn't choose to (this was possible if the combat lasted more than 4 turns or if he has already been killed once: the second time was definitive). Changed duration of Pre-Death trigger from 'one time' to 'infinite' and allowed combat to last longer (with self-destroy mechanism of the involved trigger not to fire in future fights).
+
++ Skills:
+  - Fencing never disarms your opponent: fixed
+  - Backstab can kill even at a distance: fixed
+  - Finger of Death can affect undead and animals: fixed
+  - Secondary weapon (Ambidex skill) always dealing 0 damage: fixed
+
++ Encounters:
+  - changed some timing (from Infinite to One Time and vice versa)
+
+
+Improvements:
+-------------
++ Added a Pre-Turn trigger on some creatures (see Kingsmen Captain or Durge) to allow them to drink healing potions if they're badly hurt in combat
++ Added the map of the tower (south of the island)
++ Added a surprise to the bubbling potion found in the volcano entry level (encounter "And another thing")
++ Added factoids, topics and a few triggers to let the party discover the events at the Baron's house.
++ Modified Cutter's training: a random thief skill may now be gained in addition to the backstab skill level increase.
++ Added consequences of 'slaughtering' the yokel...
++ Automatic update of 'Fencing', 'Backstab', 'Ambidex' and 'Finger of Death'.
++ Added consistency to items (same name and particulars --> same picture).
++ Added an encounter and some developments to prepare The Kyparissian Scientist, "sequel" of TLB.

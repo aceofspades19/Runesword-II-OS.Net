@@ -15,27 +15,27 @@ Friend Class clsInOut
 		CheckExists = False
 		If CheckType = IOActionType.File Then
 			'UPGRADE_WARNING: Couldn't resolve default property of object oFs.fileExists. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If oFs.fileExists(FilePathName) Then
-				CheckExists = True
-			Else
-				If Create Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object oFs.CreateTextFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					a = oFs.CreateTextFile(FilePathName, True)
-					'UPGRADE_WARNING: Couldn't resolve default property of object a.Close. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					a.Close()
-					CheckExists = True
-				End If
-			End If
+            If System.IO.File.Exists(FilePathName) Then
+                CheckExists = True
+            Else
+                If Create Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object oFs.CreateTextFile. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    a = System.IO.File.Open(FilePathName, True)
+                    'UPGRADE_WARNING: Couldn't resolve default property of object a.Close. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    a.Close()
+                    CheckExists = True
+                End If
+            End If
 		ElseIf CheckType = IOActionType.Folder Then 
 			'UPGRADE_WARNING: Couldn't resolve default property of object oFs.FolderExists. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If oFs.FolderExists(FilePathName) Then
-				CheckExists = True
-			Else
-				If Create Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object oFs.CreateFolder. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					oFs.CreateFolder(FilePathName)
-				End If
-			End If
+            If System.IO.File.Exists(FilePathName) Then
+                CheckExists = True
+            Else
+                If Create Then
+                    'UPGRADE_WARNING: Couldn't resolve default property of object oFs.CreateFolder. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    System.IO.Directory.CreateDirectory(FilePathName)
+                End If
+            End If
 		End If
 	End Function
 	

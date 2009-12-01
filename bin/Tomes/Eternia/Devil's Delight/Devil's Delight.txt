@@ -1,0 +1,10 @@
+
+
+
+twilight inn:
+removed eternium from rest trigger.
+made some patrons can talk
+fixed spelling errors
+fixed conversation defaults
+turned inn into a building
+cleaned up Bernard the Smith convo

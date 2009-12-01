@@ -1,0 +1,83 @@
+' "Text"
+Label K.Property/
+If K.Property/ Compare J.Property/
+Else
+ElseIf K.Property/ Compare J.Property/
+And K.Property/ Compare J.Property/
+Or K.Property/ Compare J.Property/
+EndIf
+While K.Property/ Compare J.Property/
+ForEach Creature/Item/Trigger/ In Encounter/Party/Trigger/Creature/
+Next
+Branch K.Property/
+Put K.Property/ Operation J.Property/ Into M.Property/
+Set Creature/Encounter/Item/Tile/Trigger/ = Creature/Encounter/Item/Tile/Trigger/
+Select K.Property/
+Case K.Property/
+EndSelect
+Exit Abort/Loop/Trig/
+CopyCreature "Text1"/ Into Encounter/Party/Trigger/
+CopyItem "Text1"/ Into Creature/Encounter/Item/Trigger/
+CopyTrigger "Text1"/ Into Creature/Encounter/Item/Party/Trigger/
+CopyTile "Text" Level Bottom/BottomFlip/Middle/MiddleFlip/Top/TopFlip/ At K.Property/ | J.Property/ )
+CopyText "Text" Into K.Property/
+Runes_( R#/ )/|R#/ )/|R#/ )/|R#/ )/|R#/ )/|R#)/ Fail/FailSave/Save/
+AddFactoid "Text"
+AddJournalEntry "Text"
+Destroy Creature/Item/Trigger/ In Encounter/Party/Trigger/
+CombatApplyDamage K.Property/ To Creature/
+CombatRollAttack L/ Bonus K.Property/
+CombatRollDamage L/ Damaged K.Property/ Check
+DestroyFactoid "Text"
+TargetCreature Creature/ In Any/EncounterNow/Party/ Within K.Property/ Dead
+TargetItem Item/
+PlaySound "Text" Pause
+PlayMusic "Text" Pause
+MoveParty To "Text1"/ At K.Property/ | J.Property/ )
+DialogShow "Text" BriefBox/BriefLine/Normal/ReplyPick/ReplyText/ Says "Text"
+DialogReply "Text"
+DialogAccept K.Property/
+DialogDice "Text" 1d4/ Says "Text" Into K.Property/
+DialogHide
+CutScene "Text" Picture "Text" As PicBottomTextTop/PicCenter/PicLeftTextRight/PicRightTextLeft/PicTopTextBottom/TextCenter/
+QueRunes_( R#/ )/|R#/ )/|R#/ )/|R#/ )/|R#/ )/|R#)/ Check/
+CombatMove AwayFrom/Toward/ Closest/CreatureTarget/Farthest/Random/Strongest/Weakest/
+
+CombatTarget Closest/Farthest/Random/Strongest/Weakest/
+PlaySFX "Text" As Center/Head/ BurstHere/BurstThere/Down/Fling/Stream/ Fast/Medium/Slow/ Frames Number2/
+Sorcery K.Property/
+DialogBuySell CreatureNow/EncounterNow/TriggerNow/ Rate K.Property/
+
+ExecTrigger "Text1"/
+DialogAcceptText K.Property/
+CombatStart
+Let K.Property/ = J.Property/
+
+RandomizeEncounter "Text"
+RandomTheme "Text"
+AwardExperience K.Property/ To Creature/Party/
+MoveItem Item/ From Creature/Encounter/Item/Party/Trigger/ To Creature/Encounter/Item/Party/Trigger/ Copy
+AddQuest "Text" As "Text"
+RemoveQuest "Text"
+AnnotateMap "Text"
+CombatAttackWithWeapon
+CombatAttackWithSpecial "Text" As K.Property/
+MovePartyMapName To "Text" "Text1"/ At K.Property/ | J.Property/ )
+MoveCreature Creature/ From Creature/Encounter/Item/Party/Trigger/ To Creature/Encounter/Item/Party/Trigger/ Copy
+IfText K.Property/ Compare "Text"
+TargetEncounter "Text"
+TargetTile At K.Property/ | J.Property/ )
+PlayVideo "Text" (Pause)
+Find Creature/Item/Trigger/ In Encounter/Party/Trigger/ Named "Text"
+CallTrigger Trigger/ In Creature/Encounter/Item/Party/Trigger/
+CombatAnimation "Text" For Creature/ Frames Number/
+MapAnimation "Text" Frames Number/ Level Bottom/BottomFlip/Middle/MiddleFlip/Top/TopFlip/ At K.Property/ | J.Property/ )
+MapRefresh
+
+Legend: first word is the statement, all other words are 'cosmetic' if they're not followed by a /
+Legend: J,K = Creature/Dice/Encounter/Global/Item/Local/Map/Neg/Pos/Random/Tile/Tome/Trigger
+Legend: L = Blunt/Cold/Evil/Fire/Holy/Magic/Mind/Normal/Sharp
+Legend: Compare/Operation = =,+,-,/,>,<,>=,<=,Or,And,XOr,Like,<>
+Legend: Number = integer between 02 and 32
+Legend: Number2 = integer between 00 and 64
+Legend: Text1 = object name

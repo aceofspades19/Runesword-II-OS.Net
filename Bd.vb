@@ -8,7 +8,7 @@ Module modBD
 	Private Declare Function ShellExecute Lib "shell32.dll"  Alias "ShellExecuteA"(ByVal hWnd As Integer, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Integer) As Integer
 	
 	Public gAppPath As String
-	Public gDataPath As String ' [Titi 2.4.9]
+    Public gDataPath As String = "Data" ' [Titi 2.4.9]
 	Public gDebug As Boolean
 	' [Titi 2.4.7] added for world settings creation option
 	Public WorldNow As World
@@ -57,7 +57,7 @@ Module modBD
 	Public GlobalScreenX As Short
 	Public GlobalScreenY As Short
 	Public GlobalScreenColor As Short
-	Public GlobalInterfaceName As String
+    Public GlobalInterfaceName As String = "Standard"
 	Public GlobalDiceName As String
 	Public GlobalLicNumber1 As String
 	Public GlobalLicNumber2 As String
@@ -2131,11 +2131,11 @@ Module modBD
 		' [Titi 2.4.8] added to use the runes of the current world
 		Dim Filename, Text As String
 		Dim hndFile As Short
-		Filename = gAppPath & "\Roster\" & strWorldName & "\" & strWorldName & ".txt"
-		If Not (oFileSys.CheckExists(Filename, clsInOut.IOActionType.File)) Then
-			' if not found, use Eternia's settings
-			Filename = gAppPath & "\Roster\Eternia\Eternia.txt"
-		End If
+        Filename = "Roster\" & strWorldName & "\" & strWorldName & ".txt"
+        If Not (System.IO.File.Exists(Filename)) Then
+            ' if not found, use Eternia's settings
+            Filename = gAppPath & "\Roster\Eternia\Eternia.txt"
+        End If
 		hndFile = FreeFile
 		FileOpen(hndFile, Filename, OpenMode.Input)
 		Text = LineInput(hndFile) ' first line = runes section
@@ -2149,14 +2149,23 @@ Module modBD
 		If GlobalInterfaceName <> "" Then
 			' this only for the player
 			'UPGRADE_WARNING: Couldn't resolve default property of object sWorld. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If oFileSys.CheckExists(gAppPath & "\Roster\" & sWorld & "\" & Text, clsInOut.IOActionType.File) Then
-				'UPGRADE_WARNING: Couldn't resolve default property of object sWorld. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				frmMain.picRuneSet.Image = System.Drawing.Image.FromFile(gAppPath & "\Roster\" & sWorld & "\" & Text)
-			Else
-				' default=Eternia set
-				'            frmMain.picRuneSet.Picture = LoadPicture(gAppPath & "\data\Interface\" & GlobalInterfaceName & "\RuneSet.bmp")
-				frmMain.picRuneSet.Image = System.Drawing.Image.FromFile(gDataPath & "\Interface\" & GlobalInterfaceName & "\RuneSet.bmp")
-			End If
+            If System.IO.File.Exists(gAppPath & "\Roster\" & sWorld & "\" & Text) Then
+                'UPGRADE_WARNING: Couldn't resolve default property of object sWorld. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                frmMain.picRuneSet.Image = System.Drawing.Image.FromFile(gAppPath & "\Roster\" & sWorld & "\" & Text)
+            Else
+                ' default=Eternia set
+                '            frmMain.picRuneSet.Picture = LoadPicture(gAppPath & "\data\Interface\" & GlobalInterfaceName & "\RuneSet.bmp")
+                Dim Path As String = gDataPath & "\Interface\" & GlobalInterfaceName & "\RuneSet.bmp"
+
+                Try
+                    frmMain.picRuneSet.Image = System.Drawing.Image.FromFile(Path)
+                Catch ex As System.IO.FileNotFoundException
+
+                Catch ex As System.OutOfMemoryException
+
+                End Try
+
+            End If
 		End If
 	End Sub
 End Module

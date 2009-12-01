@@ -1,0 +1,27 @@
+
+Reflection in Time 
+v. 1.0 
+Travis Smith (PaleoT)
+
+
+
+This idea for this Tome was partially derived watching Time Bandits.  
+Although, once again my imagination outruns my ability.  Any input 
+on ways to improve triggers etc is more than welcome,
+
+This is a tome for up to 4 characters that are pretty much straight 
+out of The Land Beyond.  I take no credit for any tilesets included.
+I only do so to make sure everyone has what I used.  DO NOT write them
+over your own files in case I messed them up.  Item and creature graphics 
+with a "_t" at the end I made from images I had.  The others I included 
+are from the  mesage board but I have not seen them used very often.
+
+
+I had tons of help on triggers from the usual suspects in the mod forum -
+
+monty, Shodan, and Phule in particular - Thanks -
+
+T
+
+
+  

@@ -1,0 +1,38 @@
+Original Version by Ukla
+
+version 1.0.1
+made main character male.
+cave two set encounters 2-4
+changed backstory trigger
+
+needs changed to RSII standard conversations.
+
+connected cave exit to Ndovan
+
+fixed some of the buggy wandering monster trigger
+
+looked for mine tie-in to main area.
+
+Corrected spelling errors.
+
+Started maps for buildings...
+fixed rumor2 in the tavern
+
+
+version 1.0.2
+fixed spellings
+named several opening NPC's (farmer canter, Master Trader Theron, etc...)
+added in some descriptions.
+worked on thieves guild, greed wizard, old woman, foreman
+added in secret tunnel
+fixed some of the ship triggers
+
+version 1.0.3
+fixed several more things,  too numerous to mention...
+added in cleave skill to weapon master's choices.
+randomized the wandering monster trigger
+changed dovan torr map slightly to get mill more in the way.
+placed lust wizard next to cathouse...
+
+version 1.0.4
+HUGE overhaul, new quests, new items, new creatures!

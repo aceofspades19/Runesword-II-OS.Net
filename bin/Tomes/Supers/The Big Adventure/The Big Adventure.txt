@@ -1,0 +1,44 @@
+The Big Adventure by Yu-Gi-Oh, modded by Monty.  Thanks to PaleoT and Comar for playtesting and bughunting.
+
+Things to do in the Big Adventure:
+seek out and explore
+cross the mountain pass
+explore the crypt
+find the guildhall
+find the runesword
+find the dinosaurs
+Seek out and destroy Vandor, Boron and the Shadow Warrior
+
+version 1.0.8
+worked on underground hall, finished healer
+removed unknown sounds throughout game
+worked on golems a little
+named the golemtown
+worked on nomad
+remapped and worked on ice cave, redid treasures
+started Boron's tomb
+renamed encounters/creatures
+worked on bee encounter
+redid mountain pass map
+started on light healer and other historical encounters
+rewrote freezing triggers
+made sword harder to get
+
+
+version 1.0.7
+started hooking up the thawed land
+gerald/diggory personality conflict.  Made his new personality Gerard and changed him from a candy store seller with a stock of weapons to a weapons store.
+worked on runesword.
+
+
+Need to do:
+create givers of quests
+create quests
+insert log entries
+add graphics to beginning.
+add graphics to ending post combat trigger in Crypt II
+build handmen to Vandor the Shaker of the Heavens, Boron, the High Priest of the Undead, and the Shadow Warrior, He of the Face Unseen!!
+temple guard needs lots more added here.
+work on lump of metal throwing weapon
+plaque in guild hall updated, almost done
+work in WIP

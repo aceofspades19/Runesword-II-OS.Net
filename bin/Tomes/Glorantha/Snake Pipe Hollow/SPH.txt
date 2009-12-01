@@ -1,0 +1,29 @@
+SPH: TLC by Monty.
+This is starting to shape up.  I'm working on the feeling of the tome, trigger work, and the monsters.
+Any suggestions on how I can implement anything let me know.
+
+
+Things to do in SPH:
+rescue prisoners
+finish quests (so far three work)
+get the Snake Pipe (need to expand upon this)
+kill Gir-lak and Fil-ith. (still working on beefing them up)
+talk to the duck
+
+version 1.4.3
+fixed prisoners
+added comments here and there
+added convo to chained demon (start only)
+set andrea's conversation to work.
+worked on Plinths
+
+Need to do:
+create and add more monsters and encounters
+work on items and graphics (statues would be good)
+work on quest elements and more background
+make spirits and spirit quest work!
+broos (need major tweaks)
+use sounds (my docs, unofficial, my music)
+make donation to glaswall mean something
+work on guard of tomb
+finish scorp quest

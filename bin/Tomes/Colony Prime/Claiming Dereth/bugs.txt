@@ -1,0 +1,23 @@
+
+
+
+version 1.0.0
+graphics still missing
+
+
+version 1.0.1
+first sweepthrough for missing graphics.  Used SCR_015 for most of the missing ones.
+
+version 1.0.5
+created camp and undrgrnd tilesets.  they need a little work still.
+created a few more encounters on the main map
+working on fletching skill, arrows still buggy
+worked on movecreatures, works properly now
+added in backstory
+worked on conversations
+fixed camp encounters
+
+
+1. The fletching skill - needs to use up the materials - can make arrows indefinitely. 
+
+Also, this trigger needs to be set to one-time - it is infinite now - caused trouble leaving the area (would not have mattered if not for problem 3) 

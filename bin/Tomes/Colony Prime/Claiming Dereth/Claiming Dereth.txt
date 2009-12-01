@@ -1,0 +1,52 @@
+
+version 1.1.0
+tome works up to and including the underground city.  
+Now the plot can move ahead.  Try to detect it.  it's not too late, to whip it, whip it good!
+
+version 1.1.5
+modded some encounter blurbs
+added in rest spot into camp
+worked on olthoi tunnels II
+
+version 1.1.6
+changed some food around
+reduced olthoi body part values
+added in some flavor here and there
+worked on tunnels
+inserted random monster trigger to make things a little more interesting.
+plot advanced slightly
+started work on area 2
+"You are now free to move about the country" that is after getting through the underground city
+created Olthoi messenger and a couple of other Olthoi types in the random encounter generator
+Added in numerous entrypoints for places aroud the countryside that are not completed yet.
+started the rebuilding effort of the underground city.  Added in healer who buys things
+
+things to work on:
+PLOT
+Area 2
+
+
+
+creator notes:
+I think that I want to keep it a fantasy style tome with a hint of Psi-Fi, and here is my idea on this: 
+
+It seems as if there is a fantasy human world. One of the NPC's mentions a royal court in which she learned the bow. I think the castles in the north are still human controlled. Humans have little or no technology. 
+
+Not much on the Olthoi. Afraid of water, use humans to mine. 
+
+Ideas based on the above: 
+Olthoi came from outer space in recent generations. If they were native, the balance would have swung one way or the other some time ago (I count the castles on the map as reason that humans are still around and doing something). They are not underground creatures, as evidenced by the facts that they have humans dig and they dislike water. So outer space. Maybe they crashlanded somewhere? Would explain their interest in mining. 
+
+Maybe also, the Olthoi are restricted to an area on the planet, maybe due to weather or distance from their disabled ship? 
+
+So, the tome itself I think should be fantasy, with the Olthoi lending their own mystery as the party travels further in their realm, coming across increased metal use and sophistication of technology. Maybe the main bad guy as a laser pistol and defensive armor? 
+
+Maybe the quest ending is actually helping the olthoi to get off the planet! 
+
+I was thinking of a magician olthoi, but I think it would be better if they were technologically superior but magically inferior... 
+
+olthoi races:
+worker
+
+olthoi specs:
+afraid of water

@@ -1,0 +1,11 @@
+Mines of Mintor, version 1.0 by PaleoT
+
+version 1.0.1, Titi
+- added a possibility to change one's mind in the Trader's Bay (encounter Desk Clerk)
+- corrected the entrypoints leading to mines 2 and 3
+- placed encounter1 in mine2
+- placed the encounter with the Post Commander in the mining post
+- corrected the boarding ship triggers in mines 3 and 4
+- corrected the coordinates of the entrypoint leading to Nator
+- corrected the trigger with the weapons repairman (changed "communication" to "weaponry" in the text + changed "Normal" to "ReplyPick" to allow to exit the shop without repairing the weapons).
+- made the spaceship and median locked in tome characters

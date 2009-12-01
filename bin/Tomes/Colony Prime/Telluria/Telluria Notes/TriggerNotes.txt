@@ -1,0 +1,136 @@
+Pre-Topic check for Juchen Quest
+
+IfText Tome.Factoids Like "HaveRave"
+Exit Trigger
+Else
+Let Local.Fail = Global.True
+EndIf
+
+Boat Ramp Fix?
+
+TargetEncounter "BoatRamp"
+Let Local.ByteA = Global.False
+ForEach CreatureB in EncounterTarget
+IfText CreatureB.Name Like "Sail boat"
+Let Local.ByteA = GLobal.True
+Set CreatureA = CreatureB
+EndIf
+Next
+If Local.ByteA = Global.False
+DialogShow "DM" Normal Says "There are no boats.."
+Exit Trigger
+Else
+Here I move the boat to the party then Move the party to the loading tile
+EndIf
+
+<Boat Ramp>
+
+' 
+IfText Tome.Factoids Like "Loading"
+DestroyFactoid "Loading"
+AddFactoid "AtSea"
+Exit Trigger
+EndIf
+' 
+IfText Tome.Factoids Like "AtSea"
+DialogShow "DM" ReplyPick Says "A young boy waves to you from a quay wall. 'Ahoy the boat! Planning to dock?'"
+DialogReply "Yes, please."
+DialogReply "Not quite yet."
+DialogAccept Local.ByteA
+' 
+If Local.ByteA = Pos.1
+ExecTrigger "restore PCs"
+ExecTrigger "store ship"
+MoveParty To "Derth Pier" At (Pos.11, Pos.8)
+DialogShow "DM" Normal Says "Welcome to Derth."
+DestroyFactoid "AtSea"
+Exit Trigger
+EndIf
+Else
+ExecTrigger "store PCs"
+EndIf
+Exit Trigger
+
+<Restore PC's>
+
+ForEach CreatureA In Party
+Find TriggerA In CreatureA Named "cargo"
+If Local.FoundIt = Global.True
+Branch Pos.255
+EndIf
+Next
+DialogShow "DM" Normal Says "ERROR in 'restore PCs': No ship or no 'cargo' trigger was found."
+Exit Trigger
+' 
+Label Pos.255
+ForEach CreatureA In TriggerA
+MoveCreature CreatureA From TriggerA To Party
+Next
+
+
+<Store Pc's>
+
+ForEach CreatureA In Party
+Find TriggerA In CreatureA Named "cargo"
+If Local.FoundIt = Global.True
+Branch Pos.250
+EndIf
+Next
+DialogShow "DM" Normal Says "ERROR in store PCs: No 'cargo' trigger or no ship was found in the party."
+Exit Trigger
+' 
+Label Pos.250
+ForEach CreatureA In Party
+IfText CreatureA.Comments = "isaship"
+DialogShow "DM" Normal Says "We boarded the ship."
+Else
+MoveCreature CreatureA From Party To TriggerA
+EndIf
+Next
+AddFactoid "Loading"
+Exit Trigger
+
+
+<Store Ship>
+
+ForEach CreatureA In Party
+IfText CreatureA.Comments = "isaship"
+MoveCreature CreatureA From Party To EncounterNow
+EndIf
+Next
+
+
+<Pier Manager>
+
+' 
+TargetEncounter "Boat Ramp"
+ForEach CreatureB In EncounterTarget
+IfText CreatureB.Name Like "Sail Boat"
+Set CreatureA = CreatureB
+Branch Pos.99
+EndIf
+Next
+' 
+DialogShow "DM" Normal Says "Greetings travellers. What can I do for you? If you are looking for boats, they are all out to sea right now."
+Exit Trigger
+' 
+' 
+Label Pos.99
+' 
+DialogShow "DM" Normal Says "Greeting travellers! What can I do for? I suppose you are looking to borrow a boat?"
+DialogShow "Pier Manager" ReplyPick Says "So, do you want to take the boat I have?"
+DialogReply "Yes, let's get onto the seas!"
+DialogReply "Not right now."
+DialogAccept Local.ByteA
+' 
+If Local.ByteA = Pos.1
+Branch Pos.255
+EndIf
+Exit Trigger
+' 
+Label Pos.255
+DialogShow "DM" Normal Says "The man leads the way to the quay wall and shows you a well-built but simple sail boat."
+MoveCreature CreatureA From EncounterTarget To Party
+MoveParty To "Derth Pier" At (Pos.13, Pos.8)
+' 
+Exit Trigger

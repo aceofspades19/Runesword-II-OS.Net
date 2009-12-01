@@ -1,0 +1,233 @@
+Areas
+
+1 - Main map plus individual encounters
+2 - Brannon
+3 - Derth, Hovan, Wave Women, Pirate Island (Fog in the North)
+4 - Junction 
+5 - Southern Spine
+6 - Fallon, Isle of Woman
+7 - Razor
+8 - Twin Cities
+9 - Trestle, Cloud City
+10 - Lost City
+11 - Dike
+
+Quests
+
+main set
+
+1 - Fog in the North (first introduction - get Rave)			- done, need debug
+2 - Free Juchen (Olani Guard)						- done, need debug
+3 - Lost City (Olani King)
+4 - Down with the Duke (Retake the throne)
+5 - Behind the Dike (Discover the past)
+
+side quests (first number indicates which main quest must be completed)
+
+1.1 - Twin Cities of Intrigue (must have met ambassador in Derth)
+1.2 - Haunted Tower - Get it from Derth Temple
+1.3 - South Tower - Get it from a widow in Brannon			-1/2 done,need debug
+1.4 - Troll Clan - Get it in Twin Cities
+1.5 - Clear the Sand Dunes - from Junction Mayor 			- done, need debug
+2.1 - Southern Spine (with Tercill)
+2.2 - Women of Fire (With Amazon Princess from 2.1)
+2.3 - Slavers (from Otter Cove)
+2.4 - Something from Fallon
+2.5 - Something from Razor
+3.1 - City of Clouds (Immortal - from Trestle)
+
+
+Tome Intro -
+
+- Moving on to find work 
+- Intro from a fellow traveller similar to what is in place 
+- Duke is in control, tell about Olani and Dervanu.  
+- The three pubs are a good place to find work.
+
+Fog in the North
+
+- Meet Ulinta in Brannon Pub - need to rescue a Baron's daughter. Boat or foot to Derth?
+- Meet Baron of Derth -
+
+	Baron Convo - No Ulinta - get basic info on Derth
+
+	Met Ulinta - get full story
+
+	During a heavy fog, pirates came ashore and kidnapped his daughter, Eischen.
+	His son left the next day to look for her but has not returned.
+	The pirates did not leave by boat, but rather took the north pass to the northern forest.
+	Trackers were able to follow traces to the edge of the forest but lost the trail there.
+
+	Refused Quest - offer again
+
+	Accepted Quest, not done - Asks how it is going - nothing new, Advisor not seen
+
+	Return to Castle - Quest done - Baron gone, Advisor and Son 
+
+	Baron Rescued -  Get Rave 
+	
+1. Get quest - Fog in the North
+
+- In Derth,ask around.  
+	
+	- Guard Captain does not trust his boss (the son) and in particular the Baron's advisor
+	- Mine tender, mine is closed.  The son checked it out last.  Has a key -
+	- In the Bar - one convo that thinks the son did it another thinks he was killed valiantly looking
+		for her.
+	- Farmer, crops have been good - strange trade though.
+	- Elders - Mixed info - if you have been to the bar - at least one intimates the advisor -
+	- Temple - empty - thinks evil spirits have invaded the mind of the son 
+
+- Through the north pass - 
+
+- Village of Hoven (Centaurs)
+
+	- not much info - never seen pirates?  Check with the Wave Women -
+	- Can buy a centaur bow!
+
+- Wave Women
+	
+	- Must see the elders.  They tell you to meet speak with the Wave Woman - she will decide.
+	- She sends you to the cave to be tested.  
+
+	- Battle water dragon - return to Woman -
+
+	- She gives you a boat and help - Don't like the pirates, but have not seen any pirates
+		- Their Island is to the North West
+	- Lonely house - only male, wizard, can sell you a couple rings and amulets.
+	- Weaver - can sell a cloak that protects against cold
+	- Farmer - no info - only pleasantries
+	Barracks - get thrown out	
+
+- Pirate Island
+
+	- mostly fishermen
+	- Hermit can give insight to the pirates new leader?
+	- Find Eischen in a sacrificial Cave - brother is captor - but not the leader -
+	- Brother escapes
+
+- Haunted tower (make this a separate side quest)
+
+	- find leader of the cult
+
+- Back in Derth -
+
+	- find baron, loyal elders held captive in mine shaft -
+
+*** Quest 1 complete
+
+	Baron asks if you will help with a much more important matter - Have a young Olani boy
+	He needs to be returned to his people.  The only remaining Royal Guard who can help is 
+	Juchen - He should be found in Junction -
+
+1.1 Cities of Intrigue - anytime after the first quest if you come here you can get a short quest 
+	to rid the north woods of a strange band of clerics who are creating a war between the cities.
+
+	A second quest to get rid of a band of marauding Trolls -
+
+2.  Free Sir Juchen
+
+- In Junction  
+
+	- Juchen is not around - 
+	- after asking questions, the priest tells you he has gone to meet with Marcel in Brannon
+
+- In Brannon - 
+
+	- Find Old Marcel - knows that Juchen is being held captive below the palace
+	- leads into original quest - must get the key of the dead from the mounds
+	- go to north tower ruins - find the amulet in the mauseleum
+	- this will allow Rave to pass into the dungeons from the sewers - go see the thieves guild
+	leader for help moving through the sewers - there is a passage to the mounds from there 
+
+- Mounds 
+	- Find the Key of the Dead
+
+- North Tower ruins
+
+	- amulet of the wind
+
+- Back in Brannon
+
+	- into sewers (goblins here if not before)
+	- into the dungeons - free Juchen and Tercill
+	- Must go up to the Guard room to recover Juchen's Axe
+	*** Become outlaws!
+	- flee Brannon - through sewers best way - 
+
+*** Find Juchen Quest Complete
+
+Option 
+
+1 - Can go with Juchen to Trestle (but knows your party is not strong enough - and time is not right 
+for Rave to return to Lost City - he will go ahead) -
+2 - Go with Tercill to recover his mace!  Stolen by the Goblin's who captured him for the Duke
+	Juchen leaves, will meet you in Junction - send word there -
+
+
+
+2.1 Southern Spine
+
+	- part ways with Juchen
+	- Go to the southern spine - goblin king - mines, valley, Otter Cove
+	- free amazon princess
+	- Tercill leaves - find me at the Dike when your final quest is done!
+
+*** End of Southern Spine Quest
+
+	- Can return to meet Juchen or
+
+2.2 Women of Fire Quest
+
+	- Go with princess to Woman Isle - her kingdom has come under the rule of a stange being made
+	of fire - has assumed control of everything	
+	- Go to Fallon
+	
+- In Fallon
+
+	?
+
+- Isle of Woman
+
+	- Main City?
+	- New city under the volcano
+	- find the being - an eternal - the "Woman of Fire"
+
+*** Quest Complete
+
+3.  Lost city
+
+	- meet Juchen in Junction -
+	- Go to Razor
+
+- In Razor
+
+	- meet a guide to the city	
+	- Must take the ??? path -
+
+- In the Lost City -
+
+	- find Rave's mother - the Princess - 
+	- Rave is the heir and can lead his people - must do 2 things - overthrow the Duke and
+	defeat the Eternal that rules the mountains above Trestle
+
+*** End quest for the Lost city
+
+3.1 Cloud City
+
+	- Go to Trestle and find path to the Cloud City
+	- Defeat the Eternal that pushed the Olani into hiding opening the path for the Duke to come in
+
+4 Down with the Duke -
+
+	- Army battle outside the city - similar to ships?
+	- party into palace to capture Duke - 
+
+5 - Need to prepare for the coming of Jafra!
+
+	- Go behind the dike to find the secret of Telluria!
+
+ 
+
+
+	

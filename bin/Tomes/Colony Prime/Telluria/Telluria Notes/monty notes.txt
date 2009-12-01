@@ -1,0 +1,41 @@
+monty -
+started widow, set trapdoor, created south tower 2nd floor.  can give quest, cannot respond to finished quest yet.  need to finish the quest material, add in momento for last battle.  keep going.  Some of this got deleted somehow, told borfaux and posted about part of the problem, seemed not only did the areas disappear but some of the work I did as well.
+fixed various spelling/grammatical errors: 25 so far.
+played with prisoners.  added in convo for woman, removed the 'male' tag from her as well.  put their names in creature descriptions. gave one prisoner size attribute.
+put flavor for some exit points.
+changed damage type for kildren sword to fire, considering picture was of a sword on fire.
+inserted giant spiders here and there in the mounds of pain.  need to add giant spider bmp to DL.
+fixed exit encounter from lost woman, changed type from none.
+added books to the library in the north tower basement.
+removed the male tag on many females (centaur, etc).
+beefed up centaur guards
+Junction temple priest can talk now
+turned mayor's infinite quest giving off
+dune hounds need fixin
+fixed thieves leader trigger and added some flavor
+worked on mounds some, made columns so you can't walk through them in most of the mounds.
+
+
+
+The 'south tower' map is in area 1 - it is furnished, but had nothing else done to it.  When you first posted that idea, my thought was to use the South Tower (deserted or everyone dead - hence widow) - maybe a tunnel leading to some Goblins caves in the mountains to the south of the tower?
+
+I had not thought it out too carefully, but for some reason your idea about the widow made me think of that map (not sure why beyond it was there and did not have a good purpose yet).
+
+Some other things that are 'done' but need improvement - the burial mounds
+- those were some of my first coding attempts, so need some work.  Plus the plethora of empty houses in Brannon (and Derth) - be careful with buildings in the city to see which way they enter from - The other cities are not done at all other than a map for some of them (Trestle, Fallon) 
+- 
+Otter Cove in the south is getting there - a couple of the merchants have some interesting things!  (the coconut merchant and the gem and mineral merchant)
+
+
+Ahh, the Goblins and mounds, those are both part of the original idea for this. I will start with the easier one - the Burial mounds. 
+
+These are very Tolkienesque, just burial mounds for heroes, kings, etc. of the original Kingdom. Two have liches and the weapons/armor of the buried guy - a third has a wight who has the key needed to complete the second quest (key to get into the bottom level of the North Tower) - I think these in particular need to be a little more difficult, particulalry they need to be tougher to get into to answer the question you asked. 
+
+The Goblins - my original plan was that the Goblins have been "hired" by the Duke to kill off the Olani - This whole idea has evolved a little and I am still not clear how to best incorporate the Goblins - The Goblins in the sewers were suppposed to be part of the clues that the Duke is in league with them. You actually hit an encounter with a Legion captain and Goblins. The stairs up from the Sewers should be protected by a wall that gets erased when you get there with the Amulet from the North Tower. That lets the party into the prison block to free Juchen and complete that quest. A couple of people will tell you the Olani have been killed off by the Goblins. 
+
+The sewers as a whole need some work - they are split in half, the thieves half is basically empty and the goblin half is too hack and slash for me - The thieves gulid leader will tell the party abou the Goblins being hired by the Duke. 
+
+I am still trying to rethink the Goblin aspect. I am open to suggestions on that, but I think the best thing is to leave it as a background story. Goblins come up multiple times, so it mostly just explains why they are being left alone by the Duke. The quest with Tercill that I am working on right now is all Goblin - playing up the angle that in certain areas, the Goblins have been allowed to pretty much take over -
+
+Travis
+ 

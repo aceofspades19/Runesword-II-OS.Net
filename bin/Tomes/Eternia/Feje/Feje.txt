@@ -1,0 +1,15 @@
+Changes made:
+
+BedHead Inn:
+Moved bedhead inn encounter off of entrypoint location, moved inn person back just a bit as well.
+Made rest stop bigger.
+
+Tome triggers:
+Changed 5 year student's body areas, to exclude a wing.  Put an arm in there and also legs in place of some body's.
+
+Gobble n Go:
+Changed tiles 71 and 72 to corner wall and left wall respectively.
+
+
+Sewers:
+took off Post-Enter Encounter off of booty.  It was a leftover from previous tome.

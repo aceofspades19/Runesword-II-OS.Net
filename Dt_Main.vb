@@ -9265,7 +9265,7 @@ ErrorHandler:
 		Dim lResult As Integer
 		On Error GoTo ErrorHandler
 		'    sPath = gAppPath & "\data\Interface\" & GlobalInterfaceName & "\"
-		sPath = gDataPath & "\Interface\" & GlobalInterfaceName & "\"
+        sPath = gDataPath & "\Interface\" & GlobalInterfaceName & "\"
 		' Misc has borders and face stuff
 		picSteps.Image = System.Drawing.Image.FromFile(sPath & "Steps.bmp")
 		picMisc.Image = System.Drawing.Image.FromFile(sPath & "Misc.bmp")
