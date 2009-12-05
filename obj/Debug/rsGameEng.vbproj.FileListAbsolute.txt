@@ -5,3 +5,11 @@ C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2
 C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Debug\rsGameEng.frmMain.resources
 C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Debug\rsGameEng.frmMonsExplorerPlayer.resources
 C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Debug\rsGameEng.vbproj.GenerateResource.Cache
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\bin\rsGameEng.exe
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\bin\rsGameEng.pdb
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\bin\rsGameEng.xml
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\bin\Interop.ComctlLib.dll
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\bin\AxInterop.ComctlLib.dll
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Debug\rsGameEng.exe
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Debug\rsGameEng.xml
+C:\Documents and Settings\Jordan Evans\My Documents\Downloads\Source_RuneSword_2.4.9\rsGameEng.NET\obj\Debug\rsGameEng.pdb
