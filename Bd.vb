@@ -2149,13 +2149,13 @@ Module modBD
 		If GlobalInterfaceName <> "" Then
 			' this only for the player
 			'UPGRADE_WARNING: Couldn't resolve default property of object sWorld. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            If System.IO.File.Exists(gAppPath & "\Roster\" & sWorld & "\" & Text) Then
+            If System.IO.File.Exists(gAppPath & "\Data\Roster\" & sWorld & "\" & Text) Then
                 'UPGRADE_WARNING: Couldn't resolve default property of object sWorld. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 frmMain.picRuneSet.Image = System.Drawing.Image.FromFile(gAppPath & "\Roster\" & sWorld & "\" & Text)
             Else
                 ' default=Eternia set
                 '            frmMain.picRuneSet.Picture = LoadPicture(gAppPath & "\data\Interface\" & GlobalInterfaceName & "\RuneSet.bmp")
-                Dim Path As String = gDataPath & "\Interface\" & GlobalInterfaceName & "\RuneSet.bmp"
+                Dim Path As String = gDataPath & "\Data\Interface\" & GlobalInterfaceName & "\RuneSet.bmp"
 
                 Try
                     frmMain.picRuneSet.Image = System.Drawing.Image.FromFile(Path)

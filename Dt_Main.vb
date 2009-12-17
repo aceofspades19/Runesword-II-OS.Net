@@ -6003,7 +6003,8 @@ BackToPreviousState:
 		' IF Center = True (-1), then Center Text
 		' IF Center = False (0), then Left Justify Text
 		' IF Center = 1, the Right Justify Text
-		Dim LastSpace, PosX, PosY, LastPixels As Short
+        Dim LastSpace, PosX, PosY, LastPixels As Short
+        picFonts = New PictureBox()
 		'UPGRADE_NOTE: FontHeight was upgraded to FontHeight_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 		Dim FontIndex, FontSpace, FontTop, FontMask, FontHeight_Renamed, FontLine As Short
 		Dim TextLen, TextPos, TextPixels As Short
@@ -8940,56 +8941,59 @@ ErrorHandler:
 	
 	Private Sub ResizeForm()
 		Dim X, Y As Short
-		' Size and Place Menu
-		picMenu.Width = 32 + 5 * (90 + 32) : picMenu.Height = 84
-		picMenu.Top = Me.ClientRectangle.Height - picMenu.Height - 16
-		picMenu.Left = (Me.ClientRectangle.Width - picMenu.Width) / 2
-		picMenu.Visible = False
-		' Load the Interface
-		' OptionsLoad True
-		GameInterfaceLoad(True)
-		' Place and Size Borders (Not in Game)
-		BorderDrawAll(False)
-		' Place and Size Map
-		picBox.Top = 16 : picBox.Left = 32
-		picBox.Height = Me.ClientRectangle.Height - picMenu.Height - 64
-		picBox.Width = Me.ClientRectangle.Width - 64
-		picMap.Top = 0 : picMap.Left = 0
-		picMap.Height = Int(picBox.Height / 48) * 48 + 48
-		picMap.Width = Int(picBox.Width / 96) * 96 + 96
-		' Place Combat Boxes
-		picGrid.Top = 0 : picGrid.Left = 0
-		picGrid.Height = picBox.Height : picGrid.Width = picBox.Width
-		picToHit.Top = Me.ClientRectangle.Height - picToHit.Height - 16
-		picToHit.Left = (Me.ClientRectangle.Width - picToHit.Width) / 2
-		' Place Inventory Box
-		picInventory.Top = (picBox.ClientRectangle.Height - picInventory.ClientRectangle.Height) / 2
-		picInventory.Left = (Me.ClientRectangle.Width - picInventory.ClientRectangle.Width) / 2
-		' Place Search box
-		picSearch.Top = (picBox.ClientRectangle.Height - picSearch.ClientRectangle.Height) / 2
-		picSearch.Left = (Me.ClientRectangle.Width - picSearch.ClientRectangle.Width) / 2
-		' Place Talk box
-		picTalk.Top = (picBox.ClientRectangle.Height - picTalk.ClientRectangle.Height) / 2
-		picTalk.Left = (Me.ClientRectangle.Width - picTalk.ClientRectangle.Width) / 2
-		' Place Convo box
-		picConvo.Left = (Me.ClientRectangle.Width - picConvo.ClientRectangle.Width) / 2
-		' Place BuySell box
-		picBuySell.Top = (picBox.ClientRectangle.Height - picBuySell.ClientRectangle.Height) / 2
-		picBuySell.Left = (Me.ClientRectangle.Width - picBuySell.ClientRectangle.Width) / 2
-		' Place Journal Box
-		picJournal.Top = (picBox.ClientRectangle.Height - picJournal.ClientRectangle.Height) / 2
-		picJournal.Left = (Me.ClientRectangle.Width - picJournal.ClientRectangle.Width) / 2
-		' Place Main Menu
-		picMainMenu.Top = (Me.ClientRectangle.Height - picMainMenu.Height) / 2
-		picMainMenu.Left = (Me.ClientRectangle.Width - picMainMenu.Width) / 2
-		picMainMenu.BringToFront()
-		' Place New Tome
-		picTomeNew.Top = (Me.ClientRectangle.Height - picTomeNew.ClientRectangle.Height) / 2
-		picTomeNew.Left = (Me.ClientRectangle.Width - picTomeNew.Width) / 2
-		picTomeNew.BringToFront()
-		' Refresh
-		Me.Refresh()
-	End Sub
+        ' Size and Place Menu
+        Try
+            picMenu.Width = 32 + 5 * (90 + 32) : picMenu.Height = 84
+            picMenu.Top = Me.ClientRectangle.Height - picMenu.Height - 16
+            picMenu.Left = (Me.ClientRectangle.Width - picMenu.Width) / 2
+            picMenu.Visible = False
+        Catch e As Exception
+        End Try
+        ' Load the Interface
+        ' OptionsLoad True
+        GameInterfaceLoad(True)
+        ' Place and Size Borders (Not in Game)
+        BorderDrawAll(False)
+        ' Place and Size Map
+        picBox.Top = 16 : picBox.Left = 32
+        picBox.Height = Me.ClientRectangle.Height - picMenu.Height - 64
+        picBox.Width = Me.ClientRectangle.Width - 64
+        picMap.Top = 0 : picMap.Left = 0
+        picMap.Height = Int(picBox.Height / 48) * 48 + 48
+        picMap.Width = Int(picBox.Width / 96) * 96 + 96
+        ' Place Combat Boxes
+        picGrid.Top = 0 : picGrid.Left = 0
+        picGrid.Height = picBox.Height : picGrid.Width = picBox.Width
+        picToHit.Top = Me.ClientRectangle.Height - picToHit.Height - 16
+        picToHit.Left = (Me.ClientRectangle.Width - picToHit.Width) / 2
+        ' Place Inventory Box
+        picInventory.Top = (picBox.ClientRectangle.Height - picInventory.ClientRectangle.Height) / 2
+        picInventory.Left = (Me.ClientRectangle.Width - picInventory.ClientRectangle.Width) / 2
+        ' Place Search box
+        picSearch.Top = (picBox.ClientRectangle.Height - picSearch.ClientRectangle.Height) / 2
+        picSearch.Left = (Me.ClientRectangle.Width - picSearch.ClientRectangle.Width) / 2
+        ' Place Talk box
+        picTalk.Top = (picBox.ClientRectangle.Height - picTalk.ClientRectangle.Height) / 2
+        picTalk.Left = (Me.ClientRectangle.Width - picTalk.ClientRectangle.Width) / 2
+        ' Place Convo box
+        picConvo.Left = (Me.ClientRectangle.Width - picConvo.ClientRectangle.Width) / 2
+        ' Place BuySell box
+        picBuySell.Top = (picBox.ClientRectangle.Height - picBuySell.ClientRectangle.Height) / 2
+        picBuySell.Left = (Me.ClientRectangle.Width - picBuySell.ClientRectangle.Width) / 2
+        ' Place Journal Box
+        picJournal.Top = (picBox.ClientRectangle.Height - picJournal.ClientRectangle.Height) / 2
+        picJournal.Left = (Me.ClientRectangle.Width - picJournal.ClientRectangle.Width) / 2
+        ' Place Main Menu
+        picMainMenu.Top = (Me.ClientRectangle.Height - picMainMenu.Height) / 2
+        picMainMenu.Left = (Me.ClientRectangle.Width - picMainMenu.Width) / 2
+        picMainMenu.BringToFront()
+        ' Place New Tome
+        picTomeNew.Top = (Me.ClientRectangle.Height - picTomeNew.ClientRectangle.Height) / 2
+        picTomeNew.Left = (Me.ClientRectangle.Width - picTomeNew.Width) / 2
+        picTomeNew.BringToFront()
+        ' Refresh
+        Me.Refresh()
+    End Sub
 	
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub DrawMapAll()
@@ -9665,7 +9669,7 @@ ErrorHandler:
 	End Sub
 	
 	Private Sub GameInit()
-		On Error GoTo Err_Handler
+        'On Error GoTo Err_Handler
 		Dim rc, hCursor As Integer
 		Dim CreatureX As Creature
 		Dim MapSketchX As MapSketch
@@ -9678,7 +9682,9 @@ ErrorHandler:
 		Dim PauseTime, Start As Integer
 		Dim logError As Short
 		Dim errLevel As Short
-		Dim lResult As Integer
+        Dim lResult As Integer
+        picItem = New PictureBox
+        picItem.Image = System.Drawing.Bitmap.FromFile(gAppPath + "\Data\jetblack.bmp")
 		' [rb] Added for 2.4.6
 		'Call ParseCommandLineArgs
 		' Initialize Error Handler Object
@@ -9692,7 +9698,7 @@ ErrorHandler:
 		Call oErr.Initialize(CShort(logError), CShort(errLevel), "EngineLog.txt")
 		'Call oErr.Initialize(LOG_DEBUG Or LOG_TOFILE, "creatorlog.txt")
 		oErr.logError("GameInit: Started", CErrorHandler.ErrorLevel.ERR_DEBUG)
-		On Error GoTo Err_Handler
+        'On Error GoTo Err_Handler
 		' Initialize our new IO Class
 		oFileSys = New clsInOut
 		oGameMusic = New IMCI
@@ -9721,175 +9727,178 @@ ErrorHandler:
 		TotalStepsTaken = 0
 		JournalMode = 0
 		' Load the Options for the Game
-		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        picTPic = New PictureBox()
+
+        picTPic.Image = System.Drawing.Bitmap.FromFile(gAppPath + "\Data\jetblack.bmp")
+
+        ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading game options", True, True)
+
+
+
+
+        picTPic.Refresh()
+        oErr.logError("GameInit: " & "Loading game options - started")
+        Call OptionsLoad(True)
+        oErr.logError("GameInit: " & "Loading game options - finished")
+        ' Set TomeWizard
+        TomeWizardParty = 2
+        TomeWizardLevel = 0
+        TomeWizardStory = 0
+        TomeWizardSize = 1
+        ' Set up default Item picture size (bdMaxItemPics Pictures
+        If bdMaxItemPics Is Nothing Then
+            System.Console.Out.WriteLine("NULL")
+        End If
+        picItem.Width = 64 * bdMaxItemPics
+        picItem.Height = 96 * 2 + 32S
+
+        ' Init all the game variables
+        'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+
+        ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading game variables", True, True)
+        picTPic.Refresh()
+        Call GameInitVariables()
+        oErr.logError("GameInit: " & "Loading game variables - started")
+        Me.Show()
+        picTPic.Width = Me.ClientRectangle.Width - 64 : picTPic.Height = 14
+        picTPic.Left = 32 : picTPic.Top = Me.ClientRectangle.Height / 2
+        picTPic.Visible = True
+        oErr.logError("GameInit: " & "Loading game variables - finished")
+        ' Load bones picture for Creature
+        'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+
+        ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading bones picture", True, True)
+        picTPic.Refresh()
+        oErr.logError("GameInit: " & "Loading bones picture - Started")
+        CreatureX = New Creature
+        CreatureX.PictureFile = "bones.bmp"
+        LoadCreaturePic(CreatureX)
+        ' Freeze Map and Menu actions
+        Frozen = True
+        ' Load up the tomes for selection
+        TomeAction = -1
+        ' Load up the Roster Defaults
+        oErr.logError("GameInit: " & "Loading bones picture - Finished")
+
+        ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Roster Defaults", True, True)
+        picTPic.Refresh()
+        Call CreatePCLoadWorlds()
+        WorldIndex = WorldNow.Index
+        ' [borfaux] Moved here.  Let the Worlds INI file dictate which file to play as the Worlds
+        ' intro music
+        ' Play the Intro music
+        Call PlayMusic(WorldNow.IntroMusic, Me, WorldNow.MusicFolder)
+        oErr.logError("GameInit: " & "Loading Roster Defaults")
+        'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+        ' Now load the Story Tomes for the Tome Wizard
+
+        ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Story Tomes for the Tome Wizard", True, True)
+        picTPic.Refresh()
+        UberWizMaps = New UberWizard
+        modDungeonMaker.InitUberWizMaps(UberWizMaps)
+        oErr.logError("GameInit: " & "Loading Story Tomes for the Tome Wizard - Started")
+        'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         picTPic = Nothing
         picTPic.Invalidate()
-		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading game options", True, True)
-		picTPic.Refresh()
-		oErr.logError("GameInit: " & "Loading game options - started")
-		Call OptionsLoad(True)
-		oErr.logError("GameInit: " & "Loading game options - finished")
-		' Set TomeWizard
-		TomeWizardParty = 2
-		TomeWizardLevel = 0
-		TomeWizardStory = 0
-		TomeWizardSize = 1
-		' Set up default Item picture size (bdMaxItemPics Pictures)
-		picItem.Width = 64 * bdMaxItemPics
-		picItem.Height = 96 * 2 + 32
-		' Init all the game variables
-		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Interface List", True, True)
+        picTPic.Refresh()
+        ' Load Interface List
+        oErr.logError("GameInit: " & "Loading Interface List - Started")
+        GlobalInterfaceList = New Collection
+        '    FileName = Dir$(gAppPath & "/Data/Interface/*", vbDirectory)
+        'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
+        FileName = Dir(gDataPath & "/Interface/*", FileAttribute.Directory)
+        If FileName = "" Then oErr.logError("GameInit: " & vbTab & "No Interface List!!!", CErrorHandler.ErrorLevel.ERR_CRITICAL)
+        Do While FileName <> ""
+            If FileName <> "." And FileName <> ".." And FileName <> "Dice" Then
+                ' Find alphabetical spot in list
+                For c = 1 To GlobalInterfaceList.Count()
+                    'UPGRADE_WARNING: Couldn't resolve default property of object GlobalInterfaceList(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    If UCase(GlobalInterfaceList.Item(c)) > UCase(FileName) Then
+                        GlobalInterfaceList.Add(FileName, , c)
+                        Exit For
+                    End If
+                Next c
+                If c > GlobalInterfaceList.Count() Then
+                    GlobalInterfaceList.Add(FileName)
+                End If
+            End If
+            'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
+            FileName = Dir()
+        Loop
+        GlobalInterfaceIndex = 1
+        oErr.logError("GameInit: " & "Loading Interface List - Finished")
+        ' Load Dice List
+        'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         picTPic = Nothing
         picTPic.Invalidate()
-		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading game variables", True, True)
-		picTPic.Refresh()
-		Call GameInitVariables()
-		oErr.logError("GameInit: " & "Loading game variables - started")
-		Me.Show()
-		picTPic.Width = Me.ClientRectangle.Width - 64 : picTPic.Height = 14
-		picTPic.Left = 32 : picTPic.Top = Me.ClientRectangle.Height / 2
-		picTPic.Visible = True
-		oErr.logError("GameInit: " & "Loading game variables - finished")
-		' Load bones picture for Creature
-		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Dice List", True, True)
+        picTPic.Refresh()
+        oErr.logError("GameInit: " & "Loading Dice List - Started")
+        GlobalDiceList = New Collection
+        '    FileName = Dir$(gAppPath & "/Data/Interface/Dice/*.bmp", vbDirectory)
+        'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
+        FileName = Dir(gDataPath & "/Interface/Dice/*.bmp", FileAttribute.Directory)
+        If FileName = "" Then oErr.logError("GameInit: " & vbTab & "No Dice List!!!", CErrorHandler.ErrorLevel.ERR_CRITICAL)
+        Do While FileName <> ""
+            If FileName <> "." And FileName <> ".." Then
+                ' Find alphabetical spot in list
+                For c = 1 To GlobalDiceList.Count()
+                    'UPGRADE_WARNING: Couldn't resolve default property of object GlobalDiceList(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    If UCase(GlobalDiceList.Item(c)) > UCase(FileName) Then
+                        GlobalDiceList.Add(FileName, , c)
+                        Exit For
+                    End If
+                Next c
+                If c > GlobalDiceList.Count() Then
+                    GlobalDiceList.Add(FileName)
+                End If
+            End If
+            'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
+            FileName = Dir()
+        Loop
+        GlobalDiceIndex = 1
+        oErr.logError("GameInit: " & "Loading Dice List - Finished")
+        'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         picTPic = Nothing
         picTPic.Invalidate()
-		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading bones picture", True, True)
-		picTPic.Refresh()
-		oErr.logError("GameInit: " & "Loading bones picture - Started")
-		CreatureX = New Creature
-		CreatureX.PictureFile = "bones.bmp"
-		LoadCreaturePic(CreatureX)
-		' Freeze Map and Menu actions
-		Frozen = True
-		' Load up the tomes for selection
-		TomeAction = -1
-		' Load up the Roster Defaults
-		oErr.logError("GameInit: " & "Loading bones picture - Finished")
-		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Finishing Game Init . . .", True, True)
+        picTPic.Refresh()
+        oErr.logError("GameInit: " & "Finishing Game Init . . .")
+        ' Clean up any non-MainMap MapSketchs
+        For Each MapSketchX In UberWizMaps.MapSketchs
+            If MapSketchX.IsMainMap = False Or MapSketchX.TomeIndex = 0 Then
+                UberWizMaps.MapSketchs.Remove("M" & MapSketchX.Index)
+            End If
+        Next MapSketchX
+        UberWizMaps.MainMapIndex = 0
+        ' Load the splash logo
+        'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         picTPic = Nothing
         picTPic.Invalidate()
-		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Roster Defaults", True, True)
-		picTPic.Refresh()
-		Call CreatePCLoadWorlds()
-		WorldIndex = WorldNow.Index
-		' [borfaux] Moved here.  Let the Worlds INI file dictate which file to play as the Worlds
-		' intro music
-		' Play the Intro music
-		Call PlayMusic(WorldNow.IntroMusic, Me, WorldNow.MusicFolder)
-		oErr.logError("GameInit: " & "Loading Roster Defaults")
-		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
-		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-		' Now load the Story Tomes for the Tome Wizard
-		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        picTPic = Nothing
-        picTPic.Invalidate()
-		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Story Tomes for the Tome Wizard", True, True)
-		picTPic.Refresh()
-		UberWizMaps = New UberWizard
-		modDungeonMaker.InitUberWizMaps(UberWizMaps)
-		oErr.logError("GameInit: " & "Loading Story Tomes for the Tome Wizard - Started")
-		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        picTPic = Nothing
-        picTPic.Invalidate()
-		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Interface List", True, True)
-		picTPic.Refresh()
-		' Load Interface List
-		oErr.logError("GameInit: " & "Loading Interface List - Started")
-		GlobalInterfaceList = New Collection
-		'    FileName = Dir$(gAppPath & "/Data/Interface/*", vbDirectory)
-		'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		FileName = Dir(gDataPath & "/Interface/*", FileAttribute.Directory)
-		If FileName = "" Then oErr.logError("GameInit: " & vbTab & "No Interface List!!!", CErrorHandler.ErrorLevel.ERR_CRITICAL)
-		Do While FileName <> ""
-			If FileName <> "." And FileName <> ".." And FileName <> "Dice" Then
-				' Find alphabetical spot in list
-				For c = 1 To GlobalInterfaceList.Count()
-					'UPGRADE_WARNING: Couldn't resolve default property of object GlobalInterfaceList(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					If UCase(GlobalInterfaceList.Item(c)) > UCase(FileName) Then
-						GlobalInterfaceList.Add(FileName,  , c)
-						Exit For
-					End If
-				Next c
-				If c > GlobalInterfaceList.Count() Then
-					GlobalInterfaceList.Add(FileName)
-				End If
-			End If
-			'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-			FileName = Dir()
-		Loop 
-		GlobalInterfaceIndex = 1
-		oErr.logError("GameInit: " & "Loading Interface List - Finished")
-		' Load Dice List
-		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        picTPic = Nothing
-        picTPic.Invalidate()
-		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Loading Dice List", True, True)
-		picTPic.Refresh()
-		oErr.logError("GameInit: " & "Loading Dice List - Started")
-		GlobalDiceList = New Collection
-		'    FileName = Dir$(gAppPath & "/Data/Interface/Dice/*.bmp", vbDirectory)
-		'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		FileName = Dir(gDataPath & "/Interface/Dice/*.bmp", FileAttribute.Directory)
-		If FileName = "" Then oErr.logError("GameInit: " & vbTab & "No Dice List!!!", CErrorHandler.ErrorLevel.ERR_CRITICAL)
-		Do While FileName <> ""
-			If FileName <> "." And FileName <> ".." Then
-				' Find alphabetical spot in list
-				For c = 1 To GlobalDiceList.Count()
-					'UPGRADE_WARNING: Couldn't resolve default property of object GlobalDiceList(). Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					If UCase(GlobalDiceList.Item(c)) > UCase(FileName) Then
-						GlobalDiceList.Add(FileName,  , c)
-						Exit For
-					End If
-				Next c
-				If c > GlobalDiceList.Count() Then
-					GlobalDiceList.Add(FileName)
-				End If
-			End If
-			'UPGRADE_WARNING: Dir has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-			FileName = Dir()
-		Loop 
-		GlobalDiceIndex = 1
-		oErr.logError("GameInit: " & "Loading Dice List - Finished")
-		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        picTPic = Nothing
-        picTPic.Invalidate()
-		ShowText(picTPic, 0, 0, picTPic.ClientRectangle.Width, 0, bdFontElixirWhite, "Finishing Game Init . . .", True, True)
-		picTPic.Refresh()
-		oErr.logError("GameInit: " & "Finishing Game Init . . .")
-		' Clean up any non-MainMap MapSketchs
-		For	Each MapSketchX In UberWizMaps.MapSketchs
-			If MapSketchX.IsMainMap = False Or MapSketchX.TomeIndex = 0 Then
-				UberWizMaps.MapSketchs.Remove("M" & MapSketchX.Index)
-			End If
-		Next MapSketchX
-		UberWizMaps.MainMapIndex = 0
-		' Load the splash logo
-		'UPGRADE_ISSUE: PictureBox method picTPic.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        picTPic = Nothing
-        picTPic.Invalidate()
-		picTPic.Visible = False
-		oErr.logError("GameInit: " & "Splash Screen")
-		If (Val(GlobalCredits) = 1) Then
-			myLoadSplash()
-		End If
-		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
-		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-		Call UpdateMainMenu()
-		oErr.logError("GameInit: Loaded", CErrorHandler.ErrorLevel.ERR_DEBUG)
-		picMainMenu.Visible = True
-Exit_Sub: 
-		Exit Sub
-Err_Handler: 
-		If Err.Number = 91 Then
-			' not a problem with a block "With" (hehe), but here we probably have two instances of Creator running
-			Call oErr.Initialize(CShort(logError), CShort(errLevel), "EngineLog2.txt")
-			Resume Next
-		Else
-			oErr.logError("GameInit has failed", CErrorHandler.ErrorLevel.ERR_CRITICAL)
-			Resume Exit_Sub
-		End If
-	End Sub
+        picTPic.Visible = False
+        oErr.logError("GameInit: " & "Splash Screen")
+        If (Val(GlobalCredits) = 1) Then
+            myLoadSplash()
+        End If
+        'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+        Call UpdateMainMenu()
+        oErr.logError("GameInit: Loaded", CErrorHandler.ErrorLevel.ERR_DEBUG)
+        picMainMenu.Visible = True
+Exit_Sub:
+        Exit Sub
+        'Err_Handler:
+        '      If Err.Number = 91 Then
+        ' not a problem with a block "With" (hehe), but here we probably have two instances of Creator running
+        '      'Call oErr.Initialize(CShort(logError), CShort(errLevel), "EngineLog2.txt")
+        '      Resume Next
+        '      Else
+        '      oErr.logError("GameInit has failed", CErrorHandler.ErrorLevel.ERR_CRITICAL)
+        '    Resume Exit_Sub
+        '  End If
+    End Sub
 	
 	Private Sub myLoadSplash()
 		Dim aImages(2, 1) As Object
@@ -13342,15 +13351,16 @@ ErrorHandler:
 		Dim X As Single = eventArgs.X
 		Dim Y As Single = eventArgs.Y
 		'UPGRADE_NOTE: Text was upgraded to Text_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim c As Short
+        Dim c As Short
 		Dim blnShow As Boolean
 		Dim Text_Renamed As String
 		Dim sRune() As String
 		Dim PauseTime, Start As Single
 		' [Titi 2.4.9] no display when map doesn't have any runes!
         If MainMap.IsNoRunes = True Then Exit Sub
-		' [Titi 2.4.8] get the runes names
-		modBD.InitializeRunes((WorldNow.Name))
+        ' [Titi 2.4.8] get the runes names
+        
+        modBD.InitializeRunes("Eternia")
 		ReDim sRune(intNbRunes + 1)
 		Text_Renamed = VB.Right(strRunesList, Len(strRunesList) - 5) ' get rid of "List="
 		For c = 1 To intNbRunes - 1
@@ -13370,18 +13380,24 @@ ErrorHandler:
 			blnShow = True
 		End If
 		X = 16
-		If blnShow Then
-			ShowText(picMap, X, Y, picMap.ClientRectangle.Width - 80, 14, bdFontNoxiousWhite, sRune(c + 1), IIf(c > 9, 1, 0), False)
-			picMap.Refresh()
-			PauseTime = 0.25 ' duration of display
-			Start = VB.Timer()
-			Do While VB.Timer() < Start + PauseTime
-				'            DoEvents
-			Loop 
-			' clear message
-			DrawMapRegion(0, 0, 340 + HintX, Len(sRune(c)) * 8 + 16 + HintY)
-			DrawMapRegion(0, picMap.ClientRectangle.Width - Len(sRune(c)) * 8 - 16 - HintY, 340 + HintX, picMap.ClientRectangle.Width)
-		End If
+        If blnShow Then
+            picMap = New PictureBox()
+            picMap.Image = New System.Drawing.Bitmap(gAppPath + "\Data\jetblack.bmp")
+            Try
+                ShowText(picMap, X, Y, picMap.ClientRectangle.Width - 80, 14, bdFontNoxiousWhite, sRune(c + 1), IIf(c > 9, 1, 0), False)
+            
+                picMap.Refresh()
+                PauseTime = 0.25 ' duration of display
+                Start = VB.Timer()
+                Do While VB.Timer() < Start + PauseTime
+                    '            DoEvents
+                Loop
+                ' clear message
+                DrawMapRegion(0, 0, 340 + HintX, Len(sRune(c)) * 8 + 16 + HintY)
+                DrawMapRegion(0, picMap.ClientRectangle.Width - Len(sRune(c)) * 8 - 16 - HintY, 340 + HintX, picMap.ClientRectangle.Width)
+            Catch e As Exception
+            End Try
+        End If
 	End Sub
 	
 	'UPGRADE_WARNING: Event frmMain.Resize may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
