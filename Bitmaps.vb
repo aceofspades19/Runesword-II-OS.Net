@@ -2,6 +2,7 @@ Option Strict Off
 Option Explicit On
 Imports System.Drawing.Imaging
 Imports System.Drawing
+Imports System.IO
 
 
 Module modBitmaps
@@ -188,10 +189,9 @@ Module modBitmaps
 		Dim bmiHeader As BITMAPINFOHEADER
 		<VBFixedArray(255)> Dim bmiColors() As RGBQUAD
 		
-		'UPGRADE_TODO: "Initialize" must be called to initialize instances of this structure. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"'
-		Public Sub Initialize()
-			ReDim bmiColors(255)
-		End Sub
+        Public Sub Initialize()
+            ReDim bmiColors(255)
+        End Sub
 	End Structure
 	
 	Structure OFSTRUCT
@@ -369,29 +369,30 @@ Module modBitmaps
         ' Including (most important here) the Palette information into
         ' the array bmInfo.bmiColors(). The final hread loads the actual
         ' bits to lpMem (a section of memory on the heap).
+        Dim fs As FileStream = New FileStream(FileName, FileMode.Open, FileAccess.Read)
         Dim rc As Integer
-        'UPGRADE_WARNING: Arrays in structure fileStruct may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
-        Dim fileStruct As OFSTRUCT
         Dim bmFileHeader As BITMAPFILEHEADER
         Dim hFile, lpMem As Integer
-        Dim BytesRead As Integer
-        Dim OneByte As Byte
-        ' Open the bitmap file
-        hFile = OpenFile(FileName, fileStruct, OF_READ Or OF_SHARE_DENY_NONE)
+        Dim bytes(2) As Byte
+        Dim obyte(2) As Byte
+        Dim ibytes(4) As Byte
+
+
         ' Read the bitmap's file header info
-        'UPGRADE_WARNING: Couldn't resolve default property of object bmFileHeader. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        BytesRead = hread(hFile, bmFileHeader, Len(bmFileHeader))
+        fs.Read(bytes, 0, 2)
+        bmFileHeader.bfType = System.BitConverter.ToInt16(bytes, 0)
         ' Read the bitmap's info (including the palette entries)
-        'UPGRADE_WARNING: Couldn't resolve default property of object bmInfo. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        BytesRead = hread(hFile, bmInfo, Len(bmInfo))
+        fs.Read(ibytes, 0, 3)
+        bmFileHeader.bfSize = System.BitConverter.ToInt16(ibytes, 0)
         If bmInfo.bmiHeader.biClrUsed > 0 And bmInfo.bmiHeader.biClrUsed < 256 Then
             '-- Fix for non 256-color BMP's [borfaux]
             rc = llseek(hFile, -((256 * 4) - bmInfo.bmiHeader.biClrUsed * 4), 1)
         End If
         ' Read the next byte and the back up a byte
-        BytesRead = hread(hFile, OneByte, 1)
-        TransparentRGB = RGB(bmInfo.bmiColors(OneByte).rgbRed, bmInfo.bmiColors(OneByte).rgbGreen, bmInfo.bmiColors(OneByte).rgbBlue)
-        rc = llseek(hFile, -1, 1)
+
+        fs.Read(bytes, 0, 1)
+        TransparentRGB = RGB(bmInfo.bmiColors(bytes(0)).rgbRed, bmInfo.bmiColors(bytes(0)).rgbGreen, bmInfo.bmiColors(bytes(0)).rgbBlue)
+        fs.Seek(-1, SeekOrigin.Current)
         ' Free any existing pointed to memory
         rc = GlobalFree(hMem)
         ' Allocate chunk of memory based on size of bitmap
@@ -401,7 +402,8 @@ Module modBitmaps
         ' Lock that chunk of memory
         lpMem = GlobalLock(hMem)
         ' Read the bitmap
-        BytesRead = hread(hFile, lpMem, (CInt(bmInfo.bmiHeader.biWidth / 4) * 4 + 4) * bmInfo.bmiHeader.biHeight)
+        Dim bitmap((CInt(bmInfo.bmiHeader.biWidth / 4) * 4 + 4) * bmInfo.bmiHeader.biHeight) As Byte
+        fs.Read(bitmap, 0S, (CInt(bmInfo.bmiHeader.biWidth / 4) * 4 + 4) * bmInfo.bmiHeader.biHeight)
         ' Close the file
         rc = lclose(hFile)
         'Unlock resources

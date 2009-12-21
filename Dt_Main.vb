@@ -453,9 +453,9 @@ BackToPreviousState:
 	End Sub
 	
 	Public Function CombatApplyDamage(ByRef Target As Creature, ByRef Damage As Short) As Short
-		Dim c, NoFail As Short
+        Dim NoFail As Short
 		Dim ItemX As Item
-		Dim CreatureX As Creature
+
 		' If already dead, this does nothing more
 		If Target.HPNow < 1 Then
 			CombatApplyDamage = 0
@@ -721,7 +721,7 @@ BackToPreviousState:
 	
 	Private Sub InventoryContainerClose()
 		Dim c As Short
-		Dim rc As Integer
+
 		' Close Container
 		picContainer.Visible = False
 		InvContainer.Selected = False
@@ -2716,7 +2716,7 @@ BackToPreviousState:
 		Dim CreatureX As Creature
 		Dim ItemX As Item
 		Dim TriggerX As Trigger
-		Dim Dmg, Attack, NoFail As Short
+        Dim Dmg, NoFail As Short
 		Dim DiceCnt, DiceType As Short
 		Dim Range As Short
 		' Continue attacking until out of ActionPoints
@@ -2797,7 +2797,7 @@ BackToPreviousState:
 	Public Function CombatAttack(ByRef AttackType As Short, ByRef Text_Renamed As String, ByRef InContext As Short, ByRef InVar As Short) As Short
 		Dim ItemX As Item
 		Dim Found, OverSwing As Short
-		Dim Attack, c, Dmg As Short
+        Dim c, Dmg As Short
 		Dim MaxRange, Distance, MinRange As Short
 		Dim DiceType, DiceCnt, DmgBonus As Short
 		Select Case AttackType
@@ -3280,7 +3280,7 @@ BackToPreviousState:
 	End Sub
 	
 	Private Sub GridToCursor(ByRef CursorAtX As Short, ByRef CursorAtY As Short, ByVal Row As Short, ByVal Col As Short, ByRef GridWidth As Double)
-		Dim c, GridAdjust As Short
+        Dim GridAdjust As Short
 		' Set GridWidth and GridAdjust to X
 		GridWidth = bdCombatGridWidth
 		GridAdjust = bdCombatLeft + bdCombatGridHeight * (Row Mod 2)
@@ -3296,7 +3296,7 @@ BackToPreviousState:
 		Dim c, Found As Short
 		Dim PictureFile As String
 		'UPGRADE_WARNING: Arrays in structure bmBlack may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
-		Dim bmBlack As BITMAPINFO
+        Dim bmBlack As New BITMAPINFO
 		Dim hMem, TransparentRGB As Integer
 		Dim rc As Short
 		Dim lpMem As Integer
@@ -3365,7 +3365,7 @@ BackToPreviousState:
             FileName = Dir(tome.FullPath & "\wallpapers\" & PictureFile)
 			If FileName = "" Then
 				'          FileName = gAppPath & "\data\graphics\wallpapers\" & PictureFile
-				FileName = gDataPath & "\graphics\wallpapers\" & PictureFile
+                FileName = gDataPath & "\Data\Graphics\wallpapers\" & PictureFile
 			Else
 				'UPGRADE_WARNING: Couldn't resolve default property of object Tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 FileName = tome.FullPath & "\wallpapers\" & PictureFile
@@ -3373,7 +3373,8 @@ BackToPreviousState:
 		Else
             'UPGRADE_WARNING: Couldn't resolve default property of object tome.FullPath. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             FileName = tome.FullPath & "\" & PictureFile
-		End If
+        End If
+
 		ReadBitmapFile(FileName, bmBlack, hMem, TransparentRGB)
 		' Paint bitmap to picture box using converted palette
 		lpMem = GlobalLock(hMem)
@@ -3402,7 +3403,7 @@ BackToPreviousState:
 		Dim CreatureWithTurnHold As Creature
 		Dim CreatureTargetHold As Creature
 		Dim ItemNowHold As Item
-		Dim CreatureNowHold As Creature
+
 		' Locate Target to move toward
 		i = -1
 		Select Case Motive
@@ -9683,8 +9684,7 @@ ErrorHandler:
 		Dim logError As Short
 		Dim errLevel As Short
         Dim lResult As Integer
-        picItem = New PictureBox
-        picItem.Image = System.Drawing.Bitmap.FromFile(gAppPath + "\Data\jetblack.bmp")
+      
 		' [rb] Added for 2.4.6
 		'Call ParseCommandLineArgs
 		' Initialize Error Handler Object
@@ -9746,10 +9746,10 @@ ErrorHandler:
         TomeWizardStory = 0
         TomeWizardSize = 1
         ' Set up default Item picture size (bdMaxItemPics Pictures
-        If bdMaxItemPics Is Nothing Then
-            System.Console.Out.WriteLine("NULL")
-        End If
-        picItem.Width = 64 * bdMaxItemPics
+        picItem = New PictureBox
+        picItem.Image = System.Drawing.Bitmap.FromFile(gAppPath + "\Data\jetblack.bmp")
+
+        picItem.Width = 64 * 48
         picItem.Height = 96 * 2 + 32S
 
         ' Init all the game variables
