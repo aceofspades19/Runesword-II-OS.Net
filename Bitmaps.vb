@@ -182,16 +182,25 @@ Module modBitmaps
 		Dim rgbBlue As Byte
 		Dim rgbGreen As Byte
 		Dim rgbRed As Byte
-		Dim rgbReserved As Byte
+        Dim rgbReserved As Byte
+
 	End Structure
 	
 	Structure BITMAPINFO
 		Dim bmiHeader As BITMAPINFOHEADER
-		<VBFixedArray(255)> Dim bmiColors() As RGBQUAD
-		
-        Public Sub Initialize()
+        Dim bmiColors() As RGBQUAD
+        Public Sub New(ByVal color As Integer)
             ReDim bmiColors(255)
+            Dim i As Integer
+            For i = 0 To 251
+                bmiColors(i).rgbBlue = i + 1
+                bmiColors(i).rgbGreen = i + 2
+                bmiColors(i).rgbRed = i + 3
+                bmiColors(i).rgbReserved = i + 4
+            Next
+            bmiHeader = New BITMAPINFOHEADER
         End Sub
+
 	End Structure
 	
 	Structure OFSTRUCT
@@ -391,6 +400,7 @@ Module modBitmaps
         ' Read the next byte and the back up a byte
 
         fs.Read(bytes, 0, 1)
+
         TransparentRGB = RGB(bmInfo.bmiColors(bytes(0)).rgbRed, bmInfo.bmiColors(bytes(0)).rgbGreen, bmInfo.bmiColors(bytes(0)).rgbBlue)
         fs.Seek(-1, SeekOrigin.Current)
         ' Free any existing pointed to memory

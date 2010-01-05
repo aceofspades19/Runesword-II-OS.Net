@@ -1175,17 +1175,17 @@ BackToPreviousState:
 		Dim Height_Renamed, Width_Renamed, NoFail As Short
 		Dim Size_Renamed As Double
 		Dim NextLevel As Double
-		Dim OldFrozen As Short
 		Dim ItemX As Item
-		Dim TriggerX, TriggerZ As Trigger
+        Dim TriggerX As Trigger
 		Dim X, Y As Short
 		'UPGRADE_WARNING: Arrays in structure bmMons may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
-		Dim bmMons As BITMAPINFO
+        Dim bmMons As New BITMAPINFO(0)
 		Dim hMemMons As Integer
 		'UPGRADE_WARNING: Arrays in structure bmBlack may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
-		Dim bmBlack As BITMAPINFO
+        Dim bmBlack As New BITMAPINFO(0)
+
 		'UPGRADE_WARNING: Arrays in structure bmMask may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
-		Dim bmMask As BITMAPINFO
+        Dim bmMask As New BITMAPINFO(0)
 		Dim lpMem, TransparentRGB As Integer
 		' Freeze out rest of screen
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
@@ -1303,34 +1303,35 @@ BackToPreviousState:
 						End If
 					End If
 				End If
-				If sTmp <> "" Then
-					ReadBitmapFile(sTmp, bmMons, hMemMons, TransparentRGB)
-					' Make a copy of the current palette for the picture
-					'UPGRADE_WARNING: Couldn't resolve default property of object bmBlack. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					bmBlack = bmMons
-					' Then change Pure Blue to Pure Black
-					ChangeColor(bmBlack, TransparentRGB, 0, 0, 0)
-					MakeMask(bmMons, bmMask, TransparentRGB)
-					' Paint bitmap to picture box using converted palette
-					lpMem = GlobalLock(hMemMons)
-					Width_Renamed = bmMons.bmiHeader.biWidth
-					Height_Renamed = bmMons.bmiHeader.biHeight
-					Size_Renamed = 1
-					If Width_Renamed * Size_Renamed > 228 Or Height_Renamed * Size_Renamed > 266 Then
-						Size_Renamed = 228 / Width_Renamed
-						If Height_Renamed * Size_Renamed > 266 Then
-							Size_Renamed = 266 / Height_Renamed
-						End If
-					End If
-					X = 35 + (228 - Width_Renamed * Size_Renamed) / 2 : Y = 81 + (266 - Height_Renamed * Size_Renamed) / 2
-					rc = SetSBMode(picInventory, 3)
+                If sTmp <> "" Then
+                    Dim bmMonns2 As New BITMAPINFO(0)
+                    ReadBitmapFile(sTmp, bmMonns2, hMemMons, TransparentRGB)
+                    ' Make a copy of the current palette for the picture
+                    'UPGRADE_WARNING: Couldn't resolve default property of object bmBlack. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    bmBlack = bmMons
+                    ' Then change Pure Blue to Pure Black
+                    ChangeColor(bmBlack, TransparentRGB, 0, 0, 0)
+                    MakeMask(bmMons, bmMask, TransparentRGB)
+                    ' Paint bitmap to picture box using converted palette
+                    lpMem = GlobalLock(hMemMons)
+                    Width_Renamed = bmMons.bmiHeader.biWidth
+                    Height_Renamed = bmMons.bmiHeader.biHeight
+                    Size_Renamed = 1
+                    If Width_Renamed * Size_Renamed > 228 Or Height_Renamed * Size_Renamed > 266 Then
+                        Size_Renamed = 228 / Width_Renamed
+                        If Height_Renamed * Size_Renamed > 266 Then
+                            Size_Renamed = 266 / Height_Renamed
+                        End If
+                    End If
+                    X = 35 + (228 - Width_Renamed * Size_Renamed) / 2 : Y = 81 + (266 - Height_Renamed * Size_Renamed) / 2
+                    rc = SetSBMode(picInventory, 3)
                     rc = SDIBits(picInventory, X, Y, Width_Renamed * Size_Renamed, Height_Renamed * Size_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmMask, DIB_RGB_COLORS, SRCAND)
-					'UPGRADE_ISSUE: PictureBox property picInventory.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+                    'UPGRADE_ISSUE: PictureBox property picInventory.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                     rc = SDIBits(picInventory, X, Y, Width_Renamed * Size_Renamed, Height_Renamed * Size_Renamed, 0, 0, Width_Renamed, Height_Renamed, lpMem, bmBlack, DIB_RGB_COLORS, SRCPAINT)
-					' Release memory
-					rc = GlobalUnlock(hMemMons)
-					rc = GlobalFree(hMemMons)
-				End If
+                    ' Release memory
+                    rc = GlobalUnlock(hMemMons)
+                    rc = GlobalFree(hMemMons)
+                End If
 				' Show Level and basic Stats
 				ShowText(picInventory, 45, 52, 216, 14, bdFontNoxiousBlack, "Level: " & VB6.Format(CreatureWithTurn.Level), True, False)
 				ShowText(picInventory, 45, 82, 216, 14, bdFontNoxiousBlack, "Int " & VB6.Format(CreatureWithTurn.Will), True, False)
@@ -2713,12 +2714,11 @@ BackToPreviousState:
 	
 	Private Sub CombatMonster()
 		Dim i, c, OldActionPoints As Short
-		Dim CreatureX As Creature
+
 		Dim ItemX As Item
 		Dim TriggerX As Trigger
         Dim Dmg, NoFail As Short
-		Dim DiceCnt, DiceType As Short
-		Dim Range As Short
+		
 		' Continue attacking until out of ActionPoints
 		Do Until CreatureWithTurn.ActionPoints < 1
 			System.Windows.Forms.Application.DoEvents()
@@ -2799,7 +2799,7 @@ BackToPreviousState:
 		Dim Found, OverSwing As Short
         Dim c, Dmg As Short
 		Dim MaxRange, Distance, MinRange As Short
-		Dim DiceType, DiceCnt, DmgBonus As Short
+
 		Select Case AttackType
 			Case 0, 1, 10, 63 ' AttackWith
 				If Len(Text_Renamed) < 1 Then
@@ -2964,7 +2964,7 @@ BackToPreviousState:
 	Public Function CombatRollAttack(ByRef Style As Short, ByRef Bonus As Short) As Short
 		' Returns True if Hit, False if Miss
 		Dim c, NoFail As Short
-		Dim ItemX As Item
+
 		' Set GlobalDamageStyle for Triggers
 		GlobalDamageStyle = Style
 		' Draw the Attacker and Target in the menu bar
@@ -3179,12 +3179,11 @@ BackToPreviousState:
 		Dim n, c, i, Found As Short
 		'UPGRADE_NOTE: Width was upgraded to Width_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 		'UPGRADE_NOTE: Height was upgraded to Height_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim rc As Integer
+
 		Dim OffX, Height_Renamed, Width_Renamed, OffY As Short
-		Dim HasRunes, X, Y, RuneX As Short
+        Dim X, Y As Short
 		Dim GridWidth As Double
-		Dim hOldBrush, hOldPen, hNewPen, hNewBrush As Integer
-		Dim CreatureX As Creature
+	
 		Dim Distance, MaxRange As Short
 		' Sort all pictures in order
 		CombatPaintSort()
@@ -12618,9 +12617,9 @@ ErrorHandler:
 		Dim PartyX As Creature
 		Dim Y, X, Keep As Short
 		'UPGRADE_WARNING: Arrays in structure bmBlack may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
-		Dim bmBlack As BITMAPINFO
+        Dim bmBlack As New BITMAPINFO(0)
 		'UPGRADE_WARNING: Arrays in structure bmMask may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
-		Dim bmMask As BITMAPINFO
+        Dim bmMask As New BITMAPINFO(0)
 		Dim rc, lpMem, hMem, TransparentRGB As Integer
 		'UPGRADE_NOTE: Height was upgraded to Height_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 		'UPGRADE_NOTE: Width was upgraded to Width_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
