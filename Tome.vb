@@ -86,7 +86,7 @@ Friend Class Tome
 	Private myAreas As New Collection
     Private Shared instance As Tome
 
-    Public Shared Function getInstance()
+    Public Shared Function getInstance() As Tome
         If instance Is Nothing Then
             instance = New Tome
         End If

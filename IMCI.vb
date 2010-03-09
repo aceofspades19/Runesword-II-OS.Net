@@ -141,14 +141,12 @@ Friend Class IMCI
 
     Public Function Status() As VIDEOSTATE
         'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-        Dim Left_Renamed As String
+
         'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
         'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
         'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
         Dim sParse As String
-        Dim lPos As Integer
-        Dim lStart As Integer
-        Dim sTmp As String
+      
 
         m_Error = mciSendString("status " & m_Alias & " mode", sParse, Len(sParse) - 1, 0)
         If m_Error Then GoTo Err_Handler
@@ -200,7 +198,7 @@ Err_Handler:
 
     Public Function InitAVI(ByRef Filename As String, ByRef hWnd As Integer, ByRef Name As String, Optional ByRef Align As System.Windows.Forms.DockStyle = 0) As Boolean
         'UPGRADE_NOTE: Left was upgraded to Left_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-        Dim Left_Renamed As String
+
         Dim sParse As New VB6.FixedLengthString(128)
         Dim lPos As Integer
         Dim lStart As Integer

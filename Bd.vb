@@ -1707,7 +1707,7 @@ Module modBD
 	
 	Sub FlickText(ByRef InLabel As System.Windows.Forms.Label)
 		Dim c As Short
-		Dim rc As Integer
+
 		'    Call PlaySoundFile(gAppPath & "\data\stock\click.wav", Tome, True)
 		Call PlaySoundFile(gDataPath & "\stock\click.wav", Tome, True)
 		For c = 0 To 1

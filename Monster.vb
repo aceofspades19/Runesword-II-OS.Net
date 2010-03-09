@@ -413,7 +413,7 @@ Friend Class Creature
 	
 	Public ReadOnly Property ItemAmmo() As Item
 		Get
-			Dim ItemX, ItemA, ItemH, ItemZ As Item
+            Dim ItemX, ItemH, ItemZ As Item
 			ItemH = Me.ItemInHand
 			If ItemH.IsShooter = True Then
 				' Search through equipped first
@@ -459,7 +459,7 @@ Friend Class Creature
 	
 	Public ReadOnly Property ItemInHand() As Item
 		Get
-			Dim ItemX, ItemZ As Item
+            Dim ItemX As Item
 			For	Each ItemX In myItems
 				If ItemX.IsReady And ItemX.InHand Then
 					ItemInHand = ItemX
@@ -1305,7 +1305,7 @@ Friend Class Creature
 	Public ReadOnly Property ResistanceTypeWithArmor(ByVal DamageType As Short) As Short
 		Get
 			Dim ItemX As Item
-			Dim c As Short
+
 			' Damage type is:
 			'       0 - None, 1 - Sharp, 2 - Blunt, 3 - Cold, 4 - Heat, 5 - Evil
 			'       6 - Good, 7 - Energy, 8 - Mind
@@ -1700,7 +1700,7 @@ Friend Class Creature
 	
 	Public Sub UseAmmo()
 		Dim ItemX, ItemAmmo, ItemZ As Item
-		Dim Found As Short
+
 		ItemAmmo = Me.ItemAmmo
 		If ItemAmmo.IsAmmo = True Then
 			If ItemAmmo.Count = 1 Then
@@ -1826,7 +1826,7 @@ Friend Class Creature
 	End Sub
 	
 	Public Sub Copy(ByRef FromCreature As Creature)
-		Dim c, i As Short
+        Dim c As Short
 		Dim myTrigger As Trigger
 		Dim myItem As Item
 		Dim ConversationX As Conversation

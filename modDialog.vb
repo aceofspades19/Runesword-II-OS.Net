@@ -49,7 +49,7 @@ Module modDialog
 	
 	Public Sub DialogSetUp(ByRef Style As modGameGeneral.DLGTYPE)
 		Dim c As Short
-		Dim rc As Integer
+
 		' This makes for a cleaner resize of the dialog box
 		With frmMain
 			'UPGRADE_ISSUE: PictureBox method picConvo.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
@@ -86,7 +86,7 @@ Module modDialog
 	
 	Public Sub DialogClick(ByRef AtX As Short, ByRef AtY As Short, ByRef ButtonDown As Short)
 		Dim ButtonCnt, c, PosY As Short
-		Dim rc As Integer
+
 		' Count the available buttons (compatabiity issues here)
 		For c = 0 To 4
 			If ButtonList(c) <> "" Then
@@ -127,7 +127,7 @@ Module modDialog
         Dim c, PosY As Short
         Dim OldPointer As Cursor
 		Dim rc As Integer
-        Dim OldFrozen As Cursor
+
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		OldPointer = System.Windows.Forms.Cursor.Current
 
@@ -217,7 +217,7 @@ Module modDialog
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub DialogShowFace(ByRef CreatureX As Object)
-		Dim Tome_Renamed As Object
+
 		Dim rc As Integer
 		Dim c, Found As Short
 		Dim X, Y As Short
@@ -370,7 +370,7 @@ Module modDialog
 	
 	Public Sub DialogDM(ByRef Text As String)
         Dim OldPointer As Cursor
-		Dim rc As Integer
+
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
 		OldPointer = System.Windows.Forms.Cursor.Current
 		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
@@ -386,7 +386,7 @@ Module modDialog
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub DialogBrief(ByRef CreatureX As Object, ByRef Text As String)
-		Dim Tome_Renamed As Object
+
 		Dim CreatureZ As Creature
 		Dim Found, c As Short
 		Dim DialogX As DialogStack
@@ -462,7 +462,7 @@ Module modDialog
 	End Sub
 	
 	Public Sub DialogSetButton(ByRef ButtonNumber As Short, ByRef Text As String)
-		Dim c As Short
+
 		' Paint the button
 		ButtonList(ButtonNumber - 1) = Text
 	End Sub
@@ -474,7 +474,7 @@ Module modDialog
 	'UPGRADE_NOTE: Rate was upgraded to Rate_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub DialogBuySell(ByRef TriggerX As Trigger, ByRef Style As Short, ByRef Rate_Renamed As Short)
 		' CreatureTarget Buys and Sells ItemNow for a fixed amount = ItemNow.Value +/- (ItemNow.Value * (Rate/100))
-		Dim ItemX, ItemZ As Item
+        Dim ItemX As Item
 		Dim DialogTalkVisible As Short
 		' Setup CreatureSelling as CreatureTarget
 		CreatureSelling = CreatureTarget
@@ -700,7 +700,7 @@ Module modDialog
 		Dim rc As Integer
 		Dim n, c, Font As Short
 		Dim ItemX As Item
-		Dim SellPrice As Integer
+
 		Dim Width, Height As Short
 		Dim Text As String
 		With frmMain
@@ -830,7 +830,7 @@ Module modDialog
 	
 	Public Sub DialogBuySellPC()
 		' Set up CreatureWithTurn to sell stuff
-		Dim ItemX, ItemZ As Item
+        Dim ItemX As Item
 		SellList = New Collection
 		For	Each ItemX In CreatureWithTurn.Items
 			If ItemX.IsMoney = False Then

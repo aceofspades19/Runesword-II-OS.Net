@@ -30,10 +30,9 @@ Module modJournal
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub JournalClick(ByRef AtX As Short, ByRef AtY As Short, ByRef ButtonDown As Short)
-		Dim Tome_Renamed As Object
-		Dim rc As Integer
+	
 		Dim JournalX As Journal
-		Dim intJournal As Short
+
 		If bAddMode Then
 			If PointIn(AtX, AtY, 268, 350, 90, 18) Then
 				' Accept
@@ -167,7 +166,7 @@ Module modJournal
 	Public Sub JournalShow()
 		Dim rc As Integer
 		Dim c As Short
-		Dim JournalX As Journal
+
 		blnDeleteButton = False
 		'UPGRADE_ISSUE: PictureBox method picJournal.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         frmMain.picJournal = Nothing
@@ -299,11 +298,11 @@ Module modJournal
 	End Sub
 	
 	Public Sub JournalShowMap()
-		Dim Side, X, Y, i As Short
-		Dim rc As Short
+        Dim Side, X, Y As Short
+
 		'UPGRADE_NOTE: my was upgraded to my_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim XMap, mx, my_Renamed, YMap As Short
-		Dim sx, sy As Short
+        Dim XMap, YMap As Short
+
 		Dim FromY, ToY As Short
 		Dim FromX, ToX As Short
 		' Limit of MicroMap Picture
@@ -360,7 +359,7 @@ Module modJournal
 	End Sub
 	
 	Public Sub JournalMoveMap()
-		Dim c As Short
+
 		MicroMapLeft = MicroMapLeft - Int(frmMain.picMicroMap.Left / 24)
 		MicroMapTop = MicroMapTop - Int(frmMain.picMicroMap.Left / 24)
 		MicroMapLeft = MicroMapLeft + Int(frmMain.picMicroMap.Top / 18)
@@ -372,7 +371,7 @@ Module modJournal
 	End Sub
 	
 	Public Sub JournalQuestsLoad()
-		Dim c, Found As Short
+        Dim Found As Short
 		Dim JournalX As Journal
 		JournalList = New Collection
 		Found = False
@@ -391,7 +390,7 @@ Module modJournal
 	End Sub
 	
 	Public Sub JournalEntryLoad()
-		Dim c, Found As Short
+        Dim Found As Short
 		Dim JournalX As Journal
 		JournalList = New Collection
 		Found = False

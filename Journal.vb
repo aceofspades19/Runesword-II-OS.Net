@@ -52,7 +52,7 @@ Friend Class Journal
 	End Sub
 	
 	Public Sub SaveToFile(ByRef ToFile As Short)
-		Dim c As Short
+
 		' Save Item Text, Index
 		'UPGRADE_WARNING: Put was upgraded to FilePut and has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
 		FilePut(ToFile, myVersion)

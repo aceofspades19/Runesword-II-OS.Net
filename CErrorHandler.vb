@@ -93,7 +93,7 @@ Err_Handler:
 		'    If errLevel < m_ErrorLevel Then GoTo ERR_CHECK_CRITICAL
 		If m_ErrorOutput = ErrorOutput.LOG_NONE Then GoTo ERR_CHECK_CRITICAL
 		Dim sMsg As String
-		Dim ErrOut As ErrorOutput
+
 		Dim timestamp As String
 		Dim intErrNumber As Short
 		timestamp = VB6.Format(Now, "yyyy mm dd hh:mm:ss")

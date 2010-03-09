@@ -446,7 +446,7 @@ Friend Class Trigger
 	
 	Public Function AddCreatureAsIndex(ByRef Index As Short) As Creature
 		' Adds an Creature and returns a reference to that Creature
-		Dim c As Short
+
 		Dim CreatureX As Creature
 		' Set the index and add the door. Return the new door's index.
 		CreatureX = New Creature
@@ -481,7 +481,7 @@ Friend Class Trigger
 	
 	Public Function AddItemAsIndex(ByRef Index As Short) As Item
 		' Adds an Item and returns a reference to that Item
-		Dim c As Short
+
 		Dim ItemX As Item
 		' Set the index and add the door. Return the new door's index.
 		ItemX = New Item
@@ -516,7 +516,7 @@ Friend Class Trigger
 	
 	Public Function AddTriggerAsIndex(ByRef Index As Short) As Trigger
 		' Adds an Item and returns a reference to that Item
-		Dim c As Short
+
 		Dim TriggerX As Trigger
 		' Set the index and add the door. Return the new door's index.
 		TriggerX = New Trigger
@@ -532,7 +532,7 @@ Friend Class Trigger
 	
 	Public Function AddStatement(Optional ByRef AfterIndex As Object = Nothing) As Statement
 		' Adds an Statement and returns a reference to that Statement
-		Dim c, i As Short
+        Dim c As Short
 		Dim StatementX As Statement
 		' Find new available unused index idenifier
 		c = 1
@@ -557,7 +557,7 @@ Friend Class Trigger
 	
 	Public Function AddStatementAsIndex(ByRef Index As Short) As Statement
 		' Adds an Statement and returns a reference to that Statement
-		Dim c, i As Short
+
 		Dim StatementX As Statement
 		' Create the Statement and set the index
 		StatementX = New Statement
@@ -567,7 +567,7 @@ Friend Class Trigger
 	End Function
 	
 	Public Sub Copy(ByRef FromTrigger As Trigger)
-		Dim c As Short
+
 		Dim StatementX As Statement
 		Dim CreatureX As Creature
 		Dim ItemX As Item

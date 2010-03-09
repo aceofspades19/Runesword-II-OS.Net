@@ -213,7 +213,7 @@ Module modDungeonMaker
 	End Sub
 	
 	Public Sub UberWizScatterQuests(ByRef UberWizX As UberWizard)
-		Dim i, MapCnt, c, x As Short
+        Dim MapCnt, c As Short
 		Dim MapSketchX As MapSketch
 		Dim ThemeX, ThemeZ As Theme
 		Dim ThemeSketchX As ThemeSketch
@@ -884,7 +884,7 @@ Module modDungeonMaker
 		Dim strNameSet, Name, Text As String
 		Dim strNamesList(3) As String
 		Dim i, c, hndFile As Short
-		Dim lResult As Integer
+
 		Dim blnFound As Boolean
 		Randomize()
 		' [Titi 2.4.7] Added possibility to choose names from a text file
@@ -1092,7 +1092,7 @@ Module modDungeonMaker
 	End Function
 	
 	Public Sub MakeMap(ByRef MapX As Map, ByRef Fill As Short)
-		Dim y, x, c As Short
+        Dim y, x As Short
 		Dim EncounterX As Encounter
 		Randomize()
 		' If appending, go mark the map as Halls
@@ -1153,8 +1153,7 @@ Module modDungeonMaker
 	Private Sub WallMap(ByRef MapX As Map)
 		Dim Found, y, x, c, i As Short
 		Dim TileX As Tile
-		Dim TileSetX As TileSet
-		Dim TileSetPtr As Short
+		
 		Dim EntryX As EntryPoint
 		Dim CornerWall, LeftWall, LeftArch As Short
 		Dim RoomFloor, HallFloor, CornerArch As Short
@@ -1711,8 +1710,8 @@ Module modDungeonMaker
 	
 	Private Sub BubbleTubes(ByRef MapX As Map)
 		Dim h, c, w, i As Short
-		Dim MaxH, MaxW, EncounterCnt As Short
-		Dim MinW, MinH As Short
+        Dim EncounterCnt As Short
+
 		Dim Found, x, y, Plop As Short
 		Dim nonCollisions, temp, Tick As Short
 		Dim XDir, YDir As Short
@@ -1849,7 +1848,7 @@ Module modDungeonMaker
 	Private Sub Rectangles(ByRef MapX As Map)
 		Dim h, c, w, i As Short
 		Dim MaxH, MaxW, EncounterCnt As Short
-		Dim MinW, MinH As Short
+
 		Dim Found, x, y, Plop As Short
 		Dim nonCollisions, temp, Tick As Short
 		Dim XDir, YDir As Short
@@ -1952,7 +1951,7 @@ Module modDungeonMaker
 		Dim h, c, w, i As Short
 		Dim MaxH, MaxW, EncounterCnt As Short
 		Dim MinW, MinH As Short
-		Dim Found, x, y, Plop As Short
+        Dim Found, x, y As Short
 		Dim nonCollisions, temp, Tick As Short
 		Dim XDir, YDir As Short
 		Dim EncounterX As Encounter
@@ -2073,8 +2072,7 @@ Module modDungeonMaker
 		Dim EndX, StartX, StepX As Short
 		Dim c, x, y, Tick As Short
 		Dim Available, Mine As Short
-		Dim CreatureX As Creature
-		Dim ItemX As Item
+		
 		Dim ThemeZ As Theme
 		' Clear the number of Encounters counted for each Theme
 		For	Each ThemeZ In MapX.Themes
@@ -2559,7 +2557,7 @@ Module modDungeonMaker
 	
 	Public Sub PositionCreature(ByRef MapX As Map, ByRef EncounterX As Encounter, ByRef CreatureX As Creature)
 		Dim y, x, c As Short
-		Dim CreatureZ As Creature
+
 		Dim AtX(1) As Short
 		Dim AtY(1) As Short
 		Dim Cnt, Tick As Short
@@ -2586,7 +2584,7 @@ Module modDungeonMaker
 		' This positions CreatureX in a valid TileSpot in its EncounterX or returns False
 		Dim c As Short
 		Dim Spots(8) As Short
-		Dim Tick As Short
+
 		Dim CreatureZ As Creature
 		PositionCreatureSpot = False
 		For	Each CreatureZ In EncounterX.Creatures
@@ -2605,7 +2603,7 @@ Module modDungeonMaker
 	
 	Public Sub PositionItem(ByRef MapX As Map, ByRef EncounterX As Encounter, ByRef ItemX As Item)
 		Dim y, x, c As Short
-		Dim ItemZ As Item
+
 		Dim AtX(1) As Short
 		Dim AtY(1) As Short
 		Dim Cnt, Tick As Short
@@ -2632,7 +2630,7 @@ Module modDungeonMaker
 		' This positions ItemX in a valid TileSpot in its EncounterX or returns False
 		Dim c As Short
 		Dim Spots(8) As Short
-		Dim Tick As Short
+
 		Dim ItemZ As Item
 		PositionItemSpot = False
 		For	Each ItemZ In EncounterX.Items

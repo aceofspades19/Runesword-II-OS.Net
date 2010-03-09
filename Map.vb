@@ -628,7 +628,7 @@ Friend Class Map
 
     Public Function AddEntryPointAsIndex(ByRef Index As Short) As EntryPoint
         ' Adds an EntryPoint and returns a reference to that EntryPoint
-        Dim c As Short
+
         Dim EntryPointX As EntryPoint
         ' Set the index and add the entrypoint. Return the new entrypoint's index.
         EntryPointX = New EntryPoint
@@ -664,7 +664,7 @@ Friend Class Map
 
     Public Function AddEncounterAsIndex(ByRef Index As Short) As Encounter
         ' Adds an Encounter and returns a reference to that Encounter
-        Dim c As Short
+
         Dim EncounterX As Encounter
         ' Set the index and add the encounter. Return the new encounter's index.
         EncounterX = New Encounter
@@ -695,7 +695,7 @@ Friend Class Map
 
     Public Function AddThemeAsIndex(ByRef Index As Short) As Theme
         ' Adds an Theme and returns a reference to that Theme
-        Dim c As Short
+
         Dim ThemeX As Theme
         ' Set the index and add the Theme. Return the new Theme's index.
         ThemeX = New Theme
@@ -726,7 +726,7 @@ Friend Class Map
 
     Public Function AddTileAsIndex(ByRef Index As Short) As Tile
         ' Adds a Tile and returns a reference to that Tile
-        Dim c As Short
+
         Dim TileX As Tile
         ' Create the Tile and set the Index
         TileX = New Tile
@@ -1184,7 +1184,7 @@ ErrorHandler:
     End Function
 
     Public Function Blocked(ByVal X As Short, ByVal Y As Short, ByVal Side As Object) As Short
-        Dim c, i As Short
+        Dim c As Short
         ' Tile is blocked by any in Top, Middle or Bottom on either side
         c = 0
         If myTopTile(X, Y) > 0 Then
@@ -1268,7 +1268,7 @@ ErrorHandler:
     End Function
 
     Public Function See(ByVal X As Short, ByVal Y As Short, ByVal Side As Object) As Short
-        Dim c, i As Short
+        Dim c As Short
         ' Tile is See by any in Top, Middle or Bottom on either side
         c = 0
         If myTopTile(X, Y) > 0 Then

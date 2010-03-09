@@ -4,18 +4,13 @@ Module modCreateCharacter
     Private tome As Tome = tome.getInstance()
 	Public Sub CreatePCLoadWorlds(Optional ByRef WorldTemp As World = Nothing)
 		'Dim c As Integer, i As Integer, k As Integer, n As Integer, rc As Integer, FileName As String
-		Dim k, c, i, n As Short
+
 		Dim Filename As String
 		Dim WorldCnt As Short
 		Dim WorldX As World
 		Dim Text As String '* 8192
-		Dim Kingdoms As Short
-		Dim KingdomX As Kingdom
-		Dim CreatureX As Object
-		Dim PictureFile As String
-		Dim PictureX As Factoid
-		Dim TomeFileName As String
-		Dim DirName As String
+	
+        Dim DirName As String
 		'UPGRADE_NOTE: Default was upgraded to Default_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 		Dim Default_Renamed As Short
 		Dim DefaultWorld As String
@@ -96,8 +91,8 @@ Module modCreateCharacter
 	End Sub
 	
 	Public Sub CreatePCClick(ByRef AtX As Short, ByRef AtY As Short, ByRef ButtonDown As Short)
-		Dim n, c, k As Short
-		Dim rc As Integer
+        Dim c, k As Short
+
 		Dim TriggerX As Trigger
 		Dim KingdomX As Kingdom
 		' [Titi 2.4.7] what if more than 12 kingdoms?
@@ -323,7 +318,7 @@ Err_Handler:
 	End Sub
 	
 	Public Sub CreatePCKingdom(ByRef Index As Short)
-		Dim c, n As Short
+
 		Dim rc As Integer
 		TomeAction = bdCreatePCKingdom
 		' Show current Kingdom viewing
@@ -364,9 +359,9 @@ Err_Handler:
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub CreatePCPicture(ByRef Index As Short)
-		Dim Tome_Renamed As Object
+
 		Dim c, n As Short
-		Dim PictureFileX As Factoid
+
 		Dim rc As Integer
 		Dim Size As Double
 		Dim Width, Height As Short
@@ -521,7 +516,7 @@ Err_Handler:
 	
 	Private Sub CreatePCSkills(ByRef Index As Short)
 		Dim n, c, SkillPointsUsed As Short
-		Dim TriggerX As Trigger
+
 		Dim Found As Short
 		Dim rc As Integer
 		TomeAction = bdCreatePCSkills
@@ -613,8 +608,8 @@ Err_Handler:
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub CreatePCName(ByRef Index As Short)
-		Dim Tome_Renamed As Object
-		Dim c, n As Short
+
+        Dim c As Short
 		Dim rc As Integer
 		Dim Size As Double
 		Dim Width, Height As Short
@@ -710,7 +705,7 @@ Err_Handler:
 	
 	Public Sub CreatePCPickKingdom(ByRef AtX As Short, ByRef AtY As Short)
 		Dim c As Short
-		Dim rc As Integer
+
 		Dim KingdomX As Kingdom
 		For c = 1 To WorldNow.Kingdoms.Count()
 			KingdomX = WorldNow.Kingdoms.Item(c)

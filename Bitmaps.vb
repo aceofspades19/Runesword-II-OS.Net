@@ -339,7 +339,7 @@ Module modBitmaps
         src.ReleaseHdc()
     End Function
     Public Function ChangeScreenSettings(ByRef lWidth As Short, ByRef lHeight As Short, ByRef lColors As Short) As Short
-        Dim tDevMode As DEVMODE
+        Dim tDevMode As New DEVMODE()
         Dim lTemp, lIndex As Integer
         lIndex = 0
         Do

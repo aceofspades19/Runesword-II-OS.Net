@@ -61,13 +61,11 @@ Module modEvents
 		End With
 	End Function
 	
-	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	'UPGRADE_NOTE: Area was upgraded to Area_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
+	
 	Public Function FireTrigger(ByRef ParentX As Object, ByRef TrigToFire As Trigger) As Short
-		Dim Area_Renamed As Object
-		Dim Tome_Renamed As Object
-		Dim Map_Renamed As Object
+
+
+
 		Static PgmStack As New Collection
 		Dim CreatureX, CreatureY As Creature
 		Dim ItemX, ItemY As Item
@@ -79,7 +77,7 @@ Module modEvents
 		Dim MapX As Map
 		Dim TopicX As Topic
 		Dim ConvoX As Conversation
-		Dim X, i, c, RefreshMap, Y As Short
+        Dim X, c, RefreshMap, Y As Short
 		Dim ReplyTxt As String
 		Dim sText As String
 		Dim Found As Short
@@ -88,7 +86,7 @@ Module modEvents
 		Dim FactoidX As Factoid
 		Dim JournalX As Journal
 		Dim ObjectX, ObjectY As Object
-		Dim t1, t2 As Single
+        Dim t1 As Single
 		Dim Height, Width, Cells As Short
 		Dim rc As Short
 		' Add TriggerName to Debug
@@ -1338,7 +1336,7 @@ Module modEvents
 	
 	Public Function ConvertVarContext(ByRef InContext As String, ByRef InVar As String) As Object
 		Dim c, i As Short
-		Dim Text As String
+
 		'UPGRADE_WARNING: Couldn't resolve default property of object ConvertVarContext. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		ConvertVarContext = ""
 		For c = 0 To 32
@@ -1485,12 +1483,11 @@ Module modEvents
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Function GetVarContext(ByRef AsContext As Short, ByRef AsVar As Short) As Object
-		Dim Map_Renamed As Object
-		Dim Tome_Renamed As Object
+		
 		Dim ObjectX As Object
-		Dim TriggerX As Trigger
+
 		Dim Found As Short
-		Dim X, NoFail, c, Y As Short
+        Dim X, c, Y As Short
 		' Get value
 		Select Case AsContext
 			Case 0 'Tome
@@ -2799,8 +2796,7 @@ Module modEvents
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	'UPGRADE_NOTE: Map was upgraded to Map_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub PutVarContext(ByRef IntoContext As Short, ByRef IntoVar As Short, ByRef AsValue As Object)
-		Dim Map_Renamed As Object
-		Dim Tome_Renamed As Object
+	
 		Dim ObjectX As Object
 		Dim FactoidX As Factoid
 		Dim Y, X, Found As Short
@@ -3500,7 +3496,7 @@ Module modEvents
 						'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Initiative. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 						ObjectX.Initiative = sInteger
                     Case 161 ' Facing
-                        Dim i As Integer
+
                         'UPGRADE_WARNING: Couldn't resolve default property of object ObjectX.Facing. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         ObjectX.Facing = System.Math.Abs(System.Math.Sign(sInteger))
                 End Select

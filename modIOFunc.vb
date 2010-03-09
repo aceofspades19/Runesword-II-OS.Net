@@ -139,7 +139,7 @@ Err_Handler:
 	' following are only required in  the game engine
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Public Sub PlayMusicRnd(ByRef Style As RNDMUSICSTYLE, ByRef frm As System.Windows.Forms.Form)
-		Dim Tome_Renamed As Object
+
 		Dim FileName As String
 		Dim c, Pick As Short
 		Dim sPath As String

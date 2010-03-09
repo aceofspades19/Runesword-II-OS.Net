@@ -265,7 +265,7 @@ Friend Class MapSketch
 			PartySize = CShort(myStyle And &H3)
 		End Get
 		Set(ByVal Value As Short)
-			Dim ThemeSketchX As ThemeSketch
+
 			myStyle = myStyle And &HFFFC
 			myStyle = myStyle Or (Value And &H3)
 		End Set
@@ -277,7 +277,7 @@ Friend Class MapSketch
 			PartyAvgLevel = CShort(CShort(myStyle And &HC) / 4)
 		End Get
 		Set(ByVal Value As Short)
-			Dim ThemeSketchX As ThemeSketch
+
 			myStyle = myStyle And &HFFF3
 			myStyle = myStyle Or (Value * 4 And &HC)
 		End Set

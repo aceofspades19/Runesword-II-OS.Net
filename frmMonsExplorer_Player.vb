@@ -60,7 +60,7 @@ Friend Class frmMonsExplorerPlayer
 	Dim dblBackGround, dblForeGround As Double
 	
 	Private Sub InitCreaExpl()
-		Dim bExists As Boolean
+
 		' [Titi 2.4.9] save the user's background and foreground system colors
 		dblBackGround = GetSysColor(COLOR_HIGHLIGHT)
 		dblForeGround = GetSysColor(COLOR_HIGHLIGHTTEXT)
@@ -376,7 +376,7 @@ Friend Class frmMonsExplorerPlayer
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub ShowMonsPortrait(ByRef FileName As String)
-		Dim Tome_Renamed As Object
+
 		Dim X, Y As Short
 		Dim NewWidth, NewHeight As Short
 		'UPGRADE_WARNING: Arrays in structure bmMons may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
@@ -460,7 +460,7 @@ Friend Class frmMonsExplorerPlayer
 	
 	'UPGRADE_NOTE: Tome was upgraded to Tome_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub ShowMonsPicture(ByRef FileName As String)
-		Dim Tome_Renamed As Object
+
 		Dim X, Y As Short
 		Dim NewWidth, NewHeight As Short
 		'UPGRADE_WARNING: Arrays in structure bmMons may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'

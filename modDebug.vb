@@ -12,7 +12,7 @@ Module modDebug
 	Public Sub DebugAdd(ByRef TrigX As Trigger, ByRef StmtX As Statement)
 		Dim c As Short
 		Dim FactoidX As Factoid
-        Dim Text, Text2 As String
+        Dim Text As String
         Dim tome As Tome
         Dim area As Area
         ' Add Statement to Que
@@ -70,7 +70,7 @@ Module modDebug
 	End Sub
 	
 	Public Sub DebugShow()
-		Dim Found, OldMouse As Short
+
 		If GlobalDebugMode = 1 Then
 			' Setup with List
 			'DialogSetUp bdDlgDebug
@@ -90,8 +90,7 @@ Module modDebug
 	
 	Public Sub DebugList()
 		Dim n, c As Short
-		Dim rc As Integer
-		Dim FactoidX As Factoid
+		
 		n = 0
 		'UPGRADE_ISSUE: PictureBox method picConvoList.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         frmMain.picConvoList = Nothing
@@ -109,8 +108,7 @@ Module modDebug
 	End Sub
 	
 	Public Sub DebugClick(ByRef AtX As Short, ByRef AtY As Short, ByRef ButtonDown As Short)
-		Dim c As Short
-		Dim rc As Integer
+
 		If PointIn(AtX, AtY, 331, 2, 18, 269) Then
 			' ScrollBar Click
 			'If ScrollBarClick(AtX, AtY, ButtonDown, frmMain.picConvoList, 331, 2, 269, DebugTop, DebugQue.Count, 18) = True Then
