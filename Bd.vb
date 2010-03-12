@@ -2126,46 +2126,25 @@ Module modBD
 		End Select
 	End Function
 	
-	Public Sub InitializeRunes(ByRef strWorldName As String)
-		Dim sWorld As Object
-		' [Titi 2.4.8] added to use the runes of the current world
-		Dim Filename, Text As String
-		Dim hndFile As Short
+    Public Sub InitializeRunes(ByRef strWorldName As String, ByRef spath As String)
+        ' [Titi 2.4.8] added to use the runes of the current world
+        Dim Filename, Text As String
+        Dim hndFile As Short
         Filename = "Roster\" & strWorldName & "\" & strWorldName & ".txt"
         If Not (System.IO.File.Exists(Filename)) Then
             ' if not found, use Eternia's settings
             Filename = gAppPath & "\Roster\Eternia\Eternia.txt"
         End If
-		hndFile = FreeFile
-		FileOpen(hndFile, Filename, OpenMode.Input)
-		Text = LineInput(hndFile) ' first line = runes section
-		Text = LineInput(hndFile) ' second line = runes count
-		intNbRunes = CShort(Val(Right(Text, Len(Text) - 6))) ' get rid of "Count="
-		If intNbRunes > 20 Then intNbRunes = 20 ' max 20
-		strRunesList = LineInput(hndFile) ' third line = list of runes names
-		Text = LineInput(hndFile) ' fourth line = runes pictures set
-		FileClose(hndFile)
-		Text = Right(Text, Len(Text) - 11) ' get rid of "PictureSet="
-		If GlobalInterfaceName <> "" Then
-			' this only for the player
-			'UPGRADE_WARNING: Couldn't resolve default property of object sWorld. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            If System.IO.File.Exists(gAppPath & "\Data\Roster\" & sWorld & "\" & Text) Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object sWorld. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                frmMain.picRuneSet.Image = System.Drawing.Image.FromFile(gAppPath & "\Roster\" & sWorld & "\" & Text)
-            Else
-                ' default=Eternia set
-                '            frmMain.picRuneSet.Picture = LoadPicture(gAppPath & "\data\Interface\" & GlobalInterfaceName & "\RuneSet.bmp")
-                Dim Path As String = gDataPath & "\Data\Interface\" & GlobalInterfaceName & "\RuneSet.bmp"
+        hndFile = FreeFile()
+        FileOpen(hndFile, Filename, OpenMode.Input)
+        Text = LineInput(hndFile) ' first line = runes section
+        Text = LineInput(hndFile) ' second line = runes count
+        intNbRunes = CShort(Val(Right(Text, Len(Text) - 6))) ' get rid of "Count="
+        If intNbRunes > 20 Then intNbRunes = 20 ' max 20
+        strRunesList = LineInput(hndFile) ' third line = list of runes names
+        Text = LineInput(hndFile) ' fourth line = runes pictures set
+        FileClose(hndFile)
+        Text = Right(Text, Len(Text) - 11) ' get rid of "PictureSet="
 
-                Try
-                    frmMain.picRuneSet.Image = System.Drawing.Image.FromFile(Path)
-                Catch ex As System.IO.FileNotFoundException
-
-                Catch ex As System.OutOfMemoryException
-
-                End Try
-
-            End If
-		End If
-	End Sub
+    End Sub
 End Module

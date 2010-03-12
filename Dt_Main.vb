@@ -31,7 +31,8 @@ Friend Class frmMain
 	Const bdCombatGridHeight As Short = 24
 	Const bdCombatTop As Short = 135
 	Const bdCombatLeft As Short = 12
-	Const bdContextDice As Short = 31
+    Const bdContextDice As Short = 31
+    Dim sPath As String
 	
 	Public Enum MOVEDIRECTION
 		bdMoveToward = 0
@@ -9258,7 +9259,7 @@ ErrorHandler:
 		Dim c As Short
 		Dim rc As Integer
 		Dim CreatureX As Creature
-		Dim sPath As String
+
 		'UPGRADE_NOTE: Text was upgraded to Text_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 		Dim hndFile As Short
 		Dim Text_Renamed, sWorld As String
@@ -9272,65 +9273,71 @@ ErrorHandler:
 		picFonts.Image = System.Drawing.Image.FromFile(sPath & "Fonts.bmp")
 		' [Titi 2.4.8] since we can now change the name, why not change the picture of the runes?
 		lResult = fReadValue(gAppPath & "\Settings.ini", "World", "Current", "S", "Eternia", sWorld)
-		InitializeRunes(sWorld)
-		' Combat stuff
-		picToHit.Image = System.Drawing.Image.FromFile(sPath & "CombatRoll.bmp")
-		' Load dice
-		LoadDicePic(GlobalDiceName)
-		' Clear out any existing Creature Faces
-		For c = 1 To bdMaxMonsPics
-			PicFile(c) = ""
-			If PicFileTime(c) > 0 Then
-				picCPic.Unload(c)
-				picCMap.Unload(c)
-			End If
-			PicFileTime(c) = 0
-		Next c
-		For	Each CreatureX In EncounterNow.Creatures
-			CreatureX.Pic = 0
-		Next CreatureX
-		For	Each CreatureX In Tome.Creatures
-			CreatureX.Pic = 0
-		Next CreatureX
-		picFaces.Image = System.Drawing.Image.FromFile(sPath & "DialogFace.bmp")
-		picFaces.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize : picFaces.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
-		picMainMenu.Image = System.Drawing.Image.FromFile(sPath & "MainMenu.bmp")
-		picBlack.Image = System.Drawing.Image.FromFile(sPath & "MainMenuRollOver.bmp")
-		picTomeNew.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-		'UPGRADE_WARNING: Picture has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		picTomeNew.BackgroundImage = System.Drawing.Image.FromFile(sPath & "TomeMenu.bmp")
-		picCreateName.Image = System.Drawing.Image.FromFile(sPath & "DialogAcceptText.bmp")
-		picInventory.Image = System.Drawing.Image.FromFile(sPath & "DialogInventory.bmp")
-		' DialogShow
-		picConvo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-		'UPGRADE_WARNING: Picture has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		picConvo.BackgroundImage = System.Drawing.Image.FromFile(sPath & "DialogShow.bmp")
-		picConvoBottom.Width = picConvo.Width : picConvoBottom.Height = 6 + picMenu.ClientRectangle.Height
-		'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        InitializeRunes(sWorld, sPath)
+
+        picRuneSet.Image = System.Drawing.Image.FromFile(sPath & "RuneSet.bmp")
+
+
+
+
+        ' Combat stuff
+        picToHit.Image = System.Drawing.Image.FromFile(sPath & "CombatRoll.bmp")
+        ' Load dice
+        LoadDicePic(GlobalDiceName)
+        ' Clear out any existing Creature Faces
+        For c = 1 To bdMaxMonsPics
+            PicFile(c) = ""
+            If PicFileTime(c) > 0 Then
+                picCPic.Unload(c)
+                picCMap.Unload(c)
+            End If
+            PicFileTime(c) = 0
+        Next c
+        For Each CreatureX In EncounterNow.Creatures
+            CreatureX.Pic = 0
+        Next CreatureX
+        For Each CreatureX In tome.Creatures
+            CreatureX.Pic = 0
+        Next CreatureX
+        picFaces.Image = System.Drawing.Image.FromFile(sPath & "DialogFace.bmp")
+        picFaces.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize : picFaces.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        picMainMenu.Image = System.Drawing.Image.FromFile(sPath & "MainMenu.bmp")
+        picBlack.Image = System.Drawing.Image.FromFile(sPath & "MainMenuRollOver.bmp")
+        picTomeNew.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        'UPGRADE_WARNING: Picture has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
+        picTomeNew.BackgroundImage = System.Drawing.Image.FromFile(sPath & "TomeMenu.bmp")
+        picCreateName.Image = System.Drawing.Image.FromFile(sPath & "DialogAcceptText.bmp")
+        picInventory.Image = System.Drawing.Image.FromFile(sPath & "DialogInventory.bmp")
+        ' DialogShow
+        picConvo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        'UPGRADE_WARNING: Picture has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
+        picConvo.BackgroundImage = System.Drawing.Image.FromFile(sPath & "DialogShow.bmp")
+        picConvoBottom.Width = picConvo.Width : picConvoBottom.Height = 6 + picMenu.ClientRectangle.Height
+        'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         rc = BBlt(picConvoBottom, picConvo, 0, 0, picConvo.ClientRectangle.Width, picConvo.ClientRectangle.Height, 0, picConvo.Height - 6, SRCCOPY)
-		'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-		'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        'UPGRADE_ISSUE: PictureBox property picConvo.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        'UPGRADE_ISSUE: PictureBox property picConvoBottom.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         rc = BBlt(picConvoBottom, picConvo, 0, 6, picConvo.ClientRectangle.Width, picConvo.ClientRectangle.Height, 6, 64, SRCCOPY)
-		picConvoBottom.Refresh()
-		picConvoEnter.Image = System.Drawing.Image.FromFile(sPath & "DialogAcceptText.bmp")
-		picConvoList.Image = System.Drawing.Image.FromFile(sPath & "DialogListBox.bmp")
-		picTalk.Image = System.Drawing.Image.FromFile(sPath & "DialogTalk.bmp")
-		picJournal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-		'UPGRADE_WARNING: Picture has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		picJournal.BackgroundImage = System.Drawing.Image.FromFile(sPath & "DialogJournal.bmp")
-		picSearch.Image = System.Drawing.Image.FromFile(sPath & "DialogSearch.bmp")
-		picContainer.Image = System.Drawing.Image.FromFile(sPath & "DialogSearch.bmp")
-		picBuySell.Image = System.Drawing.Image.FromFile(sPath & "DialogBuySell.bmp")
-		picDialogBrief.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-		'UPGRADE_WARNING: Picture has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-		picDialogBrief.BackgroundImage = System.Drawing.Image.FromFile(sPath & "DialogBrief.bmp")
-		Exit Sub
-ErrorHandler: 
-		oErr.logError("GameInterfaceLoad()")
-		End '  this is an unclean end to the program [borfaux]
-		Resume Next
-	End Sub
+        picConvoBottom.Refresh()
+        picConvoEnter.Image = System.Drawing.Image.FromFile(sPath & "DialogAcceptText.bmp")
+        picConvoList.Image = System.Drawing.Image.FromFile(sPath & "DialogListBox.bmp")
+        picTalk.Image = System.Drawing.Image.FromFile(sPath & "DialogTalk.bmp")
+        picJournal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        'UPGRADE_WARNING: Picture has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
+        picJournal.BackgroundImage = System.Drawing.Image.FromFile(sPath & "DialogJournal.bmp")
+        picSearch.Image = System.Drawing.Image.FromFile(sPath & "DialogSearch.bmp")
+        picContainer.Image = System.Drawing.Image.FromFile(sPath & "DialogSearch.bmp")
+        picBuySell.Image = System.Drawing.Image.FromFile(sPath & "DialogBuySell.bmp")
+        picDialogBrief.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        'UPGRADE_WARNING: Picture has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
+        picDialogBrief.BackgroundImage = System.Drawing.Image.FromFile(sPath & "DialogBrief.bmp")
+        Exit Sub
+ErrorHandler:
+        oErr.logError("GameInterfaceLoad()")
+        End '  this is an unclean end to the program [borfaux]
+        Resume Next
+    End Sub
 	
 	'UPGRADE_NOTE: Width was upgraded to Width_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	Private Sub GameInitInventory(ByRef StartAt As Short, ByRef EndAt As Short, ByRef Width_Renamed As Short)
@@ -13339,7 +13346,7 @@ ErrorHandler:
         If MainMap.IsNoRunes = True Then Exit Sub
         ' [Titi 2.4.8] get the runes names
         
-        modBD.InitializeRunes("Eternia")
+        modBD.InitializeRunes("Eternia", sPath)
 		ReDim sRune(intNbRunes + 1)
 		Text_Renamed = VB.Right(strRunesList, Len(strRunesList) - 5) ' get rid of "List="
 		For c = 1 To intNbRunes - 1
