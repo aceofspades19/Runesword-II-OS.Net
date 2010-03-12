@@ -9283,6 +9283,7 @@ ErrorHandler:
         ' Combat stuff
         picToHit.Image = System.Drawing.Image.FromFile(sPath & "CombatRoll.bmp")
         ' Load dice
+        GlobalDiceName = "Blood Gloss.BMP"
         LoadDicePic(GlobalDiceName)
         ' Clear out any existing Creature Faces
         For c = 1 To bdMaxMonsPics
@@ -12899,7 +12900,7 @@ ErrorHandler:
 		Dim LoadFile As String
 	
 		'UPGRADE_WARNING: Arrays in structure bmBlack may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
-		Dim bmBlack As BITMAPINFO
+        Dim bmBlack As New BITMAPINFO
 		'UPGRADE_WARNING: Arrays in structure bmMask may need to be initialized before they can be used. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="814DF224-76BD-4BB4-BFFB-EA359CB9FC48"'
 		Dim bmMask As BITMAPINFO
 		Dim rc, lpMem, hMem, TransparentRGB As Integer
@@ -12907,8 +12908,8 @@ ErrorHandler:
 		'UPGRADE_NOTE: Width was upgraded to Width_Renamed. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 		Dim Width_Renamed, Height_Renamed As Short
 		' Load Bitmap
-		'    LoadFile = gAppPath & "\data\interface\Dice\" & FileName
-		LoadFile = gDataPath & "\interface\Dice\" & FileName
+        '    LoadFile = gAppPath & "\data\Interface\Dice\" & FileName
+        LoadFile = gDataPath & "\Interface\Dice\" & FileName
 		ReadBitmapFile(LoadFile, bmBlack, hMem, TransparentRGB)
 		' Convert to Mask
 		MakeMask(bmBlack, bmMask, TransparentRGB)
