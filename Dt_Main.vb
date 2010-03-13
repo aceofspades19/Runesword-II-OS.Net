@@ -12922,9 +12922,9 @@ ErrorHandler:
 		'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         rc = SetSBMode(picDice, 3)
 		'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        rc = SDIBits(picDice, 0, 0, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
+        ' rc = SDIBits(picDice, 0, 0, Width_Renamed, Height_Renamed, 0, 0, bmBlack.bmiHeader.biWidth, bmBlack.bmiHeader.biHeight, lpMem, bmBlack, DIB_RGB_COLORS, SRCCOPY)
 		'UPGRADE_ISSUE: PictureBox property picDice.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        rc = SDIBits(picDice, Width_Renamed, 0, Width_Renamed, Height_Renamed, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
+        'rc = SDIBits(picDice, Width_Renamed, 0, Width_Renamed, Height_Renamed, 0, 0, bmMask.bmiHeader.biWidth, bmMask.bmiHeader.biHeight, lpMem, bmMask, DIB_RGB_COLORS, SRCCOPY)
 		picDice.Refresh()
 		' Release memory
 		rc = GlobalUnlock(hMem)
