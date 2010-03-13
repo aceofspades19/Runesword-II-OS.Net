@@ -386,7 +386,7 @@ Module modBitmaps
         Dim obyte(2) As Byte
         Dim ibytes(4) As Byte
 
-
+        bmInfo = New BITMAPINFO(1)
         ' Read the bitmap's file header info
         fs.Read(bytes, 0, 2)
         bmFileHeader.bfType = System.BitConverter.ToInt16(bytes, 0)
