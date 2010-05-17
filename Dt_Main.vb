@@ -9022,8 +9022,7 @@ ErrorHandler:
 		Dim c As Short
 		' Top
 		For c = 0 To Int(Me.ClientRectangle.Width / bdIntWidth)
-			'UPGRADE_ISSUE: PictureBox property picMisc.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-			'UPGRADE_ISSUE: Form property frmMain.hdc was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+			
             rc = BBltForm(Me, picMisc, c * bdIntWidth, 0, bdIntWidth, bdIntHeight, 38, 180, SRCCOPY)
 		Next c
 		' Top Corners
